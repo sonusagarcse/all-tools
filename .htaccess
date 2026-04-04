@@ -5,7 +5,8 @@ Options -Indexes
 
 # 2. Clean URLs
 RewriteEngine On
-RewriteBase /tools/
+# Automatically dynamically route based on current directory. 
+# Removing hardcoded RewriteBase allows installation in both domain root or subfolder.
 
 # Protect Uploads from direct PHP execution
 # (This would normally go in Apache config, but we can use alternatives in .htaccess if needed)

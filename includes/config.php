@@ -6,7 +6,18 @@
 // Site Information
 define('SITE_NAME', 'ToolNest');
 define('SITE_TAGLINE', 'Every tool you need, one place.');
-define('SITE_URL', 'http://localhost/tools'); // Change to your domain in production
+
+// Dynamically determine the SITE_URL to support both domain root and subfolders (Shared Hosting friendly)
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+$doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'] ?? '');
+$base_dir = str_replace('\\', '/', dirname(__DIR__));
+$relative_path = '';
+
+if ($doc_root && strpos($base_dir, $doc_root) === 0) {
+    $relative_path = substr($base_dir, strlen($doc_root));
+}
+define('SITE_URL', rtrim($protocol . $host . $relative_path, '/'));
 
 // Include Autoloader & Fix Legacy Class Mapping
 if (file_exists(dirname(__DIR__) . '/vendor/autoload.php')) {
@@ -21,11 +32,14 @@ define('BASE_DIR', dirname(__DIR__));
 define('UPLOAD_DIR', BASE_DIR . '/uploads');
 define('LOG_DIR', BASE_DIR . '/logs');
 
-// External Binary Paths (Configure based on your server)
-define('GHOSTSCRIPT_PATH', 'C:\Program Files\gs\gs10.03.1\bin\gswin64c.exe'); // Path to Ghostscript
-define('LIBREOFFICE_PATH', 'C:\Program Files\LibreOffice\program\soffice.exe');
-define('YT_DLP_PATH', BASE_DIR . '/bin/yt-dlp.exe');
-define('TABULA_JAR_PATH', BASE_DIR . '/bin/tabula-java.jar');
+// Setup OS check for dynamic binary paths
+$is_windows = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+
+// External Binary Paths (Configured for Linux Shared Hosting like MilesWeb, with Windows fallback)
+define('GHOSTSCRIPT_PATH', $is_windows ? 'C:\Program Files\gs\gs10.03.1\bin\gswin64c.exe' : 'gs'); // Use 'gs' on Linux
+define('LIBREOFFICE_PATH', $is_windows ? 'C:\Program Files\LibreOffice\program\soffice.exe' : 'soffice'); // Use 'soffice' on Linux
+define('YT_DLP_PATH', $is_windows ? BASE_DIR . '/bin/yt-dlp.exe' : BASE_DIR . '/bin/yt-dlp');
+define('TABULA_JAR_PATH', BASE_DIR . '/bin/tabula-java.jar'); // cross-platform
 
 // Security Configurations
 define('MAX_FILE_SIZE', 50 * 1024 * 1024); // 50MB
