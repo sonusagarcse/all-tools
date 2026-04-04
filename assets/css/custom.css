@@ -1,77 +1,298 @@
-/* Custom ToolNest Styles */
+/* =============================================
+   ToolNest Custom Styles — Premium Edition
+   ============================================= */
 
 :root {
-    --accent: 79, 70, 229; /* indigo-600 */
+    --accent: 79, 70, 229;
+    --accent-light: 99, 102, 241;
+    --glow: rgba(79, 70, 229, 0.4);
 }
 
-/* Animations */
+/* ---- Base Animations ---- */
 @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-16px); }
+}
+@keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%       { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(79,70,229,0.3); }
+    50%       { box-shadow: 0 0 50px rgba(79,70,229,0.7); }
+}
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+@keyframes gradient-x {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+}
+@keyframes blob {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+@keyframes count-up {
     from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes bounce-x {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(4px); }
 }
 
-.animate-fade-in {
-    animation: fadeIn 0.5s ease forwards;
+/* ---- Utility Animation Classes ---- */
+.animate-fade-in { animation: fadeIn 0.6s ease forwards; }
+.animate-float   { animation: float 5s ease-in-out infinite; }
+.animate-float2  { animation: float2 7s ease-in-out infinite; }
+.animate-blob    { animation: blob 8s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 12s linear infinite; }
+.animate-bounce-x  { animation: bounce-x 1.2s ease-in-out infinite; }
+
+/* ---- Scroll Reveal ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.reveal-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-/* Glassmorphism Classes */
+/* ---- Glassmorphism ---- */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
 .glass-card {
-    background: rgba(31, 41, 55, 0.4);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-
 .glass-card:hover {
-    background: rgba(31, 41, 55, 0.6);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 20px 40px -12px rgba(79, 70, 229, 0.18);
+    transform: translateY(-4px);
 }
 
-/* Upload Zone Styling */
+/* ---- Gradient Text ---- */
+.gradient-text {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
+.gradient-text-alt {
+    background: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
+
+/* ---- Hero Glow Orbs ---- */
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: blob 10s ease-in-out infinite;
+}
+
+/* ---- Tool Cards ---- */
+.tool-card {
+    position: relative;
+    overflow: hidden;
+}
+.tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(99,102,241,0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.tool-card:hover::before { opacity: 1; }
+
+/* ---- Category Cards ---- */
+.cat-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #06b6d4);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+}
+.cat-card:hover::after { transform: scaleX(1); }
+
+/* ---- Feature Icon Ring ---- */
+.icon-ring {
+    position: relative;
+    display: inline-flex;
+}
+.icon-ring::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(99,102,241,0.3);
+    animation: spin-slow 12s linear infinite;
+}
+
+/* ---- Stats Counter ---- */
+.stat-value {
+    background: linear-gradient(135deg, #1e293b, #475569);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---- Marquee / Trust Bar ---- */
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.marquee-inner {
+    display: flex;
+    width: max-content;
+    animation: marquee 20s linear infinite;
+}
+.marquee-inner:hover { animation-play-state: paused; }
+
+/* ---- Upload Zone ---- */
 .upload-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    background: rgba(17, 24, 39, 0.5);
+    border: 2px dashed rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.5);
     transition: all 0.2s ease;
 }
-
 .upload-zone.drag-over {
     border-color: #6366f1;
     background: rgba(79, 70, 229, 0.05);
     transform: scale(1.01);
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
+/* ---- Form Inputs ---- */
+input[type="text"], input[type="file"], select, input[type="number"], input[type="email"], textarea {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+}
+input[type="text"]:focus, select:focus, input[type="number"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    outline: none;
 }
 
-::-webkit-scrollbar-track {
-    background: #030712;
-}
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #818cf8; }
 
-::-webkit-scrollbar-thumb {
-    background: #1f2937;
-    border-radius: 10px;
-}
+/* ---- FAQ Accordion ---- */
+.faq-item { border-bottom: 1px solid rgba(0,0,0,0.07); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+.faq-answer.open { max-height: 500px; }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #374151;
+/* =============================================
+   DARK MODE OVERRIDES
+   ============================================= */
+.dark .glass {
+    background: rgba(3, 7, 18, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-/* Form Styling Overrides */
-input[type="text"], input[type="file"], select {
+.dark .glass-card {
+    background: rgba(17, 24, 39, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+}
+.dark .glass-card:hover {
+    background: rgba(31, 41, 55, 0.7);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 20px 40px -12px rgba(79, 70, 229, 0.25);
+}
+.dark .stat-value {
+    background: linear-gradient(135deg, #f1f5f9, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.dark .upload-zone {
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    background: rgba(17, 24, 39, 0.5);
+}
+.dark .upload-zone.drag-over {
+    border-color: #6366f1;
+    background: rgba(79, 70, 229, 0.08);
+}
+.dark input[type="text"], .dark input[type="file"], .dark select,
+.dark input[type="number"], .dark input[type="email"], .dark textarea {
     background-color: #111827;
     border-color: #1f2937;
     color: #e5e7eb;
 }
+.dark ::-webkit-scrollbar-track { background: #030712; }
+.dark ::-webkit-scrollbar-thumb { background: #312e81; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+.dark .faq-item { border-color: rgba(255,255,255,0.07); }
 
-input[type="text"]:focus, select:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-}
-
-/* Tool Badges */
+/* ---- Badges ---- */
 .badge-indigo {
     background: rgba(79, 70, 229, 0.1);
     color: #818cf8;
@@ -79,4 +300,122 @@ input[type="text"]:focus, select:focus {
     border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 500;
+}
+
+/* =============================================
+   LIGHT MODE: Tool Page Background Overrides
+   Tool pages use hardcoded dark-only Tailwind
+   classes. These override them in light mode.
+   ============================================= */
+
+/* Section / Page backgrounds */
+html:not(.dark) section.bg-gray-950 {
+    background-color: #f8fafc !important;
+}
+html:not(.dark) .pb-24.bg-gray-950 {
+    background-color: #ffffff !important;
+}
+html:not(.dark) .bg-gray-900 {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+html:not(.dark) .bg-gray-800 {
+    background-color: #f1f5f9 !important;
+}
+html:not(.dark) .border-gray-800 {
+    border-color: #e2e8f0 !important;
+}
+html:not(.dark) .border-gray-700 {
+    border-color: #cbd5e1 !important;
+}
+
+/* Text colors inside main (tool pages) */
+html:not(.dark) main .text-white {
+    color: #0f172a !important;
+}
+html:not(.dark) main .text-gray-300 {
+    color: #334155 !important;
+}
+html:not(.dark) main .text-gray-400 {
+    color: #64748b !important;
+}
+html:not(.dark) main .text-gray-500 {
+    color: #475569 !important;
+}
+html:not(.dark) main .placeholder-gray-600::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Dividers */
+html:not(.dark) main .h-px.bg-gray-800 {
+    background-color: #e2e8f0 !important;
+}
+
+/* Textarea / inputs in tool pages */
+html:not(.dark) main textarea {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+html:not(.dark) main textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Range slider */
+html:not(.dark) main input[type="range"] {
+    background: #e2e8f0 !important;
+}
+
+/* Buttons in tool areas */
+html:not(.dark) main button.bg-gray-800 {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1px solid #e2e8f0;
+}
+html:not(.dark) main button.bg-gray-800:hover {
+    background-color: #e2e8f0 !important;
+}
+
+/* File display card */
+html:not(.dark) .file-display {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Glass card headings inside tool areas */
+html:not(.dark) main .glass-card h3 {
+    color: #1e293b !important;
+}
+
+/* Cropper bg */
+html:not(.dark) main .bg-gray-900.rounded-2xl {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Breadcrumb */
+html:not(.dark) nav[aria-label="Breadcrumb"] .text-gray-500 {
+    color: #64748b !important;
+}
+html:not(.dark) nav[aria-label="Breadcrumb"] a {
+    color: #64748b !important;
+}
+html:not(.dark) nav[aria-label="Breadcrumb"] a:hover {
+    color: #4f46e5 !important;
+}
+html:not(.dark) nav[aria-label="Breadcrumb"] .text-gray-300 {
+    color: #334155 !important;
+}
+
+/* Code / output blocks */
+html:not(.dark) main pre,
+html:not(.dark) main code {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* More tools section border at bottom of tool pages */
+html:not(.dark) main .border-t.border-gray-800 {
+    border-color: #e2e8f0 !important;
 }

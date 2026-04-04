@@ -230,7 +230,16 @@ async function handleToolForm(formId, processUrl) {
         if (resultSection) {
             resultSection.classList.remove('hidden');
             const downloadLink = resultSection.querySelector('#download-btn');
-            if (downloadLink) downloadLink.href = data.download_url;
+            if (downloadLink) {
+                let dlUrl = data.download_url;
+                if (dlUrl.includes('/uploads/')) {
+                    const parts = dlUrl.split('/uploads/');
+                    dlUrl = parts[0] + '/download.php?file=' + encodeURIComponent(parts[1]);
+                }
+                downloadLink.href = dlUrl;
+                downloadLink.setAttribute('download', ''); // Forces automatic download instead of opening in a new tab
+            }
+
             
             const previewImg = resultSection.querySelector('#preview-img');
             if (previewImg && data.preview_url) {

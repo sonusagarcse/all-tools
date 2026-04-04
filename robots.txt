@@ -3,4 +3,9 @@ Allow: /
 Disallow: /uploads/
 Disallow: /includes/
 Disallow: /vendor/
-Sitemap: <?php echo SITE_URL; ?>/sitemap.xml
+Disallow: /tmp/
+Disallow: /assets/js/
+Disallow: /cleanup.php
+Disallow: /download.php
+
+Sitemap: http://localhost/tools/sitemap.php
