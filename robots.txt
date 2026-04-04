@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /uploads/
+Disallow: /includes/
+Disallow: /vendor/
+Sitemap: <?php echo SITE_URL; ?>/sitemap.xml

@@ -1,0 +1,25 @@
+{
+    "name": "toolnest/toolnest",
+    "description": "All-in-One Tools Website",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "fpdf/fpdf": "^1.86",
+        "setasign/fpdi": "^2.6",
+        "tecnickcom/tcpdf": "^6.7",
+        "spatie/pdf-to-image": "^2.2",
+        "intervention/image": "^3.0",
+        "dompdf/dompdf": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ToolNest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antigravity",
+            "email": "antigravity@example.com"
+        }
+    ]
+}
