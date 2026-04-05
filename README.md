@@ -1,6 +1,6 @@
-# ToolNest - All-in-One Tools Platform
+# BulkTools - All-in-One Tools Platform
 
-ToolNest is a high-performance, dark-themed, all-in-one web tools platform built with PHP 8.2+, Tailwind CSS, and Vanilla JavaScript. It provides a suite of professional tools for PDF manipulation, video downloading, image processing, and text analysis.
+BulkTools is a high-performance, dark-themed, all-in-one web tools platform built with PHP 8.2+, Tailwind CSS, and Vanilla JavaScript. It provides a suite of professional tools for PDF manipulation, video downloading, image processing, and text analysis.
 
 ## Features
 - **Premium Dark UI**: Glassmorphism, smooth animations, and mobile-first design.

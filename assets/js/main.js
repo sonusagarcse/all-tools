@@ -1,5 +1,5 @@
 /**
- * Main JS for ToolNest - All Global Interactions
+ * Main JS for BulkTools - All Global Interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {

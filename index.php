@@ -289,10 +289,10 @@ $cat_accents = [
 
             <!-- Left -->
             <div class="reveal-left">
-                <span class="inline-block px-4 py-1.5 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-widest rounded-full mb-5 border border-purple-100 dark:border-purple-500/20">Why ToolNest?</span>
+                <span class="inline-block px-4 py-1.5 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-widest rounded-full mb-5 border border-purple-100 dark:border-purple-500/20">Why BulkTools?</span>
                 <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-6">Built for Speed,<br><span class="gradient-text">Designed for Everyone</span></h2>
                 <p class="text-slate-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
-                    ToolNest is a curated collection of high-quality utility tools for professionals, students, developers, and designers alike. No ads, no paywalls, no clutter.
+                    BulkTools is a curated collection of high-quality utility tools for professionals, students, developers, and designers alike. No ads, no paywalls, no clutter.
                 </p>
                 <a href="#image" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-indigo-600 text-white force-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:gap-3">
                     Explore All Tools <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -357,14 +357,14 @@ $cat_accents = [
         <div class="text-center mb-16 reveal">
             <span class="inline-block px-4 py-1.5 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-widest rounded-full mb-4 border border-emerald-100 dark:border-emerald-500/20">FAQ</span>
             <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-4">Frequently Asked <span class="gradient-text">Questions</span></h2>
-            <p class="text-slate-500 dark:text-gray-400 text-lg">Everything you need to know about ToolNest.</p>
+            <p class="text-slate-500 dark:text-gray-400 text-lg">Everything you need to know about BulkTools.</p>
         </div>
 
         <div class="space-y-1 reveal">
             <?php
             $faqs = [
-                ['q'=>'Are all tools completely free?', 'a'=>'Yes! Every single tool on ToolNest is 100% free to use, forever. There are no hidden plans, no premium tiers, and no credit limits. We believe essential online tools should be accessible to everyone.'],
-                ['q'=>'Do I need to create an account?', 'a'=>'No account, no email, no sign-up. You can use every tool on ToolNest anonymously. Simply open a tool, use it, and you\'re done. Your privacy is our top priority.'],
+                ['q'=>'Are all tools completely free?', 'a'=>'Yes! Every single tool on BulkTools is 100% free to use, forever. There are no hidden plans, no premium tiers, and no credit limits. We believe essential online tools should be accessible to everyone.'],
+                ['q'=>'Do I need to create an account?', 'a'=>'No account, no email, no sign-up. You can use every tool on BulkTools anonymously. Simply open a tool, use it, and you\'re done. Your privacy is our top priority.'],
                 ['q'=>'Are my files safe and private?', 'a'=>'Absolutely. Files you upload are processed on our secure servers and automatically deleted shortly after your session ends. We never store, share, or analyze your files or data.'],
                 ['q'=>'What file formats do the Image Tools support?', 'a'=>'Our image tools support JPG/JPEG, PNG, and WebP formats. Each tool page lists the specific supported formats and the maximum file size allowed (typically 50MB).'],
                 ['q'=>'Do the text and developer tools upload anything?', 'a'=>'No! Tools like the Word Counter, Case Converter, JSON Formatter, URL Encoder, and all Security Tools run entirely in your browser. No data is ever sent to our servers for these tools.'],
@@ -405,7 +405,7 @@ $cat_accents = [
                 Stay in the Loop.<br><span class="gradient-text">Never Miss a Tool.</span>
             </h2>
             <p class="text-slate-600 dark:text-gray-400 text-lg mb-10 max-w-xl mx-auto leading-relaxed relative">
-                Get notified when we release new tools, features, and productivity tips. Join thousands of users who rely on ToolNest daily.
+                Get notified when we release new tools, features, and productivity tips. Join thousands of users who rely on BulkTools daily.
             </p>
 
             <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 relative" onsubmit="return false;">

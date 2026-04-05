@@ -96,10 +96,6 @@ class ComposerStaticInit9605eef8fb60c6f2cd08722ba8031df6
         array (
             'setasign\\Fpdi\\' => 14,
         ),
-        'T' =>
-        array (
-            'ToolNest\\' => 9,
-        ),
         'S' =>
         array (
             'Svg\\' => 4,
@@ -124,16 +120,16 @@ class ComposerStaticInit9605eef8fb60c6f2cd08722ba8031df6
         array (
             'Dompdf\\' => 7,
         ),
+        'B' =>
+        array (
+            'BulkTools\\' => 10,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'setasign\\Fpdi\\' =>
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
-        ),
-        'ToolNest\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
         'Svg\\' =>
         array (
@@ -170,6 +166,10 @@ class ComposerStaticInit9605eef8fb60c6f2cd08722ba8031df6
         'Dompdf\\' =>
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'BulkTools\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

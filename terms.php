@@ -24,22 +24,22 @@ require_once __DIR__ . '/includes/header.php';
         <div class="space-y-10 text-slate-600 dark:text-gray-400 leading-relaxed">
 
             <div class="p-6 rounded-2xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20">
-                <p class="text-blue-700 dark:text-blue-400 font-semibold text-sm flex items-start gap-2"><i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> By using ToolNest, you agree to the following terms. Please read them carefully. If you disagree with any part, please discontinue use of the service.</p>
+                <p class="text-blue-700 dark:text-blue-400 font-semibold text-sm flex items-start gap-2"><i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i> By using BulkTools, you agree to the following terms. Please read them carefully. If you disagree with any part, please discontinue use of the service.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">1. Acceptance of Terms</h2>
-                <p>By accessing or using ToolNest ("the Service"), you agree to be bound by these Terms of Service. These terms apply to all visitors, users, and others who access or use the service. We reserve the right to modify these terms at any time with or without prior notice.</p>
+                <p>By accessing or using BulkTools ("the Service"), you agree to be bound by these Terms of Service. These terms apply to all visitors, users, and others who access or use the service. We reserve the right to modify these terms at any time with or without prior notice.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">2. Description of Service</h2>
-                <p>ToolNest provides a collection of free, web-based utility tools for image manipulation, text processing, developer utilities, and security tools. These tools are provided "as-is" without any guarantee of uptime, accuracy, or fitness for a specific purpose.</p>
+                <p>BulkTools provides a collection of free, web-based utility tools for image manipulation, text processing, developer utilities, and security tools. These tools are provided "as-is" without any guarantee of uptime, accuracy, or fitness for a specific purpose.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">3. Acceptable Use</h2>
-                <p>You agree NOT to use ToolNest to:</p>
+                <p>You agree NOT to use BulkTools to:</p>
                 <ul class="mt-4 space-y-2 list-disc list-inside">
                     <li>Upload files containing malware, viruses, or malicious code</li>
                     <li>Process copyrighted content without appropriate authorization</li>
@@ -53,13 +53,13 @@ require_once __DIR__ . '/includes/header.php';
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">4. Intellectual Property</h2>
-                <p>All content, code, design, trademarks, and other materials on ToolNest are the property of ToolNest or its licensors. You may not copy, reproduce, distribute, or create derivative works without explicit written permission.</p>
-                <p class="mt-4">Files you upload remain your property. By uploading files, you grant ToolNest a limited, temporary, non-exclusive license to process them solely for delivering the requested tool output. This license terminates when your files are deleted.</p>
+                <p>All content, code, design, trademarks, and other materials on BulkTools are the property of BulkTools or its licensors. You may not copy, reproduce, distribute, or create derivative works without explicit written permission.</p>
+                <p class="mt-4">Files you upload remain your property. By uploading files, you grant BulkTools a limited, temporary, non-exclusive license to process them solely for delivering the requested tool output. This license terminates when your files are deleted.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">5. Disclaimer of Warranties</h2>
-                <p>ToolNest is provided on an <strong>"AS IS" and "AS AVAILABLE"</strong> basis without warranties of any kind, either express or implied. We do not warrant that:</p>
+                <p>BulkTools is provided on an <strong>"AS IS" and "AS AVAILABLE"</strong> basis without warranties of any kind, either express or implied. We do not warrant that:</p>
                 <ul class="mt-4 space-y-2 list-disc list-inside">
                     <li>The service will be uninterrupted, error-free, or completely secure</li>
                     <li>Results from tool processing will be 100% accurate or suitable for your needs</li>
@@ -69,18 +69,18 @@ require_once __DIR__ . '/includes/header.php';
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">6. Limitation of Liability</h2>
-                <p>To the maximum extent permitted by applicable law, ToolNest and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, resulting from your use of or inability to use the service.</p>
-                <p class="mt-4">You use ToolNest at your own risk. We strongly recommend maintaining independent backups of all important files before processing them through any online tool.</p>
+                <p>To the maximum extent permitted by applicable law, BulkTools and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, resulting from your use of or inability to use the service.</p>
+                <p class="mt-4">You use BulkTools at your own risk. We strongly recommend maintaining independent backups of all important files before processing them through any online tool.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">7. Rate Limiting</h2>
-                <p>To ensure fair access for all users, ToolNest enforces reasonable rate limits on file uploads and tool processing. Excessive use may result in temporary access restrictions. Deliberate circumvention of these limits is a violation of these terms.</p>
+                <p>To ensure fair access for all users, BulkTools enforces reasonable rate limits on file uploads and tool processing. Excessive use may result in temporary access restrictions. Deliberate circumvention of these limits is a violation of these terms.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">8. Termination</h2>
-                <p>We reserve the right to restrict or terminate access to ToolNest, without notice, for conduct that violates these Terms or is harmful to other users, us, third parties, or the Service itself.</p>
+                <p>We reserve the right to restrict or terminate access to BulkTools, without notice, for conduct that violates these Terms or is harmful to other users, us, third parties, or the Service itself.</p>
             </div>
 
             <div>

@@ -13,13 +13,13 @@ foreach ($TOOL_CATEGORIES as $cat) $tools_count += count($cat['tools']);
     </div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest mb-5">
-            <i data-lucide="info" class="w-3.5 h-3.5"></i> About ToolNest
+            <i data-lucide="info" class="w-3.5 h-3.5"></i> About BulkTools
         </div>
         <h1 class="text-4xl md:text-6xl font-heading font-extrabold text-slate-900 dark:text-white mb-5 leading-tight">
             Built for Everyone.<br><span class="gradient-text">Powered by Simplicity.</span>
         </h1>
         <p class="text-slate-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            ToolNest is a free, privacy-first collection of professional utility tools designed to make your digital life easier — no sign-up, no paywalls, just results.
+            BulkTools is a free, privacy-first collection of professional utility tools designed to make your digital life easier — no sign-up, no paywalls, just results.
         </p>
     </div>
 </section>
@@ -31,13 +31,13 @@ foreach ($TOOL_CATEGORIES as $cat) $tools_count += count($cat['tools']);
             <div>
                 <h2 class="text-3xl font-heading font-extrabold text-slate-900 dark:text-white mb-5">Our Mission</h2>
                 <p class="text-slate-600 dark:text-gray-400 leading-relaxed mb-5">
-                    We believe that the best utility tools should be free — truly free, without ads, tracking, or upsells. ToolNest was built out of frustration with bloated, slow, and privacy-invasive online tools that demanded email sign-ups just to resize a photo or count words.
+                    We believe that the best utility tools should be free — truly free, without ads, tracking, or upsells. BulkTools was built out of frustration with bloated, slow, and privacy-invasive online tools that demanded email sign-ups just to resize a photo or count words.
                 </p>
                 <p class="text-slate-600 dark:text-gray-400 leading-relaxed mb-5">
                     Our mission is simple: build a curated, high-quality toolbox that works instantly in the browser, respects your privacy, and keeps improving based on what users actually need.
                 </p>
                 <p class="text-slate-600 dark:text-gray-400 leading-relaxed">
-                    Every tool on ToolNest is carefully designed, mobile-ready, and optimized for speed — whether you're a student, developer, designer, marketer, or just someone who needs to get things done quickly.
+                    Every tool on BulkTools is carefully designed, mobile-ready, and optimized for speed — whether you're a student, developer, designer, marketer, or just someone who needs to get things done quickly.
                 </p>
             </div>
 
@@ -82,7 +82,7 @@ foreach ($TOOL_CATEGORIES as $cat) $tools_count += count($cat['tools']);
             <?php
             $values = [
                 ['icon' => 'shield-check', 'title' => 'Privacy First', 'desc' => 'Your files and data are never stored, analyzed, or shared. Browser-based tools never touch our servers at all.', 'color' => 'green'],
-                ['icon' => 'gift', 'title' => 'Always Free', 'desc' => 'No subscriptions, credits, or paywalls. Every tool on ToolNest is free to use as many times as you need.', 'color' => 'indigo'],
+                ['icon' => 'gift', 'title' => 'Always Free', 'desc' => 'No subscriptions, credits, or paywalls. Every tool on BulkTools is free to use as many times as you need.', 'color' => 'indigo'],
                 ['icon' => 'zap', 'title' => 'Built for Speed', 'desc' => 'Optimized for performance. Most tools deliver results in under a second with zero loading screens.', 'color' => 'yellow'],
                 ['icon' => 'smartphone', 'title' => 'Works Everywhere', 'desc' => 'Fully responsive and tested on desktop, tablet, and mobile devices across all major browsers.', 'color' => 'sky'],
                 ['icon' => 'user-x', 'title' => 'No Registration', 'desc' => 'Use any tool anonymously without creating an account or providing any personal information.', 'color' => 'purple'],

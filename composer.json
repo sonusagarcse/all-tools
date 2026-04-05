@@ -1,5 +1,5 @@
 {
-    "name": "toolnest/toolnest",
+    "name": "bulktools/bulktools",
     "description": "All-in-One Tools Website",
     "type": "project",
     "require": {
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ToolNest\\": "src/"
+            "BulkTools\\": "src/"
         }
     },
     "authors": [

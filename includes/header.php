@@ -4,10 +4,10 @@ require_once __DIR__ . '/functions.php';
 
 // Static page meta map
 $static_pages = [
-    'about'          => ['title' => 'About Us', 'desc' => 'Learn about ToolNest — a free, privacy-first collection of image, text, developer, and security tools for everyone.'],
-    'contact'        => ['title' => 'Contact Us', 'desc' => 'Get in touch with the ToolNest team. Report a bug, suggest a new tool, or ask any question — we read every message.'],
-    'privacy-policy' => ['title' => 'Privacy Policy', 'desc' => 'Read how ToolNest collects, uses, and protects your data. We never store files beyond your session and never sell your data.'],
-    'terms'          => ['title' => 'Terms of Service', 'desc' => 'Read the ToolNest Terms of Service governing use of all free online tools on the platform.'],
+    'about'          => ['title' => 'About Us', 'desc' => 'Learn about BulkTools — a free, privacy-first collection of image, text, developer, and security tools for everyone.'],
+    'contact'        => ['title' => 'Contact Us', 'desc' => 'Get in touch with the BulkTools team. Report a bug, suggest a new tool, or ask any question — we read every message.'],
+    'privacy-policy' => ['title' => 'Privacy Policy', 'desc' => 'Read how BulkTools collects, uses, and protects your data. We never store files beyond your session and never sell your data.'],
+    'terms'          => ['title' => 'Terms of Service', 'desc' => 'Read the BulkTools Terms of Service governing use of all free online tools on the platform.'],
 ];
 
 // Detect current static page from URI
@@ -21,14 +21,14 @@ $current_tool = get_current_tool_info($_SERVER['REQUEST_URI']);
 if ($static_page) {
     $page_title    = $static_page['title'] . ' | ' . SITE_NAME;
     $page_desc     = $static_page['desc'];
-    $page_keywords = 'free online tools, ' . strtolower($static_page['title']) . ', ToolNest';
+    $page_keywords = 'free online tools, ' . strtolower($static_page['title']) . ', BulkTools';
 } elseif ($current_tool) {
     $page_title    = $current_tool['name'] . ' - Free Online Tool | ' . SITE_NAME;
     $page_desc     = $current_tool['seo_desc'] ?? $current_tool['desc'];
     $page_keywords = isset($current_tool['keywords']) ? implode(', ', $current_tool['keywords']) : 'free online tools';
 } else {
     $page_title    = SITE_NAME . ' - ' . SITE_TAGLINE;
-    $page_desc     = 'ToolNest offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
+    $page_desc     = 'BulkTools offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
     $page_keywords = 'free online tools, browser tools, image compression, developer utilities, html minifier, jwt decoder, hindi transliteration, bcrypt generator, online security tools, password generator, text converters, free utility website, no registration tools';
 }
 
@@ -155,9 +155,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                             </div>
                         </div>
                     <?php endforeach; ?>
-                    <!-- Static Nav Links -->
-                    <a href="<?php echo SITE_URL; ?>/about" class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800/50 transition-colors">About</a>
-                    <a href="<?php echo SITE_URL; ?>/contact" class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800/50 transition-colors">Contact</a>
+
                 </div>
 
                 <!-- Search & Actions -->
@@ -205,19 +203,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                         </div>
                     </div>
                 <?php endforeach; ?>
-                    <!-- Static Pages Mobile Links -->
-                    <div class="px-3 py-3 border-t border-slate-100 dark:border-gray-800 mt-1">
-                        <div class="text-xs font-semibold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">More</div>
-                        <a href="<?php echo SITE_URL; ?>/about" class="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors">
-                            <i data-lucide="info" class="w-4 h-4 opacity-50 text-indigo-500"></i> About Us
-                        </a>
-                        <a href="<?php echo SITE_URL; ?>/contact" class="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors">
-                            <i data-lucide="mail" class="w-4 h-4 opacity-50 text-indigo-500"></i> Contact Us
-                        </a>
-                        <a href="<?php echo SITE_URL; ?>/privacy-policy" class="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors">
-                            <i data-lucide="shield" class="w-4 h-4 opacity-50 text-indigo-500"></i> Privacy Policy
-                        </a>
-                    </div>
+
             </div>
         </div>
     </nav>

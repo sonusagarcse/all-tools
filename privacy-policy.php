@@ -29,7 +29,7 @@ require_once __DIR__ . '/includes/header.php';
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">1. Information We Collect</h2>
-                <p>ToolNest is designed to be a privacy-first platform. We collect minimal information necessary to operate the service:</p>
+                <p>BulkTools is designed to be a privacy-first platform. We collect minimal information necessary to operate the service:</p>
                 <ul class="mt-4 space-y-2 list-disc list-inside">
                     <li><strong>Files you upload:</strong> Images or text you submit to our tools are processed server-side and automatically deleted from our servers within minutes of your session ending. We never store, analyze, or share your uploaded content.</li>
                     <li><strong>Text inputs:</strong> Text-based tools (Word Counter, Case Converter, JSON Formatter, etc.) process all data locally in your browser. Nothing is sent to our servers.</li>
@@ -47,12 +47,12 @@ require_once __DIR__ . '/includes/header.php';
                     <li>Monitor for abuse or security threats</li>
                     <li>Understand aggregate usage patterns to prioritize new features</li>
                 </ul>
-                <p class="mt-4">We do <strong>not</strong> use your data for advertising, profiling, or any commercial purposes beyond operating ToolNest.</p>
+                <p class="mt-4">We do <strong>not</strong> use your data for advertising, profiling, or any commercial purposes beyond operating BulkTools.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">3. File Upload Security</h2>
-                <p>Files uploaded to ToolNest are:</p>
+                <p>Files uploaded to BulkTools are:</p>
                 <ul class="mt-4 space-y-2 list-disc list-inside">
                     <li>Stored in an isolated, private server directory inaccessible to other users</li>
                     <li>Processed exclusively for the purpose of the requested tool operation</li>
@@ -64,7 +64,7 @@ require_once __DIR__ . '/includes/header.php';
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">4. Cookies &amp; Local Storage</h2>
-                <p>ToolNest uses minimal, privacy-respecting browser storage:</p>
+                <p>BulkTools uses minimal, privacy-respecting browser storage:</p>
                 <ul class="mt-4 space-y-2 list-disc list-inside">
                     <li><strong>Theme preference:</strong> We store your dark/light mode preference in <code class="bg-slate-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs font-mono">localStorage</code> so your choice persists across visits. No server communication occurs.</li>
                     <li><strong>Session cookies:</strong> A short-lived session cookie is used for security purposes (CSRF protection) when using file upload tools. This expires when you close your browser.</li>
@@ -83,12 +83,12 @@ require_once __DIR__ . '/includes/header.php';
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">6. Children's Privacy</h2>
-                <p>ToolNest is not directed at children under the age of 13. We do not knowingly collect any personal information from children. If you believe a child has submitted personal information through our service, please contact us immediately.</p>
+                <p>BulkTools is not directed at children under the age of 13. We do not knowingly collect any personal information from children. If you believe a child has submitted personal information through our service, please contact us immediately.</p>
             </div>
 
             <div>
                 <h2 class="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3">7. Changes to This Policy</h2>
-                <p>We may update this Privacy Policy occasionally. Changes will be reflected by updating the "Last Updated" date at the top of this page. We encourage you to review this policy periodically. Your continued use of ToolNest after changes constitutes acceptance of the updated policy.</p>
+                <p>We may update this Privacy Policy occasionally. Changes will be reflected by updating the "Last Updated" date at the top of this page. We encourage you to review this policy periodically. Your continued use of BulkTools after changes constitutes acceptance of the updated policy.</p>
             </div>
 
             <div>

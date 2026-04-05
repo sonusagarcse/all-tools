@@ -1,6 +1,6 @@
 <?php
 /**
- * Global helper functions for ToolNest
+ * Global helper functions for BulkTools
  */
 
 /**
