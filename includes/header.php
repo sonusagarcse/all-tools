@@ -29,7 +29,7 @@ if ($static_page) {
 } else {
     $page_title    = SITE_NAME . ' - ' . SITE_TAGLINE;
     $page_desc     = 'ToolNest offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
-    $page_keywords = 'free online tools, image tools, text tools, developer tools, security tools, compress image, resize image, word counter, password generator, base64 encode, json formatter';
+    $page_keywords = 'free online tools, browser tools, image compression, developer utilities, html minifier, jwt decoder, hindi transliteration, bcrypt generator, online security tools, password generator, text converters, free utility website, no registration tools';
 }
 
 $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');

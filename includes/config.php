@@ -5,7 +5,7 @@
 
 // Site Information
 define('SITE_NAME', 'ToolNest');
-define('SITE_TAGLINE', 'Free Online Image, Developer, Text & Security Tools.');
+define('SITE_TAGLINE', 'Free Online Utilities: Image Tools, Developer Utilities, Hindi Typing, JWT Decoders & Security Tools.');
 
 // Dynamically determine the SITE_URL to support both domain root and subfolders (Shared Hosting friendly)
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
@@ -152,8 +152,15 @@ $TOOL_CATEGORIES = [
                 'name'     => 'UUID Generator',
                 'desc'     => 'Generate cryptographically random UUID v4 identifiers.',
                 'seo_desc' => 'Free UUID v4 generator online. Generate one or multiple unique, cryptographically random UUIDs instantly. Used by developers and database architects.',
-                'keywords' => ['UUID generator', 'generate UUID online', 'UUID v4 generator', 'unique ID generator', 'GUID generator', 'random UUID generator', 'create UUID free', 'UUID tool online', 'developer UUID generator'],
+                'keywords' => ['UUID generator', 'generate UUID online', 'UUID v4 generator', 'unique ID generator', 'GUID generator', 'random UUID generator', 'create UUID free', 'UUID tool online', 'developer UUID generator', 'best seo tools free', 'free utility website'],
                 'seo_text' => '<p>ToolNest\'s <strong>free UUID generator</strong> creates cryptographically random UUID v4 (Universally Unique Identifier) strings that are statistically guaranteed to be globally unique. UUIDs are 128-bit values formatted as 32 hexadecimal characters grouped in the pattern <code>xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx</code>.</p><p class="mt-4"><strong>When to use UUIDs:</strong> Database primary keys for distributed systems (no central counter needed), unique session tokens, API request tracking, file naming to prevent conflicts, product or entity identifiers in microservices architectures, and anywhere you need a value guaranteed to be unique across time and space without coordination.</p><p class="mt-4">Generate a single UUID or a batch of multiple UUIDs at once. Output is instantly copyable. Works entirely in your browser — no data is transmitted. Free and unlimited.</p>',
+            ],
+            'hindi-typing' => [
+                'name'     => 'Hindi Typing Tool',
+                'desc'     => 'Type Hindi transliteration easily (e.g., hello -> हैलो).',
+                'seo_desc' => 'Free online English to Hindi typing tool. Type in English and automatically convert to Hindi Devnagari script text without any keyboard installation.',
+                'keywords' => ['hindi typing', 'english to hindi typing', 'hindi transliteration', 'type in hindi online', 'online hindi keyboard', 'hinglish to hindi', 'convert english words to hindi font', 'free online hindi converter', 'india typing tool'],
+                'seo_text' => '<p>ToolNest\'s <strong>free Hindi Typing Tool</strong> lets you type comfortably in English (Hinglish) and automatically transliterates it into native Hindi (Devanagari) script instantly. Try typing "namaste" to instantly get "नमस्ते".</p><p class="mt-4"><strong>Why use a transliteration tool?</strong> Most users lack native Hindi keyword setups on their hardware. By utilizing phonetics, our tool acts as an easy bridge allowing seamless communication in Hindi for chat, articles, or comments. Simply type out the phonetic English equivalent and hit space.</p><p class="mt-4">Works right in your browser, completely free, and without requiring any complex software installations.</p>',
             ],
         ]
     ],
@@ -172,8 +179,22 @@ $TOOL_CATEGORIES = [
                 'name'     => 'URL Encoder / Decoder',
                 'desc'     => 'Encode or decode URLs and query strings for safe web use.',
                 'seo_desc' => 'Free online URL encoder and decoder. Percent-encode special characters in URLs or decode encoded URLs to readable text. Essential for web developers.',
-                'keywords' => ['URL encoder', 'URL decoder', 'percent encoding', 'encode URL online', 'decode URL online', 'URL encoding tool free', 'URL encode special characters', 'URL decode online', 'web URL encoder decoder'],
+                'keywords' => ['URL encoder', 'URL decoder', 'percent encoding', 'encode URL online', 'decode URL online', 'URL encoding tool free', 'URL encode special characters', 'URL decode online', 'web URL encoder decoder', 'seo optimization tools'],
                 'seo_text' => '<p>ToolNest\'s <strong>free URL Encoder / Decoder</strong> converts URLs and query strings between their human-readable form and their percent-encoded (URL-encoded) format as defined in RFC 3986. This is an essential utility for web developers, SEO professionals, and API integrators.</p><p class="mt-4"><strong>URL Encoding:</strong> Converts special characters (spaces, &, =, #, /, etc.) into their percent-encoded equivalents (e.g., space becomes <code>%20</code>, & becomes <code>%26</code>). This is required for safely embedding values in query strings, HTTP headers, and form data.</p><p class="mt-4"><strong>URL Decoding:</strong> Converts percent-encoded strings back to their human-readable form, useful for reading encoded URLs from logs, browser network tabs, or API responses. Completely in-browser, no data uploaded, free and unlimited.</p>',
+            ],
+            'html-minifier' => [
+                'name'     => 'HTML Minifier',
+                'desc'     => 'Compress and minify HTML code to reduce file sizes.',
+                'seo_desc' => 'Free online HTML minifier. Remove comments, whitespace, and compress HTML code for faster page load times and better performance.',
+                'keywords' => ['html minifier', 'minify html online', 'html compressor', 'reduce html file size', 'clean html code', 'seo fast loading tools', 'website optimizer', 'developer html tools'],
+                'seo_text' => '<p>ToolNest\'s <strong>free HTML Minifier</strong> compresses your HTML code by safely stripping out unnecessary whitespaces, line breaks, and HTML comments. This drastically reduces the file payload size leading to faster load speeds and improved SEO performance.</p><p class="mt-4">Perfect for software developers optimizing front-end code before production deployments. Paste your boilerplate, hit compress, and receive an instant lightweight file immediately.</p>',
+            ],
+            'jwt-decoder' => [
+                'name'     => 'JWT Decoder',
+                'desc'     => 'Decode JSON Web Tokens and view payload claims safely.',
+                'seo_desc' => 'Free online JWT decoder. Decode JSON Web Tokens (JWT) safely in your browser to inspect header and payload claims without servers.',
+                'keywords' => ['jwt decoder online', 'decode json web token', 'jwt viewer', 'jwt payload inspector', 'json web token decoder', 'developer security utility', 'jwt unpacker tool free'],
+                'seo_text' => '<p>ToolNest\'s <strong>free JWT Decoder</strong> allows developers to safely unpack and inspect JSON Web Tokens in real-time. Simply paste your base64 encoded JWT into the tool, and instantly view your token header, algorithm details, and payload claims like expiration times and user IDs.</p><p class="mt-4"><strong>Security First:</strong> All decoding is executed securely inside your browser using JavaScript. We never upload our users\' secure tokens or API keys to any back-end servers.</p>',
             ],
         ]
     ],
@@ -192,8 +213,15 @@ $TOOL_CATEGORIES = [
                 'name'     => 'Hash Generator',
                 'desc'     => 'Generate MD5, SHA-1, SHA-256, and SHA-512 hashes.',
                 'seo_desc' => 'Free online hash generator. Generate MD5, SHA-1, SHA-256, and SHA-512 cryptographic hashes from any text. Fast, accurate, and in-browser.',
-                'keywords' => ['hash generator', 'MD5 generator', 'SHA-256 generator', 'SHA-1 generator', 'SHA-512 hash', 'text to hash', 'cryptographic hash online', 'checksum generator', 'hash string online free', 'generate hash value'],
+                'keywords' => ['hash generator', 'MD5 generator', 'SHA-256 generator', 'SHA-1 generator', 'SHA-512 hash', 'text to hash', 'cryptographic hash online', 'checksum generator', 'hash string online free', 'generate hash value', 'secure data tools'],
                 'seo_text' => '<p>ToolNest\'s <strong>free online hash generator</strong> computes cryptographic hash values for any input text using industry-standard algorithms including MD5, SHA-1, SHA-256, and SHA-512. Hashing is a fundamental operation in computer security, data integrity verification, and software development.</p><p class="mt-4"><strong>Use cases for hash generation:</strong> Verifying file integrity (checksum validation), password hashing (for development/testing), digital signatures, data deduplication, creating cache keys, generating short unique identifiers from longer strings, and verifying data hasn\'t been tampered with in transit.</p><p class="mt-4"><strong>Important note:</strong> MD5 and SHA-1 are no longer considered cryptographically secure for password storage or security-critical applications. For passwords, always use a dedicated password hashing algorithm (bcrypt, Argon2). Use SHA-256 or SHA-512 for general integrity verification. All hashing happens in your browser — your input text is never uploaded.</p>',
+            ],
+            'bcrypt-generator' => [
+                'name'     => 'Bcrypt Generator',
+                'desc'     => 'Generate secure bcrypt password hashes with customizable rounds.',
+                'seo_desc' => 'Free online bcrypt hash generator. Generate securely salted password hashing using modern bcrypt algorithms. Keep your credentials safe.',
+                'keywords' => ['bcrypt generator', 'bcrypt hash online', 'generate bcrypt password', 'password hashing tool', 'salt and hash online', 'bcrypt encrypt decrypt', 'secure password storage tester'],
+                'seo_text' => '<p>ToolNest\'s <strong>free Bcrypt Generator</strong> produces cryptographically hardened, securely salted hashes ideal for credential storage. In modern web standards, algorithms like MD5/SHA-256 are susceptible to rainbow tables and fast hardware cracking, rendering bcrypt the industry standard for securing passwords.</p><p class="mt-4">Adjust the salt rounds (work factor) to increase computational difficulty, reinforcing the hash against brute-force attacks. As always, everything operates precisely within the browser environment assuring maximum privacy.</p>',
             ],
         ]
     ]
