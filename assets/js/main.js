@@ -98,40 +98,92 @@ function initUploadZones() {
 /**
  * Global Search for Tools
  */
+/**
+ * Global Search for Tools
+ */
 function initToolSearch() {
     const searchInputs = document.querySelectorAll('#global-search, #home-search');
     const toolCards = document.querySelectorAll('.tool-card');
+    const sections = document.querySelectorAll('.category-section');
+    const noResults = document.getElementById('no-results');
+
+    const handleSearch = (query) => {
+        query = query.toLowerCase().trim();
+        let totalVisible = 0;
+
+        toolCards.forEach(card => {
+            const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
+            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+            
+            if (name.includes(query) || desc.includes(query)) {
+                card.style.display = 'flex';
+                card.classList.add('visible'); // Force visible for Scroll Reveal
+                totalVisible++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Hide/Show category sections
+        sections.forEach(section => {
+            const visibleTools = section.querySelectorAll('.tool-card[style="display: flex;"]').length;
+            if (visibleTools === 0 && query !== '') {
+                section.classList.add('hidden');
+            } else {
+                section.classList.remove('hidden');
+            }
+        });
+
+        // Toggle No Results
+        if (noResults) {
+            if (totalVisible === 0 && query !== '') {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Update all search inputs to stay synced
+        searchInputs.forEach(input => {
+            if (input.value !== query && document.activeElement !== input) {
+                input.value = query;
+            }
+        });
+    };
 
     searchInputs.forEach(input => {
-        input.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            
-            toolCards.forEach(card => {
-                const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-                
-                if (name.includes(query) || desc.includes(query)) {
-                    card.style.display = 'block';
-                    card.parentElement?.classList.remove('hidden');
-                } else {
-                    card.style.display = 'none';
-                    // We might need to hide parent categories if all children are hidden
-                }
-            });
-
-            // Optional: Hide category sections if no tools are visible
-            const sections = document.querySelectorAll('.category-section');
-            sections.forEach(section => {
-                const visibleTools = section.querySelectorAll('.tool-card[style="display: block;"]').length;
-                if (visibleTools === 0 && query !== '') {
-                    section.classList.add('hidden');
-                } else {
-                    section.classList.remove('hidden');
-                }
-            });
-        });
+        input.addEventListener('input', (e) => handleSearch(e.target.value));
     });
+
+    // Handle Hash on Load
+    if (window.location.hash.startsWith('#search=')) {
+        const query = decodeURIComponent(window.location.hash.split('=')[1]);
+        handleSearch(query);
+        // Scroll to results
+        setTimeout(() => {
+            document.querySelector('.category-section:not(.hidden)')?.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+    }
 }
+
+/**
+ * Clear Search Function
+ */
+window.clearSearch = function() {
+    const searchInputs = document.querySelectorAll('#global-search, #home-search');
+    searchInputs.forEach(input => input.value = '');
+    
+    document.querySelectorAll('.tool-card').forEach(card => {
+        card.style.display = 'flex';
+    });
+    document.querySelectorAll('.category-section, #no-results').forEach(el => {
+        if (el.id === 'no-results') el.classList.add('hidden');
+        else el.classList.remove('hidden');
+    });
+    
+    // Clear hash without jump
+    history.pushState("", document.title, window.location.pathname + window.location.search);
+};
 
 /**
  * AJAX Form Submission Handler (used by individual tools)

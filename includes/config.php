@@ -86,11 +86,32 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['crop image online', 'free image cropper', 'cut image online', 'crop photo', 'trim image', 'crop JPG online', 'crop PNG online', 'online photo cropper', 'image crop tool free'],
                 'seo_text' => '<p>ToolNest\'s <strong>free online image cropping tool</strong> features an interactive, real-time crop editor that lets you precisely select and crop any region of your image. Unlike basic crop tools, our visual crop editor gives you full control over the crop area with draggable handles and live coordinate display.</p><p class="mt-4">Perfect for cropping profile pictures, removing unwanted backgrounds, focusing on product details, or preparing images for specific aspect ratios. The intuitive interface works on all devices including smartphones and tablets.</p><p class="mt-4"><strong>How to crop an image:</strong> Upload your JPG, PNG, or WebP image → Drag the crop handles to select the area you want → Click "Crop Image" → Download your result. Simple, fast, and free with no registration required.</p>',
             ],
+            'flip-rotate' => [
+                'name'     => 'Flip & Rotate',
+                'desc'     => 'Rotate images or flip them horizontally/vertically.',
+                'seo_desc' => 'Free online flip and rotate tool. Mirror images or rotate them 90, 180, or 270 degrees. Supports JPG, PNG, WebP.',
+                'keywords' => ['flip image online', 'rotate image online', 'mirror image', 'image orientation', 'vertical flip', 'horizontal flip', 'rotate 90 degrees'],
+                'seo_text' => '<p>Rotate and flip your images instantly with ToolNest\'s <strong>free Flip & Rotate tool</strong>. Whether you need to fix a sideways photo or mirror an image for a design project, our tool makes it effortless.</p><p class="mt-4">Simply upload your image and choose from clockwise rotation or horizontal/vertical flipping. The tool maintains image quality and works directly in your browser or on our secure server.</p>',
+            ],
+            'image-filters' => [
+                'name'     => 'Image Filters',
+                'desc'     => 'Apply aesthetic filters like Grayscale, Sepia, and Blur.',
+                'seo_desc' => 'Free online image filters. Apply artistic effects like grayscale, sepia, invert, and blur to your JPG, PNG, or WebP images.',
+                'keywords' => ['image filters online', 'grayscale image', 'sepia filter', 'invert colors', 'blur image', 'artistic image effects', 'black and white converter'],
+                'seo_text' => '<p>Transform your photos with ToolNest\'s <strong>free Image Filters tool</strong>. Enhance your images with professional artistic effects in a single click — no advanced software like Photoshop required.</p><p class="mt-4"><strong>Available filters:</strong> Grayscale (Black & White), Sepia (Classic look), Invert (Negative effect), and Gaussian Blur (Depth of field effect). Our tool processes your images instantly while preserving original dimensions.</p>',
+            ],
+            'color-picker' => [
+                'name'     => 'Color Picker',
+                'desc'     => 'Extract HEX/RGB color codes directly from any image.',
+                'seo_desc' => 'Free online color picker from image. Upload an image and click anywhere to get HEX, RGB, and HSL color codes. Perfect for designers and developers.',
+                'keywords' => ['color picker from image', 'image color extractor', 'get hex code from image', 'rgb color picker', 'color palette generator', 'online eye dropper tool'],
+                'seo_text' => '<p>Find the perfect color with ToolNest\'s <strong>interactive Color Picker from Image</strong>. Simply upload any image and click on any pixel to instantly get its HEX, RGB, and HSL values.</p><p class="mt-4">This tool is a favorite among web designers and front-end developers who need to match brand colors or find inspiration from photographs. The tool features a real-time magnifying glass for precision picking.</p>',
+            ],
         ]
     ],
     'text' => [
         'name' => 'Text Tools',
-        'icon' => 'font',
+        'icon' => 'type',
         'tools' => [
             'word-counter' => [
                 'name'     => 'Word Counter',

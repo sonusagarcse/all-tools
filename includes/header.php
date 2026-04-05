@@ -55,6 +55,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords); ?>">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">

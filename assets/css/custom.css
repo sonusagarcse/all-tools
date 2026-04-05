@@ -330,8 +330,11 @@ html:not(.dark) .border-gray-700 {
 }
 
 /* Text colors inside main (tool pages) */
-html:not(.dark) main .text-white {
+html:not(.dark) main .text-white:not(.force-white) {
     color: #0f172a !important;
+}
+.force-white {
+    color: #ffffff !important;
 }
 html:not(.dark) main .text-gray-300 {
     color: #334155 !important;

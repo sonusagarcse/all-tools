@@ -40,10 +40,9 @@ $cat_accents = [
             <div>
                 <!-- Live badge -->
                 <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/25 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-8 animate-fade-in shadow-sm">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                    </span>
+                    <div class="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center text-white force-white p-1">
+                        <i data-lucide="layout-grid" class="w-full h-full"></i>
+                    </div>
                     <?php echo $total_tools; ?>+ Free Online Tools — No Login Required
                 </div>
 
@@ -227,6 +226,22 @@ $cat_accents = [
 </section>
 <?php endforeach; ?>
 
+<!-- ==================== NO RESULTS ==================== -->
+<section id="no-results" class="py-24 hidden bg-white dark:bg-gray-950 text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="p-16 rounded-[40px] border-2 border-dashed border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900/30">
+            <div class="w-20 h-20 bg-slate-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="search-x" class="w-10 h-10 text-slate-400 dark:text-gray-500"></i>
+            </div>
+            <h2 class="text-3xl font-heading font-extrabold text-slate-900 dark:text-white mb-4">No tools found matching your search.</h2>
+            <p class="text-slate-500 dark:text-gray-400 text-lg mb-8">Try searching for something else, like "compress" or "json".</p>
+            <button onclick="clearSearch()" class="px-7 py-3 rounded-2xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg hover:shadow-indigo-500/30">
+                Clear Search
+            </button>
+        </div>
+    </div>
+</section>
+
 <!-- ==================== HOW IT WORKS ==================== -->
 <section class="py-28 bg-white dark:bg-gray-950 border-t border-slate-100 dark:border-gray-900 relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none -z-0">
@@ -279,7 +294,7 @@ $cat_accents = [
                 <p class="text-slate-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
                     ToolNest is a curated collection of high-quality utility tools for professionals, students, developers, and designers alike. No ads, no paywalls, no clutter.
                 </p>
-                <a href="#image" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:gap-3">
+                <a href="#image" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-indigo-600 text-white force-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:gap-3">
                     Explore All Tools <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </a>
             </div>
@@ -327,7 +342,7 @@ $cat_accents = [
             $marquee_double = array_merge($marquee_items, $marquee_items);
             ?>
             <?php foreach ($marquee_double as $item): ?>
-            <a href="<?php echo $item['url']; ?>" class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white text-sm font-semibold whitespace-nowrap transition-all mr-4 hover:scale-105">
+            <a href="<?php echo $item['url']; ?>" class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white force-white text-sm font-semibold whitespace-nowrap transition-all mr-4 hover:scale-105">
                 <i data-lucide="<?php echo $item['icon']; ?>" class="w-3.5 h-3.5 opacity-70"></i>
                 <?php echo $item['name']; ?>
             </a>
@@ -395,7 +410,7 @@ $cat_accents = [
 
             <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 relative" onsubmit="return false;">
                 <input type="email" placeholder="Enter your email address" class="flex-grow px-5 py-4 rounded-2xl bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium">
-                <button type="submit" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 whitespace-nowrap text-sm">
+                <button type="submit" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white force-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 whitespace-nowrap text-sm">
                     Subscribe Free
                 </button>
             </form>
