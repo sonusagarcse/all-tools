@@ -53,7 +53,7 @@ try {
             json_error('Unsupported image format: ' . $mime);
     }
 
-    $outputFileName = 'compressed_' . uniqid() . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+    $outputFileName = 'BulkTools_' . rand(1000000, 9999999) . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
     $outputPath = $outputDir . '/' . $outputFileName;
 
     // Compress based on type

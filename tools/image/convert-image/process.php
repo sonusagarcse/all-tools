@@ -44,7 +44,7 @@ try {
     }
 
     $baseName = pathinfo($file['name'], PATHINFO_FILENAME);
-    $outputFileName = 'converted_' . uniqid() . '.' . $outputFormat;
+    $outputFileName = 'BulkTools_' . rand(1000000, 9999999) . '.' . $outputFormat;
     $outputPath = $outputDir . '/' . $outputFileName;
 
     // Handle alpha for JPG (no transparency support)

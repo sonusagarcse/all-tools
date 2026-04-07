@@ -102,6 +102,9 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     <!-- Icons (Lucide Icons) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Global Variables for JS -->
+    <script>const SITE_URL = '<?php echo SITE_URL; ?>';</script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/custom.css">
 
@@ -164,9 +167,10 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i data-lucide="search" class="w-4 h-4 text-slate-400 dark:text-gray-500"></i>
                         </div>
-                        <input type="text" id="global-search"
+                        <input type="text" id="global-search" autocomplete="off"
                             class="block w-full pl-10 pr-3 py-1.5 border border-slate-200 dark:border-gray-800 rounded-full bg-slate-100 dark:bg-gray-900/50 text-sm placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                             placeholder="Search tools...">
+                        <div id="global-search-dropdown" class="absolute left-0 right-0 mt-2 w-72 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl shadow-2xl overflow-hidden z-50 hidden text-left"></div>
                     </div>
 
                     <button id="theme-toggle" class="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50 transition-colors">

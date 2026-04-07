@@ -132,6 +132,6 @@
             });
         }
     </script>
-    <script src="<?php echo SITE_URL; ?>/assets/js/main.js"></script>
+    <script src="<?php echo SITE_URL; ?>/assets/js/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

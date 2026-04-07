@@ -68,7 +68,7 @@ try {
 
     imagecopyresampled($dstImg, $srcImg, 0, 0, 0, 0, $newW, $newH, $srcW, $srcH);
 
-    $outputFileName = 'resized_' . uniqid() . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+    $outputFileName = 'BulkTools_' . rand(1000000, 9999999) . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
     $outputPath = $outputDir . '/' . $outputFileName;
 
     switch ($mime) {

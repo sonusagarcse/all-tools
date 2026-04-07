@@ -55,7 +55,7 @@ try {
     if ($cropped === false) { json_error('Cropping failed.'); }
 
     $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $outputFileName = 'cropped_' . uniqid() . '.' . $ext;
+    $outputFileName = 'BulkTools_' . rand(1000000, 9999999) . '.' . $ext;
     $outputPath = $outputDir . '/' . $outputFileName;
 
     switch ($mime) {

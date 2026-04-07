@@ -103,87 +103,72 @@ function initUploadZones() {
  */
 function initToolSearch() {
     const searchInputs = document.querySelectorAll('#global-search, #home-search');
-    const toolCards = document.querySelectorAll('.tool-card');
-    const sections = document.querySelectorAll('.category-section');
-    const noResults = document.getElementById('no-results');
-
-    const handleSearch = (query) => {
-        query = query.toLowerCase().trim();
-        let totalVisible = 0;
-
-        toolCards.forEach(card => {
-            const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
-            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-            
-            if (name.includes(query) || desc.includes(query)) {
-                card.style.display = 'flex';
-                card.classList.add('visible'); // Force visible for Scroll Reveal
-                totalVisible++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        // Hide/Show category sections
-        sections.forEach(section => {
-            const visibleTools = section.querySelectorAll('.tool-card[style="display: flex;"]').length;
-            if (visibleTools === 0 && query !== '') {
-                section.classList.add('hidden');
-            } else {
-                section.classList.remove('hidden');
-            }
-        });
-
-        // Toggle No Results
-        if (noResults) {
-            if (totalVisible === 0 && query !== '') {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        }
-
-        // Update all search inputs to stay synced
-        searchInputs.forEach(input => {
-            if (input.value !== query && document.activeElement !== input) {
-                input.value = query;
-            }
-        });
-    };
 
     searchInputs.forEach(input => {
-        input.addEventListener('input', (e) => handleSearch(e.target.value));
+        let timeout = null;
+        input.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            const dropdownId = input.id === 'global-search' ? 'global-search-dropdown' : 'home-search-dropdown';
+            const dropdown = document.getElementById(dropdownId);
+            
+            if (!dropdown) return;
+            
+            if (query.length < 1) {
+                dropdown.classList.add('hidden');
+                return;
+            }
+            
+            clearTimeout(timeout);
+            timeout = setTimeout(async () => {
+                try {
+                    const res = await fetch(`${SITE_URL}/ajax/search.php?q=${encodeURIComponent(query)}`);
+                    const data = await res.json();
+                    
+                    if (data.length > 0) {
+                        let html = '<ul class="py-2 flex flex-col">';
+                        data.forEach(item => {
+                            html += `
+                                <li>
+                                    <a href="${item.url}" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors border-b border-slate-100 dark:border-gray-800 last:border-0">
+                                        <div class="w-10 h-10 shrink-0 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                                            <i data-lucide="${item.icon}" class="w-5 h-5"></i>
+                                        </div>
+                                        <div class="flex-grow min-w-0">
+                                            <div class="text-sm font-bold text-slate-900 dark:text-white truncate">${item.name}</div>
+                                            <div class="text-xs text-slate-500 dark:text-gray-400 truncate">${item.desc}</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `;
+                        });
+                        html += '</ul>';
+                        dropdown.innerHTML = html;
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                        dropdown.classList.remove('hidden');
+                    } else {
+                        dropdown.innerHTML = `
+                            <div class="px-4 py-6 text-center">
+                                <i data-lucide="search-x" class="w-8 h-8 mx-auto text-slate-400 mb-2"></i>
+                                <span class="text-sm text-slate-500 block">No tools found matching "${query}"</span>
+                            </div>
+                        `;
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                        dropdown.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    console.error("Search error", err);
+                }
+            }, 200);
+        });
+        
+        // Hide when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !document.getElementById(input.id + '-dropdown')?.contains(e.target)) {
+                document.getElementById(input.id + '-dropdown')?.classList.add('hidden');
+            }
+        });
     });
-
-    // Handle Hash on Load
-    if (window.location.hash.startsWith('#search=')) {
-        const query = decodeURIComponent(window.location.hash.split('=')[1]);
-        handleSearch(query);
-        // Scroll to results
-        setTimeout(() => {
-            document.querySelector('.category-section:not(.hidden)')?.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
-    }
 }
-
-/**
- * Clear Search Function
- */
-window.clearSearch = function() {
-    const searchInputs = document.querySelectorAll('#global-search, #home-search');
-    searchInputs.forEach(input => input.value = '');
-    
-    document.querySelectorAll('.tool-card').forEach(card => {
-        card.style.display = 'flex';
-    });
-    document.querySelectorAll('.category-section, #no-results').forEach(el => {
-        if (el.id === 'no-results') el.classList.add('hidden');
-        else el.classList.remove('hidden');
-    });
-    
-    // Clear hash without jump
-    history.pushState("", document.title, window.location.pathname + window.location.search);
-};
 
 /**
  * AJAX Form Submission Handler (used by individual tools)
@@ -290,6 +275,18 @@ async function handleToolForm(formId, processUrl) {
                 }
                 downloadLink.href = dlUrl;
                 downloadLink.setAttribute('download', ''); // Forces automatic download instead of opening in a new tab
+            }
+
+            const savingsTextEl = resultSection.querySelector('#savings-text');
+            if (savingsTextEl && data.original_size_str && data.compressed_size_str) {
+                const pct = data.savings_pct || 0;
+                let textStr = `Size Changed: ${data.original_size_str} → ${data.compressed_size_str}`;
+                if (pct > 0) {
+                    textStr = `Saved ${pct}% (${data.original_size_str} → ${data.compressed_size_str})`;
+                } else if (pct < 0) {
+                    textStr = `Increased by ${Math.abs(pct)}% (${data.original_size_str} → ${data.compressed_size_str})`;
+                }
+                savingsTextEl.textContent = textStr;
             }
 
             
