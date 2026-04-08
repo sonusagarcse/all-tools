@@ -16,4 +16,4 @@ Disallow: /cleanup.php
 Disallow: /download.php
 
 # Sitemap
-Sitemap: <?php echo SITE_URL; ?>/sitemap.php
+Sitemap: <?php echo SITE_URL; ?>/sitemap.xml
