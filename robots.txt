@@ -4,8 +4,7 @@ Disallow: /uploads/
 Disallow: /includes/
 Disallow: /vendor/
 Disallow: /tmp/
-Disallow: /assets/js/
 Disallow: /cleanup.php
 Disallow: /download.php
 
-Sitemap: http://localhost/tools/sitemap.php
+Sitemap: https://tools.lkvmbihar.in/sitemap.xml
