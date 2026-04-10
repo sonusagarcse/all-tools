@@ -4,10 +4,10 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
 ?>
 
 <!-- Tool Header -->
-<section class="pt-12 pb-8 bg-slate-50 dark:bg-gray-950 transition-colors">
+<section class="pt-8 md:pt-12 pb-6 md:pb-8 bg-slate-50 dark:bg-gray-950 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex mb-8" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3 text-xs font-medium text-gray-500">
+        <nav class="flex mb-4 md:mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3 text-[10px] md:text-xs font-medium text-gray-500">
                 <li class="inline-flex items-center">
                     <a href="<?php echo SITE_URL; ?>" class="hover:text-white flex items-center">
                         <i data-lucide="home" class="w-3 h-3 mr-1"></i> Home
@@ -28,15 +28,15 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
             </ol>
         </nav>
 
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-8 md:mb-12">
             <div class="max-w-2xl">
-                <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-4"><?php echo $tool['name']; ?></h1>
-                <p class="text-slate-600 dark:text-gray-400 text-lg leading-relaxed"><?php echo $tool['desc']; ?></p>
+                <h1 class="text-2xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-2 md:mb-4 tracking-tight"><?php echo $tool['name']; ?></h1>
+                <p class="text-slate-600 dark:text-gray-400 text-sm md:text-lg leading-relaxed"><?php echo $tool['desc']; ?></p>
             </div>
-            <div class="flex gap-3">
-                <div class="px-4 py-2 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-2 text-green-600 dark:text-green-400 shadow-lg shadow-green-500/5 transition-all">
-                    <i data-lucide="shield-check" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Safe & Encrypted</span>
+            <div class="flex gap-3 shrink-0">
+                <div class="px-3 py-1.5 md:px-4 md:py-2 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-2 text-green-600 dark:text-green-400 shadow-lg shadow-green-500/5 transition-all">
+                    <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5"></i>
+                    <span class="text-xs md:text-sm font-medium whitespace-nowrap">Safe & Encrypted</span>
                 </div>
             </div>
         </div>
@@ -51,14 +51,18 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
             <!-- Main Editor Space -->
             <div class="space-y-6">
                 <!-- Editor Toolbar Branding Area -->
-                <div class="bg-white dark:bg-gray-900 p-4 rounded-t-3xl border-t border-x border-slate-200 dark:border-gray-800 flex items-center justify-between transition-colors">
-                    <div class="flex items-center gap-3 px-2">
-                        <div class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white">
-                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                <div class="bg-white dark:bg-gray-900 p-3 md:p-4 rounded-t-3xl border-t border-x border-slate-200 dark:border-gray-800 flex items-center justify-between transition-colors sticky top-0 z-20 md:static">
+                    <div class="flex items-center gap-2 md:gap-3 px-1 md:px-2">
+                        <div class="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white shrink-0">
+                            <i data-lucide="file-text" class="w-4 h-4 md:w-5 md:h-5"></i>
                         </div>
-                        <span class="font-bold text-slate-700 dark:text-white tracking-tight">Active Document</span>
+                        <span class="font-bold text-slate-700 dark:text-white tracking-tight text-sm md:text-base">Document</span>
                     </div>
-                    <div class="flex gap-2">
+                    <div class="flex gap-1.5 md:gap-2">
+                        <!-- Mobile Stats Toggle -->
+                        <button onclick="toggleStatsDrawer()" class="lg:hidden p-2 rounded-xl bg-indigo-50 dark:bg-gray-800/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm" title="Document Stats">
+                            <i data-lucide="info" class="w-5 h-5"></i>
+                        </button>
                         <button onclick="downloadAs('txt')" class="p-2 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white transition-all shadow-sm" title="Download TXT">
                             <i data-lucide="file-down" class="w-5 h-5"></i>
                         </button>
@@ -74,67 +78,73 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
                 </div>
 
                 <!-- Footer Quick Actions -->
-                <div class="bg-white dark:bg-gray-900 p-4 rounded-b-3xl border-b border-x border-slate-200 dark:border-gray-800 flex flex-wrap gap-4 transition-colors">
-                    <button onclick="copyToClipboard()" class="flex items-center gap-2 px-6 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+                <div class="bg-white dark:bg-gray-900 p-3 md:p-4 rounded-b-3xl border-b border-x border-slate-200 dark:border-gray-800 flex flex-wrap gap-2 md:gap-4 transition-colors">
+                    <button onclick="copyToClipboard()" class="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-2.5 md:py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-sm">
                         <i data-lucide="copy" class="w-4 h-4"></i> Copy Content
                     </button>
-                    <button onclick="clearEditor()" class="flex items-center gap-2 px-6 py-2 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 font-bold hover:bg-red-500 hover:text-white transition-all active:scale-95">
+                    <button onclick="clearEditor()" class="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-2.5 md:py-3 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 font-bold hover:bg-red-500 hover:text-white transition-all active:scale-95 text-sm">
                         <i data-lucide="trash-2" class="w-4 h-4"></i> Clear All
                     </button>
                 </div>
             </div>
 
-            <!-- Stats & Tools Sidebar -->
-            <aside class="space-y-6">
+            <!-- Stats & Tools Sidebar (Drawer on Mobile) -->
+            <aside id="stats-drawer" class="fixed inset-y-0 right-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 p-6 border-l border-slate-200 dark:border-gray-800 shadow-2xl z-50 transform translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-auto lg:z-auto lg:shadow-none lg:border-l-0 lg:rounded-3xl lg:border lg:inset-auto space-y-6 overflow-y-auto lg:overflow-visible no-scrollbar">
+                
+                <div class="flex items-center justify-between lg:hidden mb-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Document Info</h2>
+                    <button onclick="toggleStatsDrawer()" class="p-2 rounded-lg bg-slate-100 dark:bg-gray-800 text-slate-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+
                 <!-- Document Statistics -->
-                <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-slate-200 dark:border-gray-800 shadow-sm transition-colors sticky top-24">
-                    <h3 class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-6 px-1">Document Stats</h3>
+                <div class="space-y-6">
+                    <h3 class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-4 px-1">Statistics</h3>
                     
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800">
-                            <div class="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Words</div>
-                            <div id="stat-words" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="p-3 md:p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 transition-all">
+                            <div class="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Words</div>
+                            <div id="stat-words" class="text-xl md:text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
                         </div>
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800">
-                            <div class="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Characters</div>
-                            <div id="stat-chars" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
+                        <div class="p-3 md:p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 transition-all">
+                            <div class="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Characters</div>
+                            <div id="stat-chars" class="text-xl md:text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
                         </div>
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800">
-                            <div class="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Sentences</div>
-                            <div id="stat-sentences" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
+                        <div class="p-3 md:p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 transition-all">
+                            <div class="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Sentences</div>
+                            <div id="stat-sentences" class="text-xl md:text-2xl font-black text-indigo-600 dark:text-indigo-400">0</div>
                         </div>
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800">
-                            <div class="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Read Time</div>
-                            <div id="stat-read" class="text-sm font-bold text-slate-700 dark:text-gray-300">< 1m</div>
+                        <div class="p-3 md:p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 transition-all">
+                            <div class="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1">Read Time</div>
+                            <div id="stat-read" class="text-xs md:text-sm font-bold text-slate-700 dark:text-gray-300">< 1m</div>
                         </div>
                     </div>
 
-                    <div class="w-full h-px bg-slate-200 dark:bg-gray-800 my-8"></div>
+                    <div class="w-full h-px bg-slate-200 dark:bg-gray-800 my-4 md:my-8"></div>
 
-                    <h3 class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-6 px-1">Utility Actions</h3>
+                    <h3 class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-4 px-1">Utilities</h3>
                     
-                    <div class="space-y-3">
+                    <div class="space-y-2 md:space-y-3">
                         <button onclick="cleanFormatting()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 text-slate-600 dark:text-gray-300 hover:border-indigo-500 transition-all group">
-                            <span class="text-sm font-medium">Clean Formatting</span>
+                            <span class="text-xs md:text-sm font-medium">Clean Formatting</span>
                             <i data-lucide="wand-2" class="w-4 h-4 group-hover:text-indigo-500"></i>
                         </button>
                         <button onclick="changeCase('upper')" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 text-slate-600 dark:text-gray-300 hover:border-indigo-500 transition-all group">
-                            <span class="text-sm font-medium">To UPPERCASE</span>
+                            <span class="text-xs md:text-sm font-medium">To UPPERCASE</span>
                             <i data-lucide="type" class="w-4 h-4 group-hover:text-indigo-500"></i>
                         </button>
                         <button onclick="changeCase('lower')" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 text-slate-600 dark:text-gray-300 hover:border-indigo-500 transition-all group">
-                            <span class="text-sm font-medium">To lowercase</span>
+                            <span class="text-xs md:text-sm font-medium">To lowercase</span>
                             <i data-lucide="type" class="w-4 h-4 group-hover:text-indigo-500"></i>
                         </button>
                         <button onclick="removeExtraSpaces()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-gray-800/50 border border-slate-100 dark:border-gray-800 text-slate-600 dark:text-gray-300 hover:border-indigo-500 transition-all group">
-                            <span class="text-sm font-medium">Remove Extra Spaces</span>
+                            <span class="text-xs md:text-sm font-medium">Remove Extra Spaces</span>
                             <i data-lucide="space" class="w-4 h-4 group-hover:text-indigo-500"></i>
                         </button>
                     </div>
 
                     <!-- Auto-save notification -->
-                    <div id="auto-save-status" class="mt-8 text-[10px] font-bold text-slate-400 dark:text-gray-600 flex items-center gap-2 px-1">
-                        <i data-lucide="save" class="w-3 h-3"></i> Auto-saved locally
+                    <div id="auto-save-status" class="mt-8 text-[10px] font-bold text-slate-300 dark:text-gray-600 flex items-center gap-2 px-1">
+                        <i data-lucide="save" class="w-3 h-3"></i> Syncing locally...
                     </div>
                 </div>
             </aside>
@@ -166,6 +176,14 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
         color: inherit;
         font-family: 'Inter', sans-serif;
         line-height: 1.6;
+    }
+    @media (max-width: 640px) {
+        .ql-editor {
+            padding: 20px 16px !important;
+        }
+        .ql-toolbar.ql-snow {
+            padding: 8px !important;
+        }
     }
     .ql-editor.ql-blank::before {
         color: #94a3b8;
@@ -205,11 +223,40 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
     .dark .ql-editor::-webkit-scrollbar-thumb {
         background: #334155;
     }
+    
+    /* Stats Drawer Styles */
+    #stats-drawer.open {
+        transform: translateX(0);
+    }
+    body.drawer-open {
+        overflow: hidden;
+    }
 </style>
 
 <script>
     let quill;
     const STORAGE_KEY = 'bulktools_text_editor_content';
+
+    function toggleStatsDrawer() {
+        const drawer = document.getElementById('stats-drawer');
+        const isOpen = drawer.classList.contains('open');
+        
+        if (isOpen) {
+            drawer.classList.remove('open');
+            document.body.classList.remove('drawer-open');
+            document.getElementById('drawer-backdrop')?.remove();
+        } else {
+            drawer.classList.add('open');
+            document.body.classList.add('drawer-open');
+            
+            const backdrop = document.createElement('div');
+            backdrop.id = 'drawer-backdrop';
+            backdrop.className = 'fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 lg:hidden transition-opacity';
+            backdrop.onclick = toggleStatsDrawer;
+            document.body.appendChild(backdrop);
+        }
+        lucide.createIcons();
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         // Init Quill

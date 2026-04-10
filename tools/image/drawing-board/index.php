@@ -3,6 +3,32 @@ require_once '../../../includes/header.php';
 $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
 ?>
 
+<style>
+    #main-canvas {
+        border-radius: 12px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+    }
+    .tool-btn.active {
+        background-color: #6366f1 !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    #properties-panel.open {
+        transform: translateX(0);
+    }
+    /* Prevent body scroll when drawer is open */
+    body.drawer-open {
+        overflow: hidden;
+    }
+</style>
+
 <!-- Fabric.js CDN -->
 <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
 
@@ -53,80 +79,89 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
         <div id="drawing-app-container" class="bg-slate-50 dark:bg-gray-950 p-0 transition-all rounded-3xl">
             
             <!-- Controls Bar -->
-            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 bg-white/80 dark:bg-gray-900/50 p-4 rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm backdrop-blur-md transition-colors">
-                <div class="flex items-center gap-2">
-                    <button onclick="undo()" id="undo-btn" class="p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all disabled:opacity-30" title="Undo (Ctrl+Z)">
+            <div class="mb-4 lg:mb-6 flex flex-wrap items-center justify-between gap-3 bg-white/80 dark:bg-gray-900/50 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm backdrop-blur-md transition-colors sticky top-0 z-20">
+                <div class="flex items-center gap-1.5 md:gap-2">
+                    <button onclick="undo()" id="undo-btn" class="p-2 md:p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all disabled:opacity-30" title="Undo (Ctrl+Z)">
                         <i data-lucide="undo" class="w-5 h-5"></i>
                     </button>
-                    <button onclick="redo()" id="redo-btn" class="p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all disabled:opacity-30" title="Redo (Ctrl+Y)">
+                    <button onclick="redo()" id="redo-btn" class="p-2 md:p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all disabled:opacity-30" title="Redo (Ctrl+Y)">
                         <i data-lucide="redo" class="w-5 h-5"></i>
                     </button>
-                    <div class="w-px h-6 bg-slate-200 dark:bg-gray-800 mx-2"></div>
-                    <button onclick="toggleFullScreen()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all" title="Toggle Fullscreen">
+                    <div class="w-px h-6 bg-slate-200 dark:bg-gray-800 mx-1"></div>
+                    <button onclick="toggleFullScreen()" class="p-2 md:p-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-700 transition-all" title="Toggle Fullscreen">
                         <i data-lucide="maximize" id="fs-icon" class="w-5 h-5"></i>
                     </button>
-                    <button onclick="clearCanvas()" class="p-2.5 rounded-xl bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition-all" title="Clear Canvas">
+                    <button onclick="clearCanvas()" class="p-2 md:p-2.5 rounded-xl bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition-all" title="Clear Canvas">
                         <i data-lucide="trash-2" class="w-5 h-5"></i>
+                    </button>
+                    <!-- Mobile Properties Toggle -->
+                    <button onclick="toggleMobileProps()" class="lg:hidden p-2 md:p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white transition-all ml-1" title="Settings">
+                        <i data-lucide="settings-2" class="w-5 h-5"></i>
                     </button>
                 </div>
 
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 mr-4">
-                    <span class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest">Zoom</span>
-                    <button onclick="zoomOut()" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-white transition-colors"><i data-lucide="minus-circle" class="w-4 h-4"></i></button>
-                    <span id="zoom-level" class="text-sm font-mono text-indigo-600 dark:text-indigo-400 w-12 text-center">100%</span>
-                    <button onclick="zoomIn()" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-white transition-colors"><i data-lucide="plus-circle" class="w-4 h-4"></i></button>
+                <div class="flex items-center gap-2">
+                    <div class="hidden sm:flex items-center gap-1 md:gap-2 mr-2">
+                        <span class="text-[10px] font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest hidden md:inline">Zoom</span>
+                        <button onclick="zoomOut()" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-white transition-colors"><i data-lucide="minus-circle" class="w-4 h-4"></i></button>
+                        <span id="zoom-level" class="text-xs font-mono text-indigo-600 dark:text-indigo-400 w-10 text-center">100%</span>
+                        <button onclick="zoomIn()" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-white transition-colors"><i data-lucide="plus-circle" class="w-4 h-4"></i></button>
+                    </div>
+                    <button onclick="downloadPNG()" class="px-4 md:px-6 py-2 md:py-2.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 text-xs md:text-sm">
+                        <i data-lucide="download" class="w-4 h-4 md:w-5 md:h-5"></i> <span class="hidden xs:inline">PNG</span>
+                    </button>
                 </div>
-                <button onclick="downloadPNG()" class="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2">
-                    <i data-lucide="download" class="w-5 h-5"></i> Download PNG
-                </button>
             </div>
-        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr_300px] gap-6 items-start">
             
             <!-- Sidebar: Tools -->
-            <div class="flex lg:flex-col flex-wrap gap-2 bg-white dark:bg-gray-900 p-3 rounded-2xl border border-slate-200 dark:border-gray-800 sticky top-24 z-10 shadow-sm transition-colors">
-                <button data-tool="select" onclick="setActiveTool('select')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400 active" title="Select (V)">
+            <div class="flex lg:flex-col overflow-x-auto lg:overflow-x-visible no-scrollbar p-1 lg:p-3 gap-2 bg-white dark:bg-gray-900 rounded-2xl border border-slate-200 dark:border-gray-800 sticky lg:top-24 top-0 z-10 shadow-sm transition-colors w-full lg:w-auto">
+                <button data-tool="select" onclick="setActiveTool('select')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 active shrink-0" title="Select (V)">
                     <i data-lucide="mouse-pointer-2" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="pencil" onclick="setActiveTool('pencil')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Pencil (P)">
+                <button data-tool="pencil" onclick="setActiveTool('pencil')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Pencil (P)">
                     <i data-lucide="pencil" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="eraser" onclick="setActiveTool('eraser')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Eraser (E)">
+                <button data-tool="eraser" onclick="setActiveTool('eraser')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Eraser (E)">
                     <i data-lucide="eraser" class="w-6 h-6"></i>
                 </button>
-                <div class="w-full h-px bg-gray-800 my-1 hidden lg:block"></div>
-                <button data-tool="line" onclick="setActiveTool('line')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Line (L)">
+                <div class="w-px lg:w-full h-8 lg:h-px bg-slate-200 dark:bg-gray-800 my-auto lg:my-1 shrink-0"></div>
+                <button data-tool="line" onclick="setActiveTool('line')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Line (L)">
                     <i data-lucide="minus" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="arrow" onclick="setActiveTool('arrow')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Arrow (A)">
+                <button data-tool="arrow" onclick="setActiveTool('arrow')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Arrow (A)">
                     <i data-lucide="move-up-right" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="rect" onclick="setActiveTool('rect')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Rectangle (R)">
+                <button data-tool="rect" onclick="setActiveTool('rect')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Rectangle (R)">
                     <i data-lucide="square" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="circle" onclick="setActiveTool('circle')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Circle (C)">
+                <button data-tool="circle" onclick="setActiveTool('circle')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Circle (C)">
                     <i data-lucide="circle" class="w-6 h-6"></i>
                 </button>
-                <button data-tool="triangle" onclick="setActiveTool('triangle')" class="tool-btn p-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" title="Triangle (T)">
+                <button data-tool="triangle" onclick="setActiveTool('triangle')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Triangle (T)">
                     <i data-lucide="triangle" class="w-6 h-6"></i>
                 </button>
-                <div class="w-full h-px bg-slate-200 dark:bg-gray-800 my-1 hidden lg:block"></div>
-                <button data-tool="text" onclick="setActiveTool('text')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400" title="Text (X)">
+                <div class="w-px lg:w-full h-8 lg:h-px bg-slate-200 dark:bg-gray-800 my-auto lg:my-1 shrink-0"></div>
+                <button data-tool="text" onclick="setActiveTool('text')" class="tool-btn p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-400 dark:text-gray-400 shrink-0" title="Text (X)">
                     <i data-lucide="type" class="w-6 h-6"></i>
                 </button>
             </div>
 
             <!-- Canvas Container -->
-            <div id="canvas-wrapper" class="relative bg-white dark:bg-gray-900 rounded-3xl border border-slate-200 dark:border-gray-800 shadow-xl overflow-hidden min-h-[600px] flex items-center justify-center transition-colors">
+            <div id="canvas-wrapper" class="relative bg-white dark:bg-gray-900 rounded-3xl border border-slate-200 dark:border-gray-800 shadow-xl overflow-hidden min-h-[500px] md:min-h-[600px] flex items-center justify-center transition-colors order-2 lg:order-none">
                 <!-- Transparent grid background -->
                 <div class="absolute inset-0 opacity-[0.05] dark:opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 20px 20px;"></div>
                 <canvas id="main-canvas"></canvas>
             </div>
 
-            <!-- Sidebar: Properties -->
-            <div class="space-y-6 bg-white dark:bg-gray-900 p-6 rounded-3xl border border-slate-200 dark:border-gray-800 transition-colors">
+            <!-- Sidebar: Properties (Drawer on Mobile) -->
+            <div id="properties-panel" class="fixed inset-y-0 right-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 p-6 border-l border-slate-200 dark:border-gray-800 shadow-2xl z-50 transform translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-auto lg:z-auto lg:shadow-none lg:border-l-0 lg:rounded-3xl lg:border lg:inset-auto space-y-6 overflow-y-auto lg:overflow-visible no-scrollbar">
+                
+                <div class="flex items-center justify-between lg:hidden mb-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Settings</h2>
+                    <button onclick="toggleMobileProps()" class="p-2 rounded-lg bg-slate-100 dark:bg-gray-800 text-slate-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
                 
                 <!-- Stroke Settings -->
                 <div class="space-y-4">
@@ -775,6 +810,26 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
         });
     }
 
+    function toggleMobileProps() {
+        const panel = document.getElementById('properties-panel');
+        const isOpen = panel.classList.contains('open');
+        
+        if (isOpen) {
+            panel.classList.remove('open');
+            document.body.classList.remove('drawer-open');
+            document.getElementById('drawer-backdrop')?.remove();
+        } else {
+            panel.classList.add('open');
+            document.body.classList.add('drawer-open');
+            
+            const backdrop = document.createElement('div');
+            backdrop.id = 'drawer-backdrop';
+            backdrop.className = 'fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 lg:hidden transition-opacity';
+            backdrop.onclick = toggleMobileProps;
+            document.body.appendChild(backdrop);
+        }
+    }
+
     // Resize Handler
     window.addEventListener('resize', handleResize);
     
@@ -793,7 +848,8 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
     function handleResize() {
         if (!canvas) return;
         const wrapper = document.getElementById('canvas-wrapper');
-        const container = document.getElementById('drawing-app-container');
+        const width = wrapper.clientWidth - 32; // Responsive padding
+        const height = window.innerWidth < 1024 ? 500 : 800; // Shorter on mobile
         
         if (document.fullscreenElement) {
             canvas.setDimensions({
@@ -801,10 +857,9 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
                 height: window.innerHeight
             });
         } else {
-            const width = wrapper.clientWidth - 40;
             canvas.setDimensions({
                 width: width,
-                height: 800
+                height: height
             });
         }
         canvas.renderAll();
@@ -813,7 +868,9 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
     function toggleFullScreen() {
         const docEl = document.getElementById('drawing-app-container');
         if (!document.fullscreenElement) {
-            docEl.requestFullscreen();
+            docEl.requestFullscreen().catch(err => {
+                console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+            });
         } else {
             document.exitFullscreen();
         }

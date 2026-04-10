@@ -43,71 +43,71 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
     </div>
 </section>
 
-<<!-- Tool Area -->
+<!-- Tool Area -->
 <section class="pb-24 bg-slate-50 dark:bg-gray-950 transition-colors">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="timer-container" class="bg-white dark:bg-gray-900 rounded-[2rem] p-8 md:p-12 border border-slate-200 dark:border-gray-800 shadow-2xl relative transition-all overflow-hidden flex flex-col items-center">
+        <div id="timer-container" class="bg-white dark:bg-gray-900 rounded-[2rem] p-6 md:p-12 border border-slate-200 dark:border-gray-800 shadow-2xl relative transition-all overflow-hidden flex flex-col items-center">
             
             <!-- Glow effect -->
             <div class="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
             <!-- Fullscreen Toggle -->
-            <div class="absolute top-6 right-6 z-20">
-                <button onclick="toggleFullScreen()" class="p-3 rounded-2xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white transition-all shadow-sm" title="Fullscreen Mode">
+            <div class="absolute top-4 right-4 md:top-6 md:right-6 z-20">
+                <button onclick="toggleFullScreen()" class="p-2.5 md:p-3 rounded-2xl bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white transition-all shadow-sm" title="Fullscreen Mode">
                     <i data-lucide="maximize" id="fs-icon" class="w-5 h-5"></i>
                 </button>
             </div>
 
             <div class="relative z-10 flex flex-col items-center w-full">
                 <!-- Input Controls -->
-                <div id="input-container" class="flex flex-col items-center gap-6 mb-10 bg-slate-50 dark:bg-gray-800/80 p-6 md:p-8 rounded-[2.5rem] border border-slate-200 dark:border-gray-700/50 shadow-inner w-full max-w-lg transition-colors">
-                    <div class="flex items-center gap-4 justify-center w-full">
+                <div id="input-container" class="flex flex-col items-center gap-6 mb-10 bg-slate-50 dark:bg-gray-800/80 p-5 md:p-8 rounded-[2.5rem] border border-slate-200 dark:border-gray-700/50 shadow-inner w-full max-w-lg transition-colors">
+                    <div class="flex items-center gap-2 md:gap-4 justify-center w-full">
                         <div class="text-center">
-                            <input type="number" id="input-hours" min="0" max="99" value="0" class="w-20 md:w-24 h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
-                            <div class="text-slate-500 dark:text-gray-500 text-xs uppercase tracking-widest mt-3 font-bold">Hours</div>
+                            <input type="number" id="input-hours" min="0" max="99" value="0" class="w-16 md:w-24 h-20 md:h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-2xl md:text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
+                            <div class="text-slate-400 dark:text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-1.5 md:mt-3 font-black">Hours</div>
                         </div>
-                        <div class="text-4xl font-mono text-slate-400 dark:text-gray-600 mb-8">:</div>
+                        <div class="text-2xl md:text-4xl font-mono text-slate-400 dark:text-gray-600 mb-6 md:mb-8">:</div>
                         <div class="text-center">
-                            <input type="number" id="input-minutes" min="0" max="59" value="05" class="w-20 md:w-24 h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
-                            <div class="text-slate-500 dark:text-gray-500 text-xs uppercase tracking-widest mt-3 font-bold">Minutes</div>
+                            <input type="number" id="input-minutes" min="0" max="59" value="05" class="w-16 md:w-24 h-20 md:h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-2xl md:text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
+                            <div class="text-slate-400 dark:text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-1.5 md:mt-3 font-black">Minutes</div>
                         </div>
-                        <div class="text-4xl font-mono text-slate-400 dark:text-gray-600 mb-8">:</div>
+                        <div class="text-2xl md:text-4xl font-mono text-slate-400 dark:text-gray-600 mb-6 md:mb-8">:</div>
                         <div class="text-center">
-                            <input type="number" id="input-seconds" min="0" max="59" value="0" class="w-20 md:w-24 h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
-                            <div class="text-slate-500 dark:text-gray-500 text-xs uppercase tracking-widest mt-3 font-bold">Seconds</div>
+                            <input type="number" id="input-seconds" min="0" max="59" value="0" class="w-16 md:w-24 h-20 md:h-24 bg-white dark:bg-gray-900 text-slate-800 dark:text-pink-400 font-mono text-2xl md:text-4xl text-center rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all font-bold shadow-sm">
+                            <div class="text-slate-400 dark:text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-1.5 md:mt-3 font-black">Seconds</div>
                         </div>
                     </div>
                     
-                    <div class="w-full max-w-sm">
-                        <input type="text" id="company-name" placeholder="Business / Event Name (Optional)" class="w-full px-6 py-4 bg-white dark:bg-gray-900 text-slate-700 dark:text-white rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all text-center font-medium shadow-sm">
+                    <div class="w-full max-w-sm px-2">
+                        <input type="text" id="company-name" placeholder="Business / Event Name (Optional)" class="w-full px-4 py-3 md:px-6 md:py-4 bg-white dark:bg-gray-900 text-slate-700 dark:text-white rounded-2xl border-2 border-slate-200 dark:border-none focus:ring-2 focus:ring-pink-500 transition-all text-center font-medium shadow-sm text-sm md:text-base">
                     </div>
                 </div>
 
                 <!-- Timer Display (Hidden while inputting) -->
-                <div id="timer-display" class="hidden flex-col items-center mb-10 w-full text-center">
-                    <div id="display-company-name" class="text-pink-500 font-black uppercase tracking-[0.3em] mb-4 text-xl md:text-2xl min-h-[1.5em] empty:hidden"></div>
-                    <div class="fs-label hidden text-slate-400 dark:text-gray-600 font-bold uppercase tracking-[0.5em] mb-4 text-sm mt-4">Time Remaining</div>
-                    <div class="flex items-center justify-center font-mono text-7xl md:text-[9rem] tracking-tight text-slate-900 dark:text-white mb-2 font-black tabular-nums filter drop-shadow-sm dark:drop-shadow-lg transition-all">
-                        <span id="display-hours">00</span><span class="text-slate-300 dark:text-gray-700 mx-2">:</span><span id="display-minutes">00</span><span class="text-slate-300 dark:text-gray-700 mx-2">:</span><span id="display-seconds">00</span>
+                <div id="timer-display" class="hidden flex-col items-center mb-8 md:mb-10 w-full text-center">
+                    <div id="display-company-name" class="text-pink-500 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 text-lg md:text-2xl min-h-[1.5em] empty:hidden px-4"></div>
+                    <div class="fs-label hidden text-slate-400 dark:text-gray-600 font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] mb-4 text-[10px] md:text-sm mt-4">Time Remaining</div>
+                    <div class="flex items-center justify-center font-mono text-5xl sm:text-7xl md:text-[9rem] tracking-tight text-slate-900 dark:text-white mb-2 font-black tabular-nums filter drop-shadow-sm dark:drop-shadow-lg transition-all">
+                        <span id="display-hours">00</span><span class="text-slate-300 dark:text-gray-700 mx-1 md:mx-2">:</span><span id="display-minutes">00</span><span class="text-slate-300 dark:text-gray-700 mx-1 md:mx-2">:</span><span id="display-seconds">00</span>
                     </div>
-                    <div class="w-full bg-slate-100 dark:bg-gray-800 rounded-full h-3 mt-10 mb-2 overflow-hidden border border-slate-200 dark:border-gray-700 shadow-inner">
-                        <div id="progress-bar" class="bg-gradient-to-r from-pink-500 to-rose-500 h-3 rounded-full transition-all duration-1000 ease-linear shadow-[0_0_15px_rgba(236,72,153,0.3)]" style="width: 100%"></div>
+                    <div class="w-full bg-slate-100 dark:bg-gray-800 rounded-full h-2.5 md:h-3 mt-6 md:mt-10 mb-2 overflow-hidden border border-slate-200 dark:border-gray-700 shadow-inner">
+                        <div id="progress-bar" class="bg-gradient-to-r from-pink-500 to-rose-500 h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_15px_rgba(236,72,153,0.3)]" style="width: 100%"></div>
                     </div>
                 </div>
 
                 <!-- Controls -->
-                <div id="controls-area" class="flex flex-wrap justify-center gap-4 w-full max-w-sm relative z-20">
-                    <button id="btn-start" onclick="startTimer()" class="flex-1 min-w-[140px] px-8 py-5 rounded-[1.5rem] bg-gradient-to-r from-pink-600 to-rose-600 text-white font-black uppercase tracking-widest hover:from-pink-500 hover:to-rose-500 transition-all shadow-xl shadow-pink-500/25 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm">
-                        <i data-lucide="play" class="w-6 h-6 fill-current"></i> Start
+                <div id="controls-area" class="grid grid-cols-2 gap-3 w-full max-w-sm relative z-20 px-2">
+                    <button id="btn-start" onclick="startTimer()" class="col-span-2 px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] bg-gradient-to-r from-pink-600 to-rose-600 text-white font-black uppercase tracking-widest hover:from-pink-500 hover:to-rose-500 transition-all shadow-xl shadow-pink-500/25 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm md:text-base">
+                        <i data-lucide="play" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i> Start
                     </button>
-                    <button id="btn-pause" onclick="pauseTimer()" class="hidden flex-1 min-w-[140px] px-8 py-5 rounded-[1.5rem] bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-white font-black uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-gray-700 transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm shadow-lg">
-                        <i data-lucide="pause" class="w-6 h-6 fill-current"></i> Pause
+                    <button id="btn-pause" onclick="pauseTimer()" class="hidden px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-white font-black uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-gray-700 transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm md:text-base shadow-lg">
+                        <i data-lucide="pause" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i> Pause
                     </button>
-                    <button id="btn-resume" onclick="resumeTimer()" class="hidden flex-1 min-w-[140px] px-8 py-5 rounded-[1.5rem] bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black uppercase tracking-widest hover:from-emerald-500 hover:to-teal-500 transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm">
-                        <i data-lucide="play" class="w-6 h-6 fill-current"></i> Resume
+                    <button id="btn-resume" onclick="resumeTimer()" class="hidden px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black uppercase tracking-widest hover:from-emerald-500 hover:to-teal-500 transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm md:text-base">
+                        <i data-lucide="play" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i> Resume
                     </button>
-                    <button id="btn-reset" onclick="resetTimer()" class="flex-1 min-w-[140px] px-8 py-5 rounded-[1.5rem] bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-300 font-bold uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-gray-700 hover:text-slate-900 dark:hover:text-white transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm shadow-sm">
-                        <i data-lucide="rotate-ccw" class="w-6 h-6"></i> Reset
+                    <button id="btn-reset" onclick="resetTimer()" class="col-span-2 px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-gray-300 font-bold uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-gray-700 hover:text-slate-900 dark:hover:text-white transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95 text-sm md:text-base shadow-sm">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5 md:w-6 md:h-6"></i> Reset
                     </button>
                 </div>
                 
