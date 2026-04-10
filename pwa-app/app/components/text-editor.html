@@ -1,0 +1,215 @@
+<div class="pb-6 animate-in slide-in-from-right fade-in duration-300">
+    <div class="mb-4 flex items-center gap-3">
+        <button onclick="navigate('home')" class="p-2 -ml-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 active:bg-slate-100 dark:active:bg-slate-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <div>
+            <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Professional Editor</h1>
+        </div>
+    </div>
+    
+    <div class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+            
+            <!-- Main Editor Space -->
+            <div class="flex flex-col">
+                <!-- Editor Toolbar Branding Area -->
+                <div class="bg-white dark:bg-slate-900 p-3 md:p-4 rounded-t-3xl border-t border-x border-slate-200 dark:border-slate-800 flex items-center justify-between transition-colors sticky top-0 z-20 md:static">
+                    <div class="flex items-center gap-2 md:gap-3 px-1 md:px-2">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white shrink-0">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-bold text-slate-800 dark:text-slate-100 tracking-tight text-sm">Editor</span>
+                    </div>
+                    <div class="flex gap-1.5 md:gap-2">
+                        <!-- Mobile Stats Toggle -->
+                        <button onclick="toggleStatsDrawer()" class="lg:hidden p-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+                            <i data-lucide="info" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="downloadAs('txt')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                            <i data-lucide="file-down" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quill Editor Target -->
+                <div id="editor-wrapper" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden transition-colors min-h-[400px]">
+                    <div id="editor-container" class="h-[400px] md:h-[600px] text-lg dark:text-slate-100"></div>
+                </div>
+
+                <!-- Footer Quick Actions -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-b-3xl border-b border-x border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 transition-colors">
+                    <button onclick="copyToClipboard()" class="flex-1 min-w-[120px] flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 text-white font-bold active:scale-95 transition-transform shadow-lg shadow-indigo-500/20 text-sm">
+                        <i data-lucide="copy" class="w-4 h-4"></i> Copy
+                    </button>
+                    <button onclick="clearEditor()" class="flex-1 min-w-[120px] flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-bold active:scale-95 transition-transform text-sm">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Sidebar (Drawer on Mobile) -->
+            <aside id="stats-drawer" class="fixed inset-y-0 right-0 w-[85%] max-w-[320px] bg-white dark:bg-slate-900 p-6 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-auto lg:shadow-none lg:border-l-0 lg:rounded-3xl lg:border space-y-6 overflow-y-auto no-scrollbar">
+                
+                <div class="flex items-center justify-between lg:hidden mb-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Document Info</h2>
+                    <button onclick="toggleStatsDrawer()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Statistics</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Words</div>
+                            <div id="stat-words" class="text-xl font-black text-indigo-600 dark:text-indigo-400">0</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Chars</div>
+                            <div id="stat-chars" class="text-xl font-black text-indigo-600 dark:text-indigo-400">0</div>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-px bg-slate-100 dark:bg-slate-800"></div>
+
+                    <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Utilities</h3>
+                    <div class="space-y-2">
+                        <button onclick="changeCase('upper')" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:border-indigo-500 transition-all group">
+                            To UPPERCASE
+                            <i data-lucide="type" class="w-3 h-3 text-slate-400"></i>
+                        </button>
+                        <button onclick="changeCase('lower')" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:border-indigo-500 transition-all group">
+                            To lowercase
+                            <i data-lucide="type" class="w-3 h-3 text-slate-400"></i>
+                        </button>
+                    </div>
+
+                    <div id="auto-save-status" class="text-[10px] font-bold text-slate-300 dark:text-slate-600 flex items-center gap-2 px-1">
+                        <i data-lucide="save" class="w-3 h-3"></i> Syncing locally...
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Quill Dark Theme Overrides */
+    .dark .ql-toolbar.ql-snow { border-bottom: 1px solid #1e293b !important; }
+    .dark .ql-snow .ql-stroke { stroke: #94a3b8; }
+    .dark .ql-snow .ql-fill { fill: #94a3b8; }
+    .dark .ql-snow .ql-picker { color: #94a3b8; }
+    .dark .ql-editor.ql-blank::before { color: #475569; }
+    
+    .ql-toolbar.ql-snow {
+        border: none !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        padding: 8px 12px !important;
+    }
+    .ql-container.ql-snow { border: none !important; }
+    .ql-editor {
+        padding: 24px !important;
+        line-height: 1.6;
+        font-family: 'Inter', sans-serif;
+        min-height: 400px;
+    }
+    
+    #stats-drawer.open { transform: translateX(0); }
+</style>
+
+<script>
+    window.quillInstance = null;
+    window.STORAGE_KEY = 'bt_editor_content';
+
+    function initTextEditor() {
+        if(window.quillInstance) return;
+
+        window.quillInstance = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
+
+        const saved = localStorage.getItem(window.STORAGE_KEY);
+        if (saved) window.quillInstance.setContents(JSON.parse(saved));
+
+        window.quillInstance.on('text-change', () => {
+            updateStats();
+            handleAutoSave();
+        });
+        
+        updateStats();
+        if(typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    if(typeof Quill === 'undefined') {
+        const link = document.createElement('link');
+        link.href = 'https://cdn.quilljs.com/1.3.6/quill.snow.css';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+
+        const script = document.createElement('script');
+        script.src = 'https://cdn.quilljs.com/1.3.6/quill.min.js';
+        script.onload = initTextEditor;
+        document.head.appendChild(script);
+    } else {
+        initTextEditor();
+    }
+
+    function toggleStatsDrawer() {
+        const drawer = document.getElementById('stats-drawer');
+        drawer.classList.toggle('open');
+    }
+
+    function updateStats() {
+        if(!window.quillInstance) return;
+        const text = window.quillInstance.getText().trim();
+        document.getElementById('stat-words').textContent = text ? text.split(/\s+/).length : 0;
+        document.getElementById('stat-chars').textContent = text.length;
+    }
+
+    let saveTimeout;
+    function handleAutoSave() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+            localStorage.setItem(window.STORAGE_KEY, JSON.stringify(window.quillInstance.getContents()));
+            const status = document.getElementById('auto-save-status');
+            status.innerHTML = '<i data-lucide="check" class="w-3 h-3 text-green-500"></i> Saved';
+            lucide.createIcons();
+        }, 1000);
+    }
+
+    function copyToClipboard() {
+        navigator.clipboard.writeText(window.quillInstance.getText()).then(() => alert('Copied!'));
+    }
+
+    function clearEditor() {
+        if(confirm('Clear all?')) {
+            window.quillInstance.setContents([]);
+            localStorage.removeItem(window.STORAGE_KEY);
+            updateStats();
+        }
+    }
+
+    function downloadAs(ext) {
+        const blob = new Blob([window.quillInstance.getText()], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bulktools-doc.${ext}`;
+        a.click();
+    }
+
+    function changeCase(type) {
+        const range = window.quillInstance.getSelection() || { index: 0, length: window.quillInstance.getLength() };
+        const text = window.quillInstance.getText(range.index, range.length);
+        window.quillInstance.deleteText(range.index, range.length);
+        window.quillInstance.insertText(range.index, type === 'upper' ? text.toUpperCase() : text.toLowerCase());
+    }
+</script>

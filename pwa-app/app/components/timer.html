@@ -1,0 +1,161 @@
+<div class="pb-6 animate-in slide-in-from-right fade-in duration-300">
+    <div class="mb-4 flex items-center gap-3">
+        <button onclick="navigate('home')" class="p-2 -ml-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 active:bg-slate-100 dark:active:bg-slate-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <div>
+            <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Countdown Timer</h1>
+        </div>
+    </div>
+
+    <!-- Tool Area -->
+    <div id="timer-container" class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden flex flex-col items-center transition-colors">
+        <!-- Glow effect -->
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-[40px] pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col items-center w-full">
+            <!-- Input Controls -->
+            <div id="input-container" class="flex flex-col items-center gap-4 mb-6 bg-slate-50/50 dark:bg-slate-950/20 p-4 rounded-2xl w-full">
+                <div class="flex items-center gap-2 justify-center w-full">
+                    <div class="text-center">
+                        <input type="number" id="input-hours" min="0" max="99" value="0" class="w-14 h-14 md:w-16 md:h-16 bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-mono text-xl md:text-2xl text-center rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 transition-all font-bold shadow-sm outline-none">
+                        <div class="text-slate-400 dark:text-slate-500 text-[8px] uppercase tracking-widest mt-1.5 font-bold">Hrs</div>
+                    </div>
+                    <div class="text-xl font-mono text-slate-300 dark:text-slate-700">:</div>
+                    <div class="text-center">
+                        <input type="number" id="input-minutes" min="0" max="59" value="05" class="w-14 h-14 md:w-16 md:h-16 bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-mono text-xl md:text-2xl text-center rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 transition-all font-bold shadow-sm outline-none">
+                        <div class="text-slate-400 dark:text-slate-500 text-[8px] uppercase tracking-widest mt-1.5 font-bold">Min</div>
+                    </div>
+                    <div class="text-xl font-mono text-slate-300 dark:text-slate-700">:</div>
+                    <div class="text-center">
+                        <input type="number" id="input-seconds" min="0" max="59" value="0" class="w-14 h-14 md:w-16 md:h-16 bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-mono text-xl md:text-2xl text-center rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 transition-all font-bold shadow-sm outline-none">
+                        <div class="text-slate-400 dark:text-slate-500 text-[8px] uppercase tracking-widest mt-1.5 font-bold">Sec</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Display -->
+            <div id="timer-display" class="hidden flex-col items-center mb-6 w-full text-center">
+                <div class="flex items-center justify-center font-mono text-5xl md:text-6xl tracking-tight text-slate-900 dark:text-white mb-2 font-black tabular-nums transition-all">
+                    <span id="display-hours">00</span><span class="text-slate-200 dark:text-slate-800 mx-1">:</span><span id="display-minutes">00</span><span class="text-slate-200 dark:text-slate-800 mx-1">:</span><span id="display-seconds">00</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mt-4 overflow-hidden shadow-inner">
+                    <div id="progress-bar" class="bg-indigo-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div id="controls-area" class="grid grid-cols-2 gap-3 w-full">
+                <button id="btn-start" onclick="startTimer()" class="col-span-2 py-4 rounded-2xl bg-indigo-600 text-white font-black uppercase tracking-widest active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+                    <i data-lucide="play" class="w-4 h-4 fill-current"></i> Start
+                </button>
+                <button id="btn-pause" onclick="pauseTimer()" class="hidden py-4 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+                    <i data-lucide="pause" class="w-4 h-4"></i> Pause
+                </button>
+                <button id="btn-resume" onclick="resumeTimer()" class="hidden py-4 rounded-2xl bg-indigo-600 text-white font-bold active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+                    <i data-lucide="play" class="w-4 h-4"></i> Resume
+                </button>
+                <button id="btn-reset" onclick="resetTimer()" class="col-span-2 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 font-bold active:scale-95 transition-transform flex items-center justify-center gap-2 text-xs mt-2">
+                    Reset
+                </button>
+            </div>
+            
+            <div id="buzzer-message" class="hidden mt-6 text-center animate-bounce w-full">
+                <div class="inline-flex w-full justify-center items-center gap-2 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 font-black text-sm">
+                    <i data-lucide="bell-ring" class="w-5 h-5"></i> Time is up!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+
+    window.timerTotalSeconds = 0;
+    window.timerActiveInterval = null;
+    window.timerInitialTotalSeconds = 0;
+
+    function updateDisplay(h, m, s) {
+        if(!document.getElementById('display-hours')) return;
+        document.getElementById('display-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('display-minutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('display-seconds').textContent = String(s).padStart(2, '0');
+    }
+
+    function startTimer() {
+        const h = parseInt(document.getElementById('input-hours').value) || 0;
+        const m = parseInt(document.getElementById('input-minutes').value) || 0;
+        const s = parseInt(document.getElementById('input-seconds').value) || 0;
+        
+        window.timerTotalSeconds = (h * 3600) + (m * 60) + s;
+        if(window.timerTotalSeconds <= 0) return;
+        
+        window.timerInitialTotalSeconds = window.timerTotalSeconds;
+
+        document.getElementById('input-container').classList.add('hidden');
+        document.getElementById('timer-display').classList.remove('hidden');
+        document.getElementById('timer-display').classList.add('flex');
+        
+        document.getElementById('btn-start').classList.add('hidden');
+        document.getElementById('btn-pause').classList.remove('hidden');
+        
+        runTimer();
+    }
+
+    function runTimer() {
+        if (window.timerActiveInterval) clearInterval(window.timerActiveInterval);
+        
+        const tick = () => {
+            if(!document.getElementById('display-hours')) {
+                clearInterval(window.timerActiveInterval);
+                return;
+            }
+
+            if (window.timerTotalSeconds <= 0) {
+                clearInterval(window.timerActiveInterval);
+                document.getElementById('btn-pause').classList.add('hidden');
+                document.getElementById('buzzer-message').classList.remove('hidden');
+                return;
+            }
+            
+            window.timerTotalSeconds--;
+            
+            const h = Math.floor(window.timerTotalSeconds / 3600);
+            const m = Math.floor((window.timerTotalSeconds % 3600) / 60);
+            const s = window.timerTotalSeconds % 60;
+            
+            updateDisplay(h, m, s);
+            
+            const percent = (window.timerTotalSeconds / window.timerInitialTotalSeconds) * 100;
+            const pb = document.getElementById('progress-bar');
+            if(pb) pb.style.width = percent + '%';
+        };
+        
+        tick();
+        window.timerActiveInterval = setInterval(tick, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(window.timerActiveInterval);
+        document.getElementById('btn-pause').classList.add('hidden');
+        document.getElementById('btn-resume').classList.remove('hidden');
+    }
+
+    function resumeTimer() {
+        runTimer();
+        document.getElementById('btn-resume').classList.add('hidden');
+        document.getElementById('btn-pause').classList.remove('hidden');
+    }
+
+    function resetTimer() {
+        clearInterval(window.timerActiveInterval);
+        document.getElementById('timer-display').classList.add('hidden');
+        document.getElementById('timer-display').classList.remove('flex');
+        document.getElementById('input-container').classList.remove('hidden');
+        document.getElementById('btn-start').classList.remove('hidden');
+        document.getElementById('btn-pause').classList.add('hidden');
+        document.getElementById('btn-resume').classList.add('hidden');
+        document.getElementById('buzzer-message').classList.add('hidden');
+    }
+</script>

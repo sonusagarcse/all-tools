@@ -155,6 +155,7 @@ $cat_accents = [
     </div>
 </section>
 
+
 <!-- ==================== STATS ==================== -->
 <section class="border-y border-slate-100 dark:border-gray-900 bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -221,6 +222,62 @@ $cat_accents = [
         </div>
     </div>
 </section>
+
+<style>
+    #root-pwa-banner.hidden { display: none !important; }
+</style>
+<!-- PWA Install Prompt (Mobile Optimized) -->
+<section id="root-pwa-banner" class="hidden py-16 px-4 bg-slate-50 dark:bg-gray-900/30 border-y border-slate-100 dark:border-gray-900 reveal">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-[40px] p-8 md:p-12 text-white shadow-2xl shadow-indigo-500/20 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mt-20 -mr-20"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl -mb-10 -ml-10"></div>
+            
+            <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center shrink-0 border border-white/30 shadow-inner">
+                <i data-lucide="smartphone" class="w-12 h-12 text-white"></i>
+            </div>
+            
+            <div class="flex-1 text-center md:text-left relative z-10">
+                <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">App Now Available</span>
+                <h3 class="text-2xl md:text-3xl font-black mb-3">Experience BulkTools Pro</h3>
+                <p class="text-indigo-100 text-sm md:text-base leading-relaxed opacity-90 max-w-md">Get full-screen productivity, lightning speed, and offline access by installing our official PWA.</p>
+            </div>
+            
+            <div class="shrink-0 relative z-10 w-full md:w-auto">
+                <button onclick="rootPWAInstall()" class="w-full md:w-auto px-10 py-5 bg-white text-indigo-600 font-black rounded-2xl shadow-xl active:scale-95 transition-transform flex items-center justify-center gap-3 hover:bg-slate-50 text-lg">
+                    <i data-lucide="download-cloud" class="w-6 h-6"></i>
+                    Install Now
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function checkPWAInstallable() {
+        const banner = document.getElementById('root-pwa-banner');
+        if (window.pwaState && window.pwaState.deferredPrompt) {
+            banner.classList.remove('hidden');
+        } else if (window.matchMedia('(display-mode: standalone)').matches) {
+            banner.remove();
+        }
+    }
+
+    async function rootPWAInstall() {
+        const promptEvent = window.pwaState.deferredPrompt;
+        if (!promptEvent) return;
+        
+        promptEvent.prompt();
+        const { outcome } = await promptEvent.userChoice;
+        console.log(`User response to the root install prompt: ${outcome}`);
+        
+        window.pwaState.deferredPrompt = null;
+        document.getElementById('root-pwa-banner').classList.add('hidden');
+    }
+
+    window.addEventListener('pwa-installable', checkPWAInstallable);
+    window.addEventListener('load', () => setTimeout(checkPWAInstallable, 1000));
+</script>
 
 <!-- ==================== TOOLS GRID ==================== -->
 <?php $section_idx = 0;

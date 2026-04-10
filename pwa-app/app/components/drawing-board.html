@@ -1,0 +1,163 @@
+<div class="pb-6 animate-in slide-in-from-right fade-in duration-300">
+    <div class="mb-4 flex items-center gap-3">
+        <button onclick="navigate('home')" class="p-2 -ml-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 active:bg-slate-100 dark:active:bg-slate-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <div>
+            <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Drawing Board</h1>
+        </div>
+    </div>
+    
+    <div id="drawing-app-container" class="bg-slate-50 dark:bg-slate-950 p-0 transition-all rounded-3xl">
+        
+        <!-- Controls Bar -->
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-md sticky top-0 z-20">
+            <div class="flex items-center gap-1.5 md:gap-2">
+                <button onclick="undo()" id="undo-btn" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-indigo-600 dark:hover:text-white transition-all disabled:opacity-30">
+                    <i data-lucide="undo" class="w-5 h-5"></i>
+                </button>
+                <button onclick="redo()" id="redo-btn" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-indigo-600 dark:hover:text-white transition-all disabled:opacity-30">
+                    <i data-lucide="redo" class="w-5 h-5"></i>
+                </button>
+                <div class="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1"></div>
+                <button onclick="clearCanvas()" class="p-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all">
+                    <i data-lucide="trash-2" class="w-5 h-5"></i>
+                </button>
+                <!-- Mobile Props Toggle -->
+                <button onclick="toggleMobileProps()" class="lg:hidden p-2 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                    <i data-lucide="settings-2" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="downloadPNG()" class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/25 flex items-center gap-2 text-xs">
+                    <i data-lucide="download" class="w-4 h-4"></i> Save PNG
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr_300px] gap-6 items-start">
+            
+            <!-- Sidebar: Tools -->
+            <div class="flex lg:flex-col overflow-x-auto lg:overflow-x-visible no-scrollbar p-2 gap-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm w-full lg:w-auto transition-colors">
+                <button data-tool="select" onclick="setActiveTool('select')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 active shrink-0">
+                    <i data-lucide="mouse-pointer-2" class="w-5 h-5"></i>
+                </button>
+                <button data-tool="pencil" onclick="setActiveTool('pencil')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 shrink-0">
+                    <i data-lucide="pencil" class="w-5 h-5"></i>
+                </button>
+                <button data-tool="eraser" onclick="setActiveTool('eraser')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 shrink-0">
+                    <i data-lucide="eraser" class="w-5 h-5"></i>
+                </button>
+                <div class="w-px lg:w-full h-6 lg:h-px bg-slate-200 dark:bg-slate-800 my-auto lg:my-1 shrink-0"></div>
+                <button data-tool="rect" onclick="setActiveTool('rect')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 shrink-0">
+                    <i data-lucide="square" class="w-5 h-5"></i>
+                </button>
+                <button data-tool="circle" onclick="setActiveTool('circle')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 shrink-0">
+                    <i data-lucide="circle" class="w-5 h-5"></i>
+                </button>
+                <button data-tool="text" onclick="setActiveTool('text')" class="tool-btn p-3 rounded-xl transition-all text-slate-400 dark:text-slate-500 shrink-0">
+                    <i data-lucide="type" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Canvas Container -->
+            <div id="canvas-wrapper" class="relative bg-white dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden min-h-[500px] flex items-center justify-center transition-colors">
+                <div class="absolute inset-0 opacity-[0.05] dark:opacity-[0.02] pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <canvas id="main-canvas"></canvas>
+            </div>
+
+            <!-- Sidebar: Properties (Drawer on Mobile) -->
+            <aside id="properties-panel" class="fixed inset-y-0 right-0 w-[85%] max-w-[320px] bg-white dark:bg-slate-900 p-6 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-auto lg:shadow-none lg:border lg:rounded-3xl space-y-6">
+                
+                <div class="flex items-center justify-between lg:hidden mb-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Properties</h2>
+                    <button onclick="toggleMobileProps()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <div class="space-y-4">
+                    <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Stroke & Color</h3>
+                    <div class="space-y-3">
+                        <label class="text-xs font-medium text-slate-500">Color</label>
+                        <input type="color" id="stroke-color" value="#6366f1" onchange="updateProperties()" class="w-full h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border-none cursor-pointer">
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tool-btn.active {
+        background-color: #4f46e5;
+        color: white;
+    }
+    #properties-panel.open {
+        transform: translateX(0);
+    }
+</style>
+
+<script>
+    window.canvas = null;
+    window.activeTool = 'select';
+
+    function runCanvas() {
+        if(window.canvas) return;
+        
+        const wrapper = document.getElementById('canvas-wrapper');
+        const width = wrapper.clientWidth - 32;
+        
+        window.canvas = new fabric.Canvas('main-canvas', {
+            width: width,
+            height: 500,
+            backgroundColor: '#ffffff'
+        });
+
+        if(typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    if(typeof fabric === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/fabric@5.3.0/dist/fabric.min.js';
+        script.onload = runCanvas;
+        document.head.appendChild(script);
+    } else {
+        runCanvas();
+    }
+
+    function setActiveTool(tool) {
+        window.activeTool = tool;
+        window.canvas.isDrawingMode = (tool === 'pencil' || tool === 'eraser');
+        
+        if (tool === 'pencil') {
+            window.canvas.freeDrawingBrush = new fabric.PencilBrush(window.canvas);
+            window.canvas.freeDrawingBrush.color = document.getElementById('stroke-color').value;
+        } else if (tool === 'eraser') {
+            window.canvas.freeDrawingBrush = new fabric.PencilBrush(window.canvas);
+            window.canvas.freeDrawingBrush.color = '#ffffff';
+            window.canvas.freeDrawingBrush.width = 20;
+        }
+
+        document.querySelectorAll('.tool-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.tool === tool);
+        });
+    }
+
+    function toggleMobileProps() {
+        document.getElementById('properties-panel').classList.toggle('open');
+    }
+
+    function clearCanvas() {
+        if(confirm('Clear board?')) {
+            window.canvas.clear();
+            window.canvas.backgroundColor = '#ffffff';
+        }
+    }
+
+    function downloadPNG() {
+        const link = document.createElement('a');
+        link.download = 'drawing.png';
+        link.href = window.canvas.toDataURL();
+        link.click();
+    }
+</script>

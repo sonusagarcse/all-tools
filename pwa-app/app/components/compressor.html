@@ -1,0 +1,161 @@
+<div class="pb-6 animate-in slide-in-from-right fade-in duration-300">
+    <div class="mb-6 flex items-center gap-3">
+        <button onclick="navigate('home')" class="p-2 -ml-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 active:bg-slate-100 dark:active:bg-slate-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <div>
+            <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Image Compressor</h1>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
+        
+        <div id="error-alert" class="hidden mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-sm border border-red-100 dark:border-red-900/30 flex items-center gap-2">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i> <span id="error-msg"></span>
+        </div>
+
+        <div id="upload-zone" class="border-2 border-dashed border-indigo-200 dark:border-indigo-900/50 rounded-2xl p-8 text-center bg-indigo-50/50 dark:bg-indigo-950/20 relative">
+            <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/jpeg, image/png, image/webp">
+            <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-indigo-500 shadow-sm mx-auto mb-4 pointer-events-none">
+                <i data-lucide="image" class="w-8 h-8"></i>
+            </div>
+            <h3 class="font-bold text-slate-700 dark:text-slate-200 pointer-events-none">Select Image</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 pointer-events-none">JPG, PNG, WEBP</p>
+            <div id="file-name" class="hidden mt-4 text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/50 py-1 px-3 rounded-full inline-block"></div>
+        </div>
+
+        <div class="mt-6 mb-8">
+            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Target File Size (KB)</label>
+            <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-shadow">
+                <i data-lucide="target" class="w-5 h-5 text-indigo-400"></i>
+                <input type="number" id="target-size" placeholder="e.g. 50" class="w-full bg-transparent border-none text-slate-800 dark:text-white font-bold text-lg focus:outline-none" value="100">
+                <span class="text-slate-400 dark:text-slate-500 font-bold text-sm shrink-0">KB</span>
+            </div>
+        </div>
+
+        <button id="compress-btn" onclick="startCompression()" class="w-full py-4 rounded-xl bg-indigo-600 text-white font-bold tracking-wide active:scale-95 transition-transform flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none" disabled>
+            <i data-lucide="minimize-2" class="w-5 h-5"></i> Start Compression
+        </button>
+
+        <div id="progress-ui" class="hidden mt-6 text-center animate-pulse">
+            <div class="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-indigo-600 dark:text-indigo-400">Compressing completely offline...</p>
+        </div>
+
+        <div id="result-ui" class="hidden mt-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-6 border border-emerald-100 dark:border-emerald-900/30 text-center animate-in zoom-in-95">
+            <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-bold text-emerald-800 dark:text-emerald-200 text-lg">Target Reached!</h3>
+            <p id="savings-text" class="text-sm text-emerald-600 dark:text-emerald-400 font-medium mt-1 mb-4"></p>
+            <button id="download-btn" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-md hover:bg-emerald-500 transition-colors flex items-center justify-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i> Save to Device
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide Icons for this component
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Component lifecycle variables
+    window.compressorFile = null;
+
+    // Load browser-image-compression library dynamically if not loaded
+    if(typeof window.imageCompression === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js';
+        script.async = true;
+        document.head.appendChild(script);
+    }
+
+    // UI Logic
+    const fileInput = document.getElementById('file-input');
+    const fileNameDisplay = document.getElementById('file-name');
+    const compressBtn = document.getElementById('compress-btn');
+
+    if(fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            if(e.target.files.length > 0) {
+                window.compressorFile = e.target.files[0];
+                fileNameDisplay.textContent = window.compressorFile.name + " (" + (window.compressorFile.size / 1024).toFixed(1) + " KB)";
+                fileNameDisplay.classList.remove('hidden');
+                compressBtn.disabled = false;
+                
+                // reset results
+                document.getElementById('result-ui').classList.add('hidden');
+                document.getElementById('error-alert').classList.add('hidden');
+            }
+        });
+    }
+
+    async function startCompression() {
+        if(!window.compressorFile) return;
+
+        if(typeof window.imageCompression === 'undefined') {
+            const err = document.getElementById('error-alert');
+            document.getElementById('error-msg').innerText = "Compression library still loading... please wait 1 second.";
+            err.classList.remove('hidden');
+            return;
+        }
+
+        const targetKB = parseFloat(document.getElementById('target-size').value);
+        if(!targetKB || targetKB < 5) {
+            alert('Please enter a valid target size (min 5kb)');
+            return;
+        }
+
+        document.getElementById('error-alert').classList.add('hidden');
+        document.getElementById('result-ui').classList.add('hidden');
+        document.getElementById('progress-ui').classList.remove('hidden');
+        compressBtn.disabled = true;
+
+        try {
+            const options = {
+                maxSizeMB: targetKB / 1024,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
+            };
+
+            const compressedFile = await window.imageCompression(window.compressorFile, options);
+
+            // Handle UI
+            document.getElementById('progress-ui').classList.add('hidden');
+            document.getElementById('result-ui').classList.remove('hidden');
+            
+            const origSize = (window.compressorFile.size / 1024).toFixed(1);
+            const newSize = (compressedFile.size / 1024).toFixed(1);
+            const savings = (100 - ((compressedFile.size / window.compressorFile.size) * 100)).toFixed(1);
+
+            document.getElementById('savings-text').innerText = `Reduced by ${savings}% (${origSize} KB → ${newSize} KB)`;
+
+            // Download handler
+            const downloadBtn = document.getElementById('download-btn');
+            const url = URL.createObjectURL(compressedFile);
+            
+            // Removing old listeners
+            const newBtn = downloadBtn.cloneNode(true);
+            downloadBtn.parentNode.replaceChild(newBtn, downloadBtn);
+            
+            newBtn.addEventListener('click', () => {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `compressed_${window.compressorFile.name}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+
+        } catch (error) {
+            console.error(error);
+            const err = document.getElementById('error-alert');
+            document.getElementById('error-msg').innerText = "Compression failed: " + error.message;
+            err.classList.remove('hidden');
+            document.getElementById('progress-ui').classList.add('hidden');
+        } finally {
+            compressBtn.disabled = false;
+        }
+    }
+</script>

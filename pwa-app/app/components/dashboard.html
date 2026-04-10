@@ -1,0 +1,110 @@
+<div class="pb-6 animate-in slide-in-from-right fade-in duration-300">
+    <!-- Authorization Check -->
+    <div id="dashboard-restricted" class="hidden py-12 flex flex-col items-center justify-center text-center">
+        <div class="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-400 mb-6">
+            <i data-lucide="lock" class="w-10 h-10"></i>
+        </div>
+        <h2 class="text-xl font-black text-slate-900 dark:text-white mb-2">Secure Access Only</h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm mb-8 px-8">Please login to your account to view your activity logs and system analytics.</p>
+        <button onclick="navigate('profile')" class="bg-indigo-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
+            Go to Login
+        </button>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div id="dashboard-view" class="hidden">
+        <div class="mb-6">
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">System Analytics</h1>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Real-time performance metrics</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div id="stats-container" class="grid grid-cols-2 gap-4 mb-8">
+            <!-- Skeleton placeholders -->
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm animate-pulse">
+                <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded w-1/2 mb-2"></div>
+                <div class="h-8 bg-slate-100 dark:bg-slate-800 rounded w-3/4"></div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm animate-pulse">
+                <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded w-1/2 mb-2"></div>
+                <div class="h-8 bg-slate-100 dark:bg-slate-800 rounded w-3/4"></div>
+            </div>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="mb-4 flex justify-between items-center transition-opacity">
+            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Recent Activity</h3>
+            <button class="text-xs font-bold text-indigo-600 dark:text-indigo-400" onclick="loadDashboardData()">Refresh</button>
+        </div>
+        
+        <div id="logs-container" class="space-y-3">
+            <!-- Logs will load here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkDashboardAccess() {
+        const restricted = document.getElementById('dashboard-restricted');
+        const view = document.getElementById('dashboard-view');
+        
+        if (window.appState && window.appState.isLoggedIn) {
+            view.classList.remove('hidden');
+            restricted.classList.add('hidden');
+            loadDashboardData();
+        } else {
+            restricted.classList.remove('hidden');
+            view.classList.add('hidden');
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+    }
+
+    async function loadDashboardData() {
+        try {
+            const res = await fetch('/pwa-app/api/v1/dashboard.php');
+            const data = await res.json();
+            
+            if(data.success) {
+                // Render Stats
+                const stats = data.data.stats;
+                document.getElementById('stats-container').innerHTML = `
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Total Users</p>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white">${stats.total_users}</h2>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Active Today</p>
+                        <h2 class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${stats.active_today}</h2>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Storage Used</p>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white">${stats.storage_used_gb} GB</h2>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tools Run</p>
+                        <h2 class="text-2xl font-black text-emerald-600 dark:text-emerald-400">${stats.tools_used_today}</h2>
+                    </div>
+                `;
+
+                // Render Logs
+                const logs = data.data.logs;
+                document.getElementById('logs-container').innerHTML = logs.map(log => `
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                        <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-slate-800 dark:text-slate-100">${log.action}</p>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400">${log.user} • ${log.time}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        } catch (e) {
+            console.error("Dashboard load failed", e);
+        }
+    }
+
+    // Run Initial Check
+    checkDashboardAccess();
+</script>

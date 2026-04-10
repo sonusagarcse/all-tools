@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /tools/pwa-app/
+
+    # Prevent directory listing
+    Options -Indexes
+
+    # 1. API Routing Rules
+    # Only allow entry to /api/ via the specific php files, block random scanning
+    RewriteRule ^api/v1/auth$ api/v1/auth.php [L,QSA]
+    
+    # Block direct access to config and includes inside API
+    RewriteRule ^api/(config|functions)\.php$ - [F,L]
+
+    # 2. SPA Routing Rules
+    # If the requested requested file/directory doesn't exist, route to index.html
+    # This allows URLs like /pwa-app/home to work
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/tools/pwa-app/api/
+    RewriteRule ^ index.html [L]
+
+    # 3. Enhance Security
+    <FilesMatch "\.(htaccess|htpasswd|ini|log|sh)$">
+        Order Allow,Deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+# Browser Caching Rules for PWA Assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType text/html "access 1 month"
+    ExpiresByType application/javascript "access 1 month"
+    ExpiresByType application/json "access 1 month"
+</IfModule>

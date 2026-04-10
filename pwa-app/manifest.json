@@ -1,0 +1,24 @@
+{
+  "name": "BulkTools Pro",
+  "short_name": "BulkTools",
+  "description": "Professional daily utilities in your pocket. Fast, secure, and offline capable.",
+  "display": "standalone",
+  "start_url": "/pwa-app/index.html",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "app/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["utilities", "productivity"]
+}

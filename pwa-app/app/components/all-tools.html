@@ -1,0 +1,184 @@
+<div class="pb-6 animate-in slide-in-from-bottom-4 fade-in duration-300">
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Tools Directory</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Browse our full collection of utilities</p>
+        </div>
+        <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 rounded-full flex items-center justify-center border border-indigo-100 dark:border-indigo-800">
+            <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-600 dark:text-indigo-400"></i>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="mb-8 sticky top-1 z-10">
+        <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors"></i>
+            </div>
+            <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search 20+ tools..." 
+                class="w-full pl-11 pr-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white text-sm">
+        </div>
+    </div>
+
+    <!-- Tools Collection -->
+    <div id="tools-container" class="space-y-12">
+        <!-- Image Tools -->
+        <div class="tool-category-group" data-category="image">
+            <h3 class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 pl-1">Image Utilities</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Drawing Board (Ported) -->
+                <button onclick="navigate('drawing-board')" class="tool-item bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 active:scale-[0.98] transition-all text-left group">
+                    <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="palette" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">Drawing Board</h4>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">Collaborative sketch canvas</p>
+                    </div>
+                    <span class="px-2 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-[8px] font-black uppercase tracking-widest rounded-md">Ready</span>
+                </button>
+
+                <!-- Compressor (Ported) -->
+                <button onclick="navigate('compressor')" class="tool-item bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 active:scale-[0.98] transition-all text-left group">
+                    <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="minimize-2" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">Image Compressor</h4>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">Target KB size optimization</p>
+                    </div>
+                    <span class="px-2 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-[8px] font-black uppercase tracking-widest rounded-md">Ready</span>
+                </button>
+
+                <!-- Resize (Unported) -->
+                <div class="tool-item bg-slate-50/50 dark:bg-slate-900/20 p-4 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 flex items-center gap-4 opacity-70 grayscale">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="maximize" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-600 dark:text-slate-500">Image Resizer</h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-600">Custom pixel dimensions</p>
+                    </div>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-md">Soon</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Tools -->
+        <div class="tool-category-group" data-category="text">
+            <h3 class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 pl-1">Text Utilities</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Text Editor (Ported) -->
+                <button onclick="navigate('text-editor')" class="tool-item bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 active:scale-[0.98] transition-all text-left group">
+                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="file-edit" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">Text Editor</h4>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">Rich text & live stats</p>
+                    </div>
+                    <span class="px-2 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-[8px] font-black uppercase tracking-widest rounded-md">Ready</span>
+                </button>
+
+                <!-- Case Converter (Unported) -->
+                <div class="tool-item bg-slate-50/50 dark:bg-slate-900/20 p-4 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 flex items-center gap-4 opacity-70 grayscale">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="type" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-600 dark:text-slate-500">Case Converter</h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-600">UPPER, lower, Title, Sentence</p>
+                    </div>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-md">Soon</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tools -->
+        <div class="tool-category-group" data-category="sec">
+            <h3 class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 pl-1">Security & Crypto</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Password Generator (Unported) -->
+                <div class="tool-item bg-slate-50/50 dark:bg-slate-900/20 p-4 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 flex items-center gap-4 opacity-70 grayscale">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="key" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-600 dark:text-slate-500">Password Gen</h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-600">Secure random strings</p>
+                    </div>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-md">Soon</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Tools -->
+        <div class="tool-category-group" data-category="time">
+            <h3 class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 pl-1">Timing & Events</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Timer (Ported) -->
+                <button onclick="navigate('timer')" class="tool-item bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 active:scale-[0.98] transition-all text-left group">
+                    <div class="w-12 h-12 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-xl flex items-center justify-center shrink-0">
+                        <i data-lucide="timer" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">Countdown</h4>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">Events & alarms</p>
+                    </div>
+                    <span class="px-2 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-[8px] font-black uppercase tracking-widest rounded-md">Ready</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-results" class="hidden p-12 text-center rounded-3xl bg-slate-100/50 dark:bg-slate-900/50 border border-dashed border-slate-200 dark:border-slate-800">
+        <i data-lucide="search-x" class="w-12 h-12 text-slate-300 mx-auto mb-4"></i>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">No tools found</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Try searching for something else like "image" or "txt".</p>
+    </div>
+</div>
+
+<script>
+function filterTools() {
+    const query = document.getElementById('tool-search').value.toLowerCase();
+    const items = document.querySelectorAll('.tool-item');
+    const groups = document.querySelectorAll('.tool-category-group');
+    const noResults = document.getElementById('no-results');
+    let hasResults = false;
+
+    items.forEach(item => {
+        const title = item.querySelector('h4').innerText.toLowerCase();
+        const desc = item.querySelector('p').innerText.toLowerCase();
+        
+        if (title.includes(query) || desc.includes(query)) {
+            item.classList.remove('hidden');
+            item.classList.add('flex');
+            hasResults = true;
+        } else {
+            item.classList.remove('flex');
+            item.classList.add('hidden');
+        }
+    });
+
+    // Hide entire groups if no items visible
+    groups.forEach(group => {
+        const visibleItems = group.querySelectorAll('.tool-item:not(.hidden)');
+        if (visibleItems.length === 0) {
+            group.classList.add('hidden');
+        } else {
+            group.classList.remove('hidden');
+        }
+    });
+
+    if (hasResults) {
+        noResults.classList.add('hidden');
+    } else {
+        noResults.classList.remove('hidden');
+    }
+}
+
+// Initial check
+if (typeof lucide !== 'undefined') lucide.createIcons();
+</script>
