@@ -114,6 +114,13 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['color picker from image', 'image color extractor', 'get hex code from image', 'rgb color picker', 'color palette generator', 'online eye dropper tool'],
                 'seo_text' => '<p>Find the perfect color with BulkTools\'s <strong>interactive Color Picker from Image</strong>. Simply upload any image and click on any pixel to instantly get its HEX, RGB, and HSL values.</p><p class="mt-4">This tool is a favorite among web designers and front-end developers who need to match brand colors or find inspiration from photographs. The tool features a real-time magnifying glass for precision picking.</p>',
             ],
+            'drawing-board' => [
+                'name' => 'Online Drawing Board',
+                'desc' => 'Sketch, draw, and design with a professional online canvas tool.',
+                'seo_desc' => 'Free online drawing board and sketch tool. Create professional drawings, add shapes, text, and export to PNG or JPG. Perfect for quick mockups and artistic sketches.',
+                'keywords' => ['online drawing board', 'sketch tool online', 'free whiteboard', 'web canvas', 'draw online', 'digital sketchbook', 'shapes and text drawing', 'export drawing to png'],
+                'seo_text' => '<p>BulkTools\'s <strong>Online Drawing Board</strong> is a powerful, professional-grade sketching tool that works directly in your browser. Whether you need to create a quick diagram, sketch out a design concept, or just doodle, our feature-rich canvas provides everything you need.</p><p class="mt-4"><strong>Key Features:</strong> Multiple drawing tools (Brush, Pencil, Eraser), geometric shapes (Rectangle, Circle, Triangle, Arrows), text labels, custom color palettes, and object manipulation. You can easily move, resize, and rotate any element you add to the board.</p><p class="mt-4">Our drawing tool is built for performance and privacy. Everything happens 100% client-side, meaning your art never leaves your computer unless you choose to download it. Save your masterpieces in high-quality PNG or JPG formats instantly.</p>',
+            ],
         ]
     ],
     'text' => [
@@ -154,6 +161,13 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free online Base64 decoder. Convert Base64-encoded strings back to plain text, URLs, or data instantly. Works in-browser for maximum privacy.',
                 'keywords' => ['base64 decode', 'base64 decoder online', 'decode base64 string', 'base64 to text', 'decode base64 online free', 'base64 decoding tool', 'online base64 decoder'],
                 'seo_text' => '<p>The <strong>free BulkTools Base64 Decoder</strong> converts Base64-encoded strings back into their original plain text, URLs, or binary data representation. If you\'ve received a Base64-encoded value and need to read the underlying content, this tool decodes it instantly.</p><p class="mt-4"><strong>Why decode Base64?</strong> Developers often encounter Base64-encoded data when working with APIs, JWT tokens, email MIME parts, or configuration files. Decoding makes it readable and helps you debug, inspect, or transform the underlying data without writing custom scripts.</p><p class="mt-4">All decoding happens directly in your browser — your data never leaves your device, ensuring complete privacy. No login or registration required. Completely free and unlimited use.</p>',
+            ],
+            'text-editor' => [
+                'name' => 'Online Text Editor',
+                'desc' => 'Write, format, and edit text with a professional rich-text editor.',
+                'seo_desc' => 'Free online rich text editor. Create, format, and edit documents with bold, italics, lists, and more. Features real-time word count, auto-save, and export to TXT or HTML.',
+                'keywords' => ['online text editor', 'rich text editor online', 'free text editor', 'word processor online', 'edit text online', 'quill text editor', 'notepad online with formatting', 'clean text tool', 'word count editor', 'auto save text editor'],
+                'seo_text' => '<p>BulkTools\'s <strong>Online Text Editor</strong> is a powerful, professional-grade writing tool that works directly in your browser. Whether you need to draft a blog post, format a report, or just need a clean space for focus writing, our feature-rich editor provides everything you need.</p><p class="mt-4"><strong>Key Features:</strong> Advanced rich-text formatting (Bold, Italic, Underline, Lists, Links), real-time document statistics (word count, character count, estimated reading time), and one-click text cleaning utilities. The editor features a distraction-free mode and a premium glassmorphic UI that adapts to your theme preference.</p><p class="mt-4">Our editor is built for productivity and reliability. With <strong>built-in auto-save</strong>, your work is stored automatically in your browser\'s local storage, ensuring you never lose a draft. Export your finished work instantly in clean TXT or HTML formats. Everything happens 100% client-side, maintaining your privacy at all times.</p>',
             ],
             'uuid-generator' => [
                 'name' => 'UUID Generator',
@@ -236,6 +250,19 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free secure image sharing tool. Upload an image up to 10MB, encrypt it in your browser, and share a one-time use link that automatically deletes the file after viewing.',
                 'keywords' => ['secure image share', 'encrypted image upload', 'burn after reading image', 'one time view image', 'secure drop', 'private image share', 'e2ee image sharing'],
                 'seo_text' => '<p>BulkTools\'s <strong>Secure Image Share</strong> provides ultimate privacy for sending sensitive photos. Images are encrypted directly in your browser using End-to-End Encryption (E2EE). Our servers never see your image, they only see garbled ciphertext.</p><p class="mt-4"><strong>Burn After Reading:</strong> Once the recipient opens the link and decrypts the image, it is permanently and irreversibly deleted from our servers. The link will never work again, guaranteeing that no one else can intercept it.</p>',
+            ],
+        ]
+    ],
+    'time' => [
+        'name' => 'Time Tools',
+        'icon' => 'clock',
+        'tools' => [
+            'countdown-timer' => [
+                'name' => 'Countdown Timer',
+                'desc' => 'Set a custom timer that triggers a buzzer when it hits zero.',
+                'seo_desc' => 'Free online countdown timer with alarm buzzer. Set your target time in hours, minutes, and seconds, and run the counter down to zero with an alarm.',
+                'keywords' => ['countdown timer', 'online timer with alarm', 'counter tool', 'buzzer timer', 'free countdown clock', 'stopwatch and timer', 'time tracker', 'productivity timer'],
+                'seo_text' => '<p>BulkTools\'s <strong>free online Countdown Timer</strong> is the perfect utility for tracking time for tasks, cooking, workouts, or study sessions. Simply enter your desired hours, minutes, and seconds, and start the timer.</p><p class="mt-4"><strong>Key Features:</strong> Features a clear digital display, pause/resume functionality, and an audible <strong>alarm buzzer</strong> that sounds automatically when the timer reaches zero. Never miss a deadline or burn a meal again!</p><p class="mt-4">Our countdown timer works directly in your web browser without any installation, meaning you can keep it running in a background tab.</p>',
             ],
         ]
     ]
