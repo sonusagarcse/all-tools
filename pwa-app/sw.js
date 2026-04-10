@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bulktools-cache-v3'; // Incremented version
+const CACHE_NAME = 'bulktools-cache-v5'; // Incremented for production deployment
 const ASSETS_TO_CACHE = [
   '/pwa-app/',
   '/pwa-app/index.html',

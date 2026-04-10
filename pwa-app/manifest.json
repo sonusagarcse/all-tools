@@ -1,15 +1,17 @@
 {
-  "id": "/pwa-app/",
+  "id": "./",
   "name": "BulkTools Pro",
   "short_name": "BulkTools",
   "description": "Professional daily utilities in your pocket. Fast, secure, and offline capable.",
+  "lang": "en-US",
+  "dir": "ltr",
   "display": "standalone",
   "display_override": [
     "window-controls-overlay",
     "minimal-ui"
   ],
-  "scope": "/pwa-app/",
-  "start_url": "/pwa-app/index.html",
+  "scope": "./",
+  "start_url": "./index.html",
   "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#6366f1",

@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
-    "critical": false,
-    "release_notes": "Initial deployment with professional update system."
+    "version": "1.0.5",
+    "critical": true,
+    "release_notes": "Production launch. Fixed Android 14 security warning and subfolder path resolution."
 }
