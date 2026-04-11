@@ -41,14 +41,14 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <!-- Custom PWA Styles -->
-    <link rel="stylesheet" href="app/assets/css/style.css">
+    <link rel="stylesheet" id="main-styles" href="app/assets/css/style.css">
 </head>
-<<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20 select-none transition-colors duration-300"> <!-- Select-none prevents native OS selection highlights for App feel -->
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20 select-none transition-colors duration-300">
     
     <!-- Splash Screen -->
     <div id="splash-screen" class="fixed inset-0 bg-indigo-600 z-[9999] flex flex-col items-center justify-center transition-opacity duration-500">
         <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl mb-6 shadow-indigo-900/50">
-            <i data-lucide="layers" class="w-8 h-8 text-indigo-600"></i>
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
         </div>
         <h1 class="text-3xl font-bold text-white tracking-tight" style="font-family: 'Space Grotesk', sans-serif;">BulkTools</h1>
         <div class="absolute bottom-12 flex flex-col items-center">
@@ -82,7 +82,7 @@
         <!-- Loader -->
     </main>
 
-    <!-- Bottom App Navigation Fixed -->
+    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around items-center z-50 safe-area-bottom shadow-[0_-4px_10px_rgba(0,0,0,0.02)] transition-colors">
         <button onclick="navigate('home')" class="nav-btn flex flex-col items-center justify-center w-16 h-full text-indigo-600 active-nav" data-target="home">
             <i data-lucide="home" class="w-5 h-5 mb-1"></i>
@@ -102,7 +102,7 @@
         </button>
     </nav>
 
-    <!-- Update Notification Snackbar -->
+    <!-- Update UI -->
     <div id="update-snackbar" class="fixed bottom-24 left-4 right-4 md:left-auto md:right-6 md:w-80 bg-slate-900 dark:bg-slate-800 border border-slate-700 text-white p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-[10000] transform translate-y-40 opacity-0 transition-all duration-500 flex flex-col gap-4 pointer-events-none">
         <div class="flex items-start gap-4">
             <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0">
@@ -110,114 +110,118 @@
             </div>
             <div>
                 <h4 class="font-bold text-sm">Update Available 🚀</h4>
-                <p class="text-xs text-slate-400 mt-1">A new version of BulkTools is ready for you.</p>
+                <p id="release-notes" class="text-xs text-slate-400 mt-1">A new version of BulkTools is ready.</p>
             </div>
         </div>
         <div class="flex gap-2">
-            <button id="update-confirm" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors active:scale-95">
-                Update Now
-            </button>
-            <button id="update-cancel" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">
-                Later
-            </button>
+            <button id="update-confirm" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors active:scale-95">Update Now</button>
+            <button id="update-cancel" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">Later</button>
         </div>
     </div>
 
-    <!-- Global App Scripts -->
+    <!-- Core App Logic -->
     <script src="app/app.js"></script>
     <script>
-        // Init Icons safely
-        window.onload = () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        };
+        (function() {
+            let registration;
+            let currentVersion = localStorage.getItem('bt_app_version') || '1.1.2';
 
-        // --- PWA UPDATE SYSTEM ---
-        let newWorker;
-        const snackbar = document.getElementById('update-snackbar');
+            // 1. Initial Version & Asset Check
+            async function bootApp() {
+                try {
+                    const res = await fetch('./version.json?t=' + Date.now());
+                    const data = await res.json();
+                    
+                    // Apply version to localStorage for tracking
+                    localStorage.setItem('bt_app_version', data.version);
+                    window.BT_VERSION = data.version;
 
-        function showUpdateSnackbar() {
-            snackbar.classList.remove('translate-y-40', 'opacity-0', 'pointer-events-none');
-            snackbar.classList.add('translate-y-0', 'opacity-100');
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        }
+                    // Hard Refresh Assets if needed
+                    applyAssetVersioning(data.version);
 
-        function hideUpdateSnackbar() {
-            snackbar.classList.remove('translate-y-0', 'opacity-100');
-            snackbar.classList.add('translate-y-40', 'opacity-0', 'pointer-events-none');
-        }
-
-        document.getElementById('update-confirm').addEventListener('click', () => {
-            if (newWorker) {
-                newWorker.postMessage({ type: 'SKIP_WAITING' });
-                hideUpdateSnackbar();
-            }
-        });
-
-        document.getElementById('update-cancel').addEventListener('click', hideUpdateSnackbar);
-
-        // Service Worker Registration with Update Detection
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=1.0.8').then(reg => {
-                    console.log('[App] SW registered');
-
-                    // 1. Detect if an update is already waiting (e.g. from previous session)
-                    if (reg.waiting) {
-                        newWorker = reg.waiting;
-                        showUpdateSnackbar();
+                    // Register SW
+                    if ('serviceWorker' in navigator) {
+                        registration = await navigator.serviceWorker.register('./sw.js?v=' + data.version);
+                        handleSWUpdates(registration, data);
                     }
+                } catch (e) {
+                    console.warn('Boot failed, using offline defaults.');
+                    applyAssetVersioning(currentVersion);
+                }
+            }
 
-                    // 2. Listen for future updates
-                    reg.addEventListener('updatefound', () => {
-                        newWorker = reg.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                // New worker is installed and ready to be activated
-                                showUpdateSnackbar();
-                            }
-                        });
+            function applyAssetVersioning(v) {
+                // Update CSS
+                const style = document.getElementById('main-styles');
+                if(style) style.href = style.href.split('?')[0] + '?v=' + v;
+                
+                // Update Manifest Link
+                let manifestLink = document.querySelector('link[rel="manifest"]');
+                if(!manifestLink) {
+                    manifestLink = document.createElement('link');
+                    manifestLink.rel = 'manifest';
+                    document.head.appendChild(manifestLink);
+                }
+                manifestLink.href = 'manifest.json?v=' + v;
+            }
+
+            function handleSWUpdates(reg, data) {
+                // Check if update is waiting
+                if (reg.waiting) {
+                    showUpdatePrompt(reg, data);
+                }
+
+                // Listen for future updates
+                reg.addEventListener('updatefound', () => {
+                    const newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showUpdatePrompt(reg, data);
+                        }
                     });
                 });
 
-                // 3. Reload when new worker takes control
+                // Periodic check
+                setInterval(() => reg.update(), 1000 * 60 * 60); // Check every hour
+            }
+
+            function showUpdatePrompt(reg, data) {
+                const snackbar = document.getElementById('update-snackbar');
+                const releaseNotes = document.getElementById('release-notes');
+                if(data.release_notes) releaseNotes.innerText = data.release_notes;
+                
+                snackbar.classList.remove('translate-y-40', 'opacity-0', 'pointer-events-none');
+                snackbar.classList.add('translate-y-0', 'opacity-100');
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                document.getElementById('update-confirm').onclick = () => {
+                    if (reg.waiting) {
+                        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                };
+                document.getElementById('update-cancel').onclick = () => {
+                    snackbar.classList.remove('translate-y-0', 'opacity-100');
+                    snackbar.classList.add('translate-y-40', 'opacity-0', 'pointer-events-none');
+                };
+            }
+
+            // Detect SW takeover and reload
+            if ('serviceWorker' in navigator) {
                 let refreshing = false;
                 navigator.serviceWorker.addEventListener('controllerchange', () => {
                     if (refreshing) return;
                     refreshing = true;
                     window.location.reload();
                 });
-            });
-        }
-
-        // 4. Background Version Checking (Optional but recommended for power users)
-        async function checkVersion() {
-            try {
-                const res = await fetch('./version.json?t=' + Date.now());
-                const data = await res.json();
-                const currentVersion = localStorage.getItem('bt_app_version');
-
-                if (currentVersion && data.version !== currentVersion) {
-                    console.log('[App] Version mismatch detected:', data.version);
-                    if (data.critical) {
-                        // Use modern prompt for critical updates
-                        // We trigger SW update check which will then fire 'updatefound'
-                        if (navigator.serviceWorker.controller) {
-                            const reg = await navigator.serviceWorker.getRegistration();
-                            if (reg) reg.update();
-                        }
-                    }
-                }
-                localStorage.setItem('bt_app_version', data.version);
-            } catch (err) {
-                console.log('Version check failed');
             }
-        }
 
-        // Run initial check and then every 30 mins
-        checkVersion();
-        setInterval(checkVersion, 1000 * 60 * 30);
+            // Start the boot flow
+            bootApp();
+
+            // Init icons on load
+            window.onload = () => { if (typeof lucide !== 'undefined') lucide.createIcons(); };
+        })();
     </script>
 </body>
 </html>
+l>

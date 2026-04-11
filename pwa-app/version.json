@@ -1,5 +1,6 @@
 {
-    "version": "1.0.8",
+    "version": "1.1.2",
+    "cache_identifier": "v1.1.2",
     "critical": true,
-    "release_notes": "Forced branding and tools update for seamless mobile experience."
+    "release_notes": "Production-grade update system: Implemented cache versioning, hard-refresh logic, and asset cache-busting."
 }

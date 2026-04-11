@@ -136,7 +136,7 @@ async function loadComponent(page, pushState = true) {
 
     try {
         // Build timestamp to bust cache in dev, but SW will intercept in prod
-        const res = await fetch(`app/components/${page}.html?v=1.0`);
+        const res = await fetch(`app/components/${page}.html?v=${version}`);
         if (!res.ok) throw new Error('Network response was not ok');
         const html = await res.text();
         
