@@ -3,39 +3,63 @@
     <div class="mb-6 flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Hindi Typing</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">English to Hindi transliteration</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight">English to Hindi transliteration</p>
         </div>
-        <button onclick="navigate('all-tools')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500">
+        <button onclick="navigate('all-tools')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-indigo-600 transition-colors">
             <i data-lucide="arrow-left" class="w-5 h-5"></i>
         </button>
     </div>
 
     <!-- Main Editor -->
-    <div class="bg-white dark:bg-slate-900 p-4 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm mb-6 relative group">
-        <textarea id="pwa-hindi-input" class="w-full h-64 bg-transparent border-none text-slate-900 dark:text-white text-lg p-4 focus:ring-0 placeholder:text-slate-300 dark:placeholder:text-slate-700 resize-none" placeholder="Type in English (e.g. namaste) and hit space..."></textarea>
+    <div class="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm mb-6 relative group overflow-hidden">
+        
+        <!-- Status Indicator -->
+        <div id="pwa-hindi-status" class="absolute top-4 right-4 z-10 opacity-0 transition-opacity">
+            <div class="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></div>
+                Transliterating
+            </div>
+        </div>
+
+        <textarea id="pwa-hindi-input" 
+            class="w-full h-72 bg-transparent border-none text-slate-900 dark:text-white text-lg p-6 focus:ring-0 placeholder:text-slate-300 dark:placeholder:text-slate-700 resize-none font-medium leading-relaxed" 
+            placeholder="Type in English (e.g. namaste) and press Space..."></textarea>
         
         <!-- Floating Actions -->
-        <div class="absolute bottom-4 right-4 flex gap-2">
-            <button id="pwa-hindi-copy" class="p-3 bg-indigo-600 text-white rounded-2xl shadow-lg active:scale-95 transition-transform flex items-center gap-2 text-xs font-bold">
+        <div class="absolute bottom-6 right-6 flex gap-2">
+            <button id="pwa-hindi-copy" class="h-12 px-6 bg-indigo-600 text-white rounded-2xl shadow-xl shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-2 text-sm font-bold">
                 <i data-lucide="copy" class="w-4 h-4"></i> Copy
             </button>
-            <button onclick="document.getElementById('pwa-hindi-input').value = ''" class="p-3 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-2xl active:scale-95 transition-transform">
+            <button id="pwa-hindi-clear" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-2xl active:scale-95 transition-all flex items-center justify-center hover:text-red-500">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
         </div>
     </div>
 
-    <!-- Instructions -->
-    <div class="p-6 bg-amber-50 dark:bg-amber-900/10 rounded-3xl border border-amber-100 dark:border-amber-900/20 flex items-start gap-4">
-        <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-            <i data-lucide="info" class="w-4 h-4"></i>
+    <!-- Instructions Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 bg-amber-50 dark:bg-amber-900/10 rounded-3xl border border-amber-100 dark:border-amber-900/20 flex items-start gap-4">
+            <div class="w-9 h-9 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                <i data-lucide="info" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-widest mb-1">Mobile Tip</h4>
+                <p class="text-[10px] text-amber-600/80 dark:text-amber-400/60 leading-relaxed font-medium">
+                    On some phones, press <span class="bg-amber-100 dark:bg-amber-900/50 px-1.5 rounded font-bold italic">Space</span> or <span class="bg-amber-100 dark:bg-amber-900/50 px-1.5 rounded font-bold italic">Enter</span> twice if the word doesn't convert immediately.
+                </p>
+            </div>
         </div>
-        <div>
-            <h4 class="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-widest mb-1">How it works</h4>
-            <p class="text-[10px] text-amber-600/80 dark:text-amber-400/60 leading-relaxed font-medium">
-                Type phonetic English words and press <span class="bg-amber-100 dark:bg-amber-900/50 px-1 rounded">Space</span> to convert.
-                Example: "kaise ho" → "कैसे हो".
-            </p>
+        
+        <div class="p-5 bg-indigo-50 dark:bg-indigo-900/10 rounded-3xl border border-indigo-100 dark:border-indigo-900/20 flex items-start gap-4">
+            <div class="w-9 h-9 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <i data-lucide="keyboard" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black text-indigo-700 dark:text-indigo-400 uppercase tracking-widest mb-1">Example</h4>
+                <p class="text-[10px] text-indigo-600/80 dark:text-indigo-400/60 leading-relaxed font-medium italic">
+                    "Bharat desh mahaan hai" <br>becomes "भारत देश महान है"
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -43,57 +67,120 @@
 <script>
 (function() {
     const textarea = document.getElementById('pwa-hindi-input');
-    
-    // Transliteration logic
-    textarea.addEventListener('keyup', async (e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-             await transliterateLastWord();
-        }
-    });
+    const status = document.getElementById('pwa-hindi-status');
+    let isProcessing = false;
 
-    async function transliterateLastWord() {
+    // Enhanced Transliteration Logic
+    async function transliterateBuffer() {
         const text = textarea.value;
         const selectionStart = textarea.selectionStart;
         
+        // Match the word immediately preceding the cursor (English letters + optional punctuation)
         const textBeforeCursor = text.substring(0, selectionStart);
-        const match = textBeforeCursor.match(/([a-zA-Z]+)(\s+)$/);
+        // Regex: find the last word ending in space/enter/tab
+        const match = textBeforeCursor.match(/([a-zA-Z]+)([\s\r\n\t]+)$/);
         
-        if (match) {
+        if (match && !isProcessing) {
             const word = match[1];
             const spacing = match[2];
             
-            try {
-                const response = await fetch(`https://inputtools.google.com/request?text=${word}&itc=hi-t-i0-und&num=1&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`);
-                const data = await response.json();
-                
-                if (data[0] === 'SUCCESS') {
-                    const hindiWord = data[1][0][1][0];
-                    const newText = text.substring(0, selectionStart - word.length - spacing.length) + hindiWord + spacing + text.substring(selectionStart);
-                    textarea.value = newText;
-                    const newCursorPos = selectionStart - word.length + hindiWord.length;
-                    textarea.setSelectionRange(newCursorPos, newCursorPos);
-                }
-            } catch (err) {
-                console.error("Transliteration failed:", err);
-            }
+            await performTransliteration(word, spacing, selectionStart);
         }
     }
 
-    // Copy logic
-    document.getElementById('pwa-hindi-copy').addEventListener('click', () => {
-        textarea.select();
-        navigator.clipboard.writeText(textarea.value);
+    async function performTransliteration(word, spacing, selectionStart) {
+        isProcessing = true;
+        status.classList.remove('opacity-0');
         
-        // Visual feedback
+        try {
+            const response = await fetch(`https://inputtools.google.com/request?text=${encodeURIComponent(word)}&itc=hi-t-i0-und&num=1&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`);
+            const data = await response.json();
+            
+            if (data[0] === 'SUCCESS') {
+                const hindiWord = data[1][0][1][0];
+                const text = textarea.value;
+                
+                // Construct new text
+                const prefix = text.substring(0, selectionStart - word.length - spacing.length);
+                const suffix = text.substring(selectionStart);
+                
+                textarea.value = prefix + hindiWord + spacing + suffix;
+                
+                // Set cursor position correctly after the newly added space
+                const newPos = prefix.length + hindiWord.length + spacing.length;
+                textarea.setSelectionRange(newPos, newPos);
+            }
+        } catch (err) {
+            console.error("Transliteration failed:", err);
+        } finally {
+            isProcessing = false;
+            status.classList.add('opacity-0');
+        }
+    }
+
+    // Force Transliterate Pending (Used for Copy action)
+    async function transliteratePendingWord() {
+        const text = textarea.value;
+        const selectionStart = textarea.selectionStart;
+        
+        // Match a word even if NO space follows it (at end of text)
+        const textBeforeCursor = text.substring(0, selectionStart);
+        const match = textBeforeCursor.match(/([a-zA-Z]{2,})$/); // At least 2 chars to avoid single letters
+        
+        if (match && !isProcessing) {
+            const word = match[1];
+            await performTransliteration(word, '', selectionStart);
+        }
+    }
+
+    // Listeners
+    textarea.addEventListener('keyup', (e) => {
+        // Space, Enter, or any punctuation that usually ends a word
+        if ([' ', 'Enter', '.', ',', '?', '!'].includes(e.key)) {
+            transliterateBuffer();
+        }
+    });
+
+    // Special handling for mobile (input event often better than keyup)
+    textarea.addEventListener('input', (e) => {
+        // Only trigger on spaces or newlines
+        if (e.data === ' ' || e.inputType === 'insertLineBreak') {
+            transliterateBuffer();
+        }
+    });
+
+    // Copy Tool logic (with auto-transliterate)
+    document.getElementById('pwa-hindi-copy').addEventListener('click', async () => {
         const btn = document.getElementById('pwa-hindi-copy');
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
-        btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
-        setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-        }, 2000);
+        
+        // 1. Try to convert whatever was just typed
+        await transliteratePendingWord();
+        
+        // 2. Do the copy
+        try {
+            await navigator.clipboard.writeText(textarea.value);
+            
+            // Visual feedback
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+            btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+            }, 2000);
+        } catch (err) {
+            alert('Failed to copy text. Please try manual copy.');
+        }
+    });
+
+    // Clear logic
+    document.getElementById('pwa-hindi-clear').addEventListener('click', () => {
+        if (textarea.value.trim() !== '' && confirm('Clear everything?')) {
+            textarea.value = '';
+            textarea.focus();
+        }
     });
 
     if (typeof lucide !== 'undefined') lucide.createIcons();

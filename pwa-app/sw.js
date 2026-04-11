@@ -4,7 +4,7 @@
  * Fix: Auto-update, force fresh icons, aggressive cache invalidation
  */
 
-const CACHE_VERSION = 'v1.3.0';
+const CACHE_VERSION = 'v1.3.1';
 const CACHE_NAME = `bulktools-${CACHE_VERSION}`;
 
 // Assets to pre-cache on install

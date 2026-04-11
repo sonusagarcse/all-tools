@@ -45,7 +45,7 @@
                         <div class="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </div>
-                        <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Clear Offline Cache</span>
+                        <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Clear Offline Files</span>
                     </div>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 dark:text-slate-600"></i>
                 </button>
@@ -56,8 +56,27 @@
                         </div>
                         <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Version</span>
                     </div>
-                    <span class="text-xs font-bold text-slate-400 dark:text-slate-500">1.0.5 PRO</span>
+                    <span class="text-xs font-bold text-slate-400 dark:text-slate-500">1.3.1 PRO</span>
                 </div>
+            </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section>
+            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Troubleshooting</h3>
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+                <button onclick="hardResetApp()" class="w-full flex items-center justify-between p-4 active:bg-red-50 dark:active:bg-red-900/10 transition-colors text-left group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <span class="text-sm font-bold text-red-600 dark:text-red-400">Hard Reset App</span>
+                            <p class="text-[10px] text-slate-400 font-medium">Clear all storage & fix stuck updates</p>
+                        </div>
+                    </div>
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-300 dark:text-red-900 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                </button>
             </div>
         </section>
     </div>
@@ -85,11 +104,35 @@
     }
 
     async function clearAppCache() {
-        if(confirm('This will delete all offline files. Proceed?')) {
+        if(confirm('This will delete offline files. You will need internet to reload tools. Proceed?')) {
             const names = await caches.keys();
             await Promise.all(names.map(name => caches.delete(name)));
-            alert('Cache cleared! App will reload to refresh assets.');
+            alert('Cache cleared!');
             window.location.reload();
+        }
+    }
+
+    async function hardResetApp() {
+        const message = "NUCLEAR OPTION: This will unregister the app, clear all storage, and reset everything. \n\nUse this ONLY if updates are stuck. Proceed?";
+        if(confirm(message)) {
+            // 1. Unregister Service Workers
+            if ('serviceWorker' in navigator) {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for(let registration of registrations) {
+                    await registration.unregister();
+                }
+            }
+            // 2. Clear Cache API
+            const names = await caches.keys();
+            await Promise.all(names.map(name => caches.delete(name)));
+            
+            // 3. Clear LocalStorage / SessionStorage
+            localStorage.clear();
+            sessionStorage.clear();
+
+            alert('App has been reset. It will now reload fresh from the server.');
+            // Force reload with timestamp to bypass proxies
+            window.location.href = window.location.pathname + '?reset=' + Date.now();
         }
     }
 
