@@ -9,6 +9,61 @@
         </button>
     </div>
 
+    <!-- ── INSTALL BANNER ─────────────────────────────────────────────────────── -->
+    <!-- 
+        State A: Browser gave us beforeinstallprompt → show "Install App" button. 
+        State B: App is already installed (standalone mode) → hide the card entirely. 
+        State C: Browser didn't fire the prompt (iOS/Samsung/already dismissed) → show manual guide.
+    -->
+    <div id="install-banner" class="mb-6 hidden">
+
+        <!-- State A: Install button available -->
+        <div id="install-btn-card" class="hidden bg-gradient-to-br from-indigo-600 to-violet-600 rounded-3xl p-5 text-white shadow-xl shadow-indigo-500/25 relative overflow-hidden">
+            <!-- Decorative bg circles -->
+            <div class="absolute -top-6 -right-6 w-32 h-32 bg-white/10 rounded-full pointer-events-none"></div>
+            <div class="absolute -bottom-8 -left-4 w-24 h-24 bg-white/5 rounded-full pointer-events-none"></div>
+
+            <div class="relative flex items-start gap-4">
+                <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center shrink-0 backdrop-blur-sm">
+                    <i data-lucide="download" class="w-6 h-6 text-white"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h2 class="font-black text-base leading-tight mb-0.5">Install BulkTools</h2>
+                    <p class="text-indigo-100 text-xs leading-relaxed">Add to home screen for instant access & offline support.</p>
+                </div>
+            </div>
+            <div class="relative mt-4 flex gap-2">
+                <button id="install-pwa-btn" class="flex-1 py-2.5 bg-white text-indigo-600 font-black text-sm rounded-xl active:scale-95 transition-transform shadow-sm">
+                    Install Now
+                </button>
+                <button id="install-dismiss-btn" class="px-4 py-2.5 bg-white/20 text-white text-xs font-bold rounded-xl active:scale-95 transition-transform">
+                    Later
+                </button>
+            </div>
+        </div>
+
+        <!-- State C: Manual guide (iOS / already-dismissed / Samsung etc.) -->
+        <div id="install-guide-card" class="hidden bg-gradient-to-br from-slate-800 to-slate-900 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-5 text-white shadow-xl relative overflow-hidden border border-slate-700">
+            <div class="absolute -top-6 -right-6 w-32 h-32 bg-indigo-500/10 rounded-full pointer-events-none"></div>
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 bg-indigo-600/30 rounded-2xl flex items-center justify-center shrink-0 border border-indigo-500/20">
+                    <i data-lucide="smartphone" class="w-6 h-6 text-indigo-400"></i>
+                </div>
+                <div>
+                    <h2 class="font-black text-base leading-tight mb-0.5">Add to Home Screen</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Install BulkTools as an app for the best experience.</p>
+                </div>
+            </div>
+            <!-- Step-by-step guide, auto-populated by JS -->
+            <div id="install-steps" class="space-y-2 text-xs text-slate-300">
+                <!-- filled by JS based on OS/browser -->
+            </div>
+            <button id="install-guide-dismiss" class="mt-4 w-full py-2 bg-slate-700 hover:bg-slate-600 text-xs font-bold text-slate-300 rounded-xl active:scale-95 transition-transform">
+                Got it
+            </button>
+        </div>
+    </div>
+
     <!-- Quick Tools Grid -->
     <div class="grid grid-cols-2 gap-4 mb-8">
         <!-- List Item Card - Drawing Board -->
@@ -67,7 +122,7 @@
         </button>
 
         <!-- List Item Card - Timer -->
-        <button onclick="navigate('timer')" class="w-full bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col gap-3 active:bg-slate-50 dark:active:bg-slate-800 transition-all text-left group">
+        <button onclick="navigate('timer')" class="w-full bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 transition-all text-left group shadow-sm flex flex-col gap-3 active:bg-slate-50 dark:active:bg-slate-800">
             <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
                 <i data-lucide="timer" class="w-5 h-5"></i>
             </div>
@@ -80,7 +135,7 @@
 
     <!-- Promo Banner -->
     <div class="bg-indigo-600 rounded-3xl p-6 text-white border border-indigo-500 relative overflow-hidden transition-colors shadow-lg shadow-indigo-500/20">
-        <h2 class="text-lg font-black mb-1 font-black">Professional Tools</h2>
+        <h2 class="text-lg font-black mb-1">Professional Tools</h2>
         <p class="text-indigo-100 text-xs mb-4">All core utilities work entirely offline. Your data never leaves this device.</p>
         <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-lg bg-white/20 text-white flex items-center justify-center">
@@ -90,3 +145,132 @@
         </div>
     </div>
 </div>
+
+<script>
+(function () {
+    // ── Never show if running in standalone (already installed) ────────────────
+    const isStandalone =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true; // iOS Safari
+
+    if (isStandalone) return; // App already installed — hide banner completely
+
+    // ── Check if user dismissed within last 7 days ─────────────────────────────
+    const DISMISS_KEY = 'bt_install_dismissed';
+    const lastDismissed = parseInt(localStorage.getItem(DISMISS_KEY) || '0', 10);
+    const sevenDays = 7 * 24 * 60 * 60 * 1000;
+    const wasDismissedRecently = (Date.now() - lastDismissed) < sevenDays;
+
+    const banner     = document.getElementById('install-banner');
+    const btnCard    = document.getElementById('install-btn-card');
+    const guideCard  = document.getElementById('install-guide-card');
+    const installBtn = document.getElementById('install-pwa-btn');
+    const dismissBtn = document.getElementById('install-dismiss-btn');
+    const guideClose = document.getElementById('install-guide-dismiss');
+    const stepsEl    = document.getElementById('install-steps');
+
+    function showBanner(card) {
+        banner.classList.remove('hidden');
+        card.classList.remove('hidden');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function hideBanner() {
+        localStorage.setItem(DISMISS_KEY, Date.now().toString());
+        banner.classList.add('hidden');
+    }
+
+    // ── Detect browser / OS for manual guide ──────────────────────────────────
+    const ua = navigator.userAgent;
+    const isIOS = /iphone|ipad|ipod/i.test(ua);
+    const isSamsung = /SamsungBrowser/i.test(ua);
+    const isFirefox = /Firefox/i.test(ua);
+
+    function buildManualGuide() {
+        let steps = [];
+        if (isIOS) {
+            steps = [
+                '1. Tap the <strong>Share</strong> button (box with arrow) in Safari',
+                '2. Scroll down and tap <strong>"Add to Home Screen"</strong>',
+                '3. Tap <strong>Add</strong> in the top right corner'
+            ];
+        } else if (isSamsung) {
+            steps = [
+                '1. Tap the <strong>⋮ Menu</strong> in Samsung Internet',
+                '2. Tap <strong>"Add page to"</strong>',
+                '3. Select <strong>"Home screen"</strong>'
+            ];
+        } else if (isFirefox) {
+            steps = [
+                '1. Tap the <strong>⋮ Menu</strong> in Firefox',
+                '2. Tap <strong>"Install"</strong> or <strong>"Add to Home Screen"</strong>'
+            ];
+        } else {
+            steps = [
+                '1. Tap the <strong>⋮ Menu</strong> in your browser',
+                '2. Select <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong>',
+                '3. Confirm by tapping <strong>Add / Install</strong>'
+            ];
+        }
+        stepsEl.innerHTML = steps.map(s => `<p class="flex gap-2 items-start"><span class="text-indigo-400 shrink-0">→</span><span>${s}</span></p>`).join('');
+    }
+
+    // ── Decision logic ─────────────────────────────────────────────────────────
+    // If deferredPrompt already captured (Chrome/Edge/Android) → show install button
+    if (window.appState && window.appState.deferredPrompt && !wasDismissedRecently) {
+        showBanner(btnCard);
+    } else if (!wasDismissedRecently) {
+        // No prompt available yet — show guide unless on a browser that will fire it later
+        // We delay slightly to let app.js set the deferredPrompt first
+        setTimeout(() => {
+            if (window.appState && window.appState.deferredPrompt) {
+                showBanner(btnCard);
+            } else {
+                buildManualGuide();
+                showBanner(guideCard);
+            }
+        }, 800);
+    }
+
+    // ── Also listen for the event firing AFTER component load ─────────────────
+    // app.js dispatches 'pwaInstallReady' after capturing beforeinstallprompt
+    window.addEventListener('pwaInstallReady', () => {
+        // If guide was showing, swap to install button
+        guideCard.classList.add('hidden');
+        if (!wasDismissedRecently) {
+            showBanner(btnCard);
+        }
+    });
+
+    // Legacy fallback for beforeinstallprompt (redundant but safe)
+    window.addEventListener('beforeinstallprompt', () => {
+        guideCard.classList.add('hidden');
+        if (!wasDismissedRecently) showBanner(btnCard);
+    });
+
+    // ── Install button click ───────────────────────────────────────────────────
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            const prompt = window.appState && window.appState.deferredPrompt;
+            if (!prompt) return;
+            installBtn.textContent = 'Installing…';
+            installBtn.disabled = true;
+            prompt.prompt();
+            const { outcome } = await prompt.userChoice;
+            window.appState.deferredPrompt = null;
+            if (outcome === 'accepted') {
+                hideBanner(); // installed — hide permanently
+            } else {
+                // User declined — show guide as fallback
+                btnCard.classList.add('hidden');
+                buildManualGuide();
+                showBanner(guideCard);
+            }
+        });
+    }
+
+    // ── Dismiss buttons ────────────────────────────────────────────────────────
+    if (dismissBtn) dismissBtn.addEventListener('click', hideBanner);
+    if (guideClose) guideClose.addEventListener('click', hideBanner);
+})();
+</script>

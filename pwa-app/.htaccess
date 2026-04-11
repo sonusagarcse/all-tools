@@ -10,29 +10,61 @@
     RewriteRule ^api/(config|functions)\.php$ - [F,L]
 
     # 2. SPA Routing Rules
-    # If the requested file/directory doesn't exist, route to index.html
-    # This allows URLs like /pwa-app/home to work on production
+    # If the requested file/directory doesn't exist → route to index.html (SPA handles it)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !^/pwa-app/api/
     RewriteRule ^ index.html [L]
 
-    # 3. Enhance Security
+    # Custom error pages
+    ErrorDocument 404 /pwa-app/404.html
+
+    # 3. Security - block sensitive config files
     <FilesMatch "\.(htaccess|htpasswd|ini|log|sh)$">
         Order Allow,Deny
         Deny from all
     </FilesMatch>
 </IfModule>
 
-# Browser Caching Rules for PWA Assets
+# ── CRITICAL CACHE FIX ────────────────────────────────────────────────────────
+# These files MUST always be fetched fresh from the server.
+# Caching them causes the "old features / no update" problem on mobile.
+<IfModule mod_headers.c>
+
+    # --- Never cache the SW and core control files ---
+    <FilesMatch "(sw\.js|version\.json|manifest\.json|index\.html|offline\.html|404\.html)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+
+    # --- Allow long-term caching for versioned assets (CSS, JS components, images) ---
+    # These are safe because we append ?v=X.X.X to bust the cache on each deploy.
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+    </FilesMatch>
+
+    <FilesMatch "\.(png|jpg|jpeg|gif|svg|webp|ico|woff2|woff|ttf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # --- Security Headers ---
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Fallback expires (if mod_headers not available)
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/png "access 1 year"
     ExpiresByType image/jpeg "access 1 year"
     ExpiresByType image/gif "access 1 year"
-    ExpiresByType image/png "access 1 year"
+    ExpiresByType image/webp "access 1 year"
+    ExpiresByType image/svg+xml "access 1 year"
     ExpiresByType text/css "access 1 month"
-    ExpiresByType text/html "access 1 month"
     ExpiresByType application/javascript "access 1 month"
-    ExpiresByType application/json "access 1 month"
+    # HTML and JSON = NO caching
+    ExpiresByType text/html "access 0 seconds"
+    ExpiresByType application/json "access 0 seconds"
 </IfModule>

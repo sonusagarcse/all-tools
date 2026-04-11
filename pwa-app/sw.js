@@ -4,7 +4,7 @@
  * Fix: Auto-update, force fresh icons, aggressive cache invalidation
  */
 
-const CACHE_VERSION = 'v1.2.0';
+const CACHE_VERSION = 'v1.2.1';
 const CACHE_NAME = `bulktools-${CACHE_VERSION}`;
 
 // Assets to pre-cache on install
@@ -12,6 +12,7 @@ const PRE_CACHE_RESOURCES = [
   '/pwa-app/',
   '/pwa-app/index.html',
   '/pwa-app/offline.html',
+  '/pwa-app/404.html',
   '/pwa-app/manifest.json',
   '/pwa-app/version.json',
   '/pwa-app/app/assets/css/style.css',

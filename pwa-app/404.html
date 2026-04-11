@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#6366f1">
+    <title>404 — Page Not Found | BulkTools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .brand { font-family: 'Space Grotesk', sans-serif; }
+
+        body {
+            background: #f8fafc;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body { background: #0f172a; }
+        }
+
+        .num-404 {
+            font-size: clamp(80px, 25vw, 140px);
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 8px 32px rgba(99,102,241,0.35));
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -4px;
+        }
+
+        .float-1 { animation: float 3s ease-in-out infinite; }
+        .float-2 { animation: float 3s ease-in-out infinite 0.5s; }
+        .float-3 { animation: float 3s ease-in-out infinite 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        .dark-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .light-card { display: none; }
+        }
+        @media (prefers-color-scheme: light) {
+            .dark-card { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="relative z-10 flex flex-col items-center text-center max-w-sm w-full">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 mb-8 opacity-70 hover:opacity-100 transition-opacity">
+            <div class="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="layers" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="brand text-slate-800 dark:text-white font-bold text-lg" style="color: #1e293b;">BulkTools</span>
+        </a>
+
+        <!-- 404 number with floating icons -->
+        <div class="relative mb-4">
+            <div class="num-404">404</div>
+
+            <div class="absolute -top-4 -left-8 w-11 h-11 bg-indigo-100 rounded-2xl flex items-center justify-center float-1 shadow-lg">
+                <i data-lucide="search-x" class="w-5 h-5 text-indigo-500"></i>
+            </div>
+            <div class="absolute top-0 -right-6 w-9 h-9 bg-violet-100 rounded-xl flex items-center justify-center float-2 shadow-md">
+                <i data-lucide="map-pin-off" class="w-4 h-4 text-violet-500"></i>
+            </div>
+            <div class="absolute -bottom-4 -right-2 w-10 h-10 bg-cyan-100 rounded-2xl flex items-center justify-center float-3 shadow-lg">
+                <i data-lucide="compass" class="w-5 h-5 text-cyan-500"></i>
+            </div>
+        </div>
+
+        <h1 class="text-2xl font-black mb-2 tracking-tight" style="color: #0f172a;">Page Not Found</h1>
+        <p class="text-sm mb-1" style="color: #64748b;">
+            The page you're looking for doesn't exist or has moved.
+        </p>
+        <p class="text-xs mb-8" style="color: #94a3b8;">
+            Double-check the URL, or head back to the app.
+        </p>
+
+        <!-- Actions -->
+        <div class="flex flex-col gap-3 w-full">
+            <a
+                href="index.html"
+                class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-black rounded-2xl text-sm transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2"
+            >
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Back to BulkTools
+            </a>
+            <button
+                onclick="window.history.back()"
+                class="w-full py-3 rounded-2xl text-sm font-bold transition-all active:scale-95 flex items-center justify-center gap-2 border"
+                style="background:#f1f5f9; color:#475569; border-color:#e2e8f0;"
+            >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Go Back
+            </button>
+        </div>
+
+        <!-- Quick links -->
+        <div class="mt-8 w-full rounded-2xl p-4 border" style="background: #f8fafc; border-color: #e2e8f0;">
+            <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: #94a3b8;">Quick Links</p>
+            <div class="grid grid-cols-2 gap-2">
+                <a href="index.html#all-tools" class="py-2.5 text-xs font-bold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5" style="background:#eef2ff; color:#4f46e5;">
+                    <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> All Tools
+                </a>
+                <a href="index.html#compressor" class="py-2.5 text-xs font-bold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5" style="background:#ecfdf5; color:#059669;">
+                    <i data-lucide="minimize-2" class="w-3.5 h-3.5"></i> Compressor
+                </a>
+                <a href="index.html#qr-generator" class="py-2.5 text-xs font-bold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5" style="background:#eef2ff; color:#6366f1;">
+                    <i data-lucide="qr-code" class="w-3.5 h-3.5"></i> QR Generator
+                </a>
+                <a href="index.html#timer" class="py-2.5 text-xs font-bold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5" style="background:#fff1f2; color:#e11d48;">
+                    <i data-lucide="timer" class="w-3.5 h-3.5"></i> Timer
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
