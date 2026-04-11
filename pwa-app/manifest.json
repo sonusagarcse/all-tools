@@ -11,22 +11,34 @@
     "minimal-ui"
   ],
   "scope": "/pwa-app/",
-  "start_url": "/pwa-app/index.html",
+  "start_url": "/pwa-app/index.html?v=1.2.0",
   "orientation": "any",
-  "background_color": "#ffffff",
+  "background_color": "#6366f1",
   "theme_color": "#6366f1",
   "icons": [
     {
-      "src": "app/assets/icon-192.png",
+      "src": "app/assets/icon-192.png?v=1.2.0",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "app/assets/icon-512.png",
+      "src": "app/assets/icon-192.png?v=1.2.0",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "app/assets/icon-512.png?v=1.2.0",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "app/assets/icon-512.png?v=1.2.0",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": [

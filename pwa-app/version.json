@@ -1,6 +1,6 @@
 {
-    "version": "1.1.2",
-    "cache_identifier": "v1.1.2",
+    "version": "1.2.0",
+    "cache_identifier": "v1.2.0",
     "critical": true,
-    "release_notes": "Production-grade update system: Implemented cache versioning, hard-refresh logic, and asset cache-busting."
+    "release_notes": "v1.2.0: Fixed icon refresh, instant SW activation, and guaranteed update delivery on reinstall."
 }
