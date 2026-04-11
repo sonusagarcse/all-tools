@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bulktools-cache-v5'; // Incremented for production deployment
+const CACHE_NAME = 'bulktools-cache-v7'; // Hybrid Processing Update
 const ASSETS_TO_CACHE = [
   '/pwa-app/',
   '/pwa-app/index.html',
@@ -11,6 +11,13 @@ const ASSETS_TO_CACHE = [
   '/pwa-app/app/components/dashboard.html',
   '/pwa-app/app/components/profile.html',
   '/pwa-app/app/components/settings.html',
+  '/pwa-app/app/components/all-tools.html',
+  '/pwa-app/app/components/compressor.html',
+  '/pwa-app/app/components/timer.html',
+  '/pwa-app/app/components/text-editor.html',
+  '/pwa-app/app/components/drawing-board.html',
+  '/pwa-app/app/components/qr-generator.html',
+  '/pwa-app/app/components/hindi-typing.html',
   '/pwa-app/manifest.json',
   '/pwa-app/version.json'
 ];

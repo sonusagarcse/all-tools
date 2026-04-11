@@ -1,5 +1,5 @@
 {
-    "version": "1.0.5",
+    "version": "1.0.7",
     "critical": true,
-    "release_notes": "Production launch. Fixed Android 14 security warning and subfolder path resolution."
+    "release_notes": "Implemented Hybrid Processing Model: Tools now automatically use server-side power when online for better quality, with seamless offline fallbacks."
 }

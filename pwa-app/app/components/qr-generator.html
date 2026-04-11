@@ -1,0 +1,179 @@
+<div class="pb-6 animate-in slide-in-from-bottom-4 fade-in duration-300">
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">QR Generator</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Custom branded QR codes</p>
+        </div>
+        <button onclick="navigate('all-tools')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- Input Section -->
+    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm mb-6">
+        <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">Content</label>
+        <textarea id="pwa-qr-data" rows="3" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl text-slate-900 dark:text-white p-4 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Enter URL or text here...">https://bulktools.lkvmbihar.in</textarea>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="bg-indigo-600 rounded-[32px] p-8 mb-6 flex flex-col items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
+        <div id="pwa-qr-canvas-container" class="relative z-10 bg-white p-4 rounded-2xl shadow-2xl">
+            <!-- QR rendered here -->
+            <div id="pwa-qr-canvas"></div>
+        </div>
+        <p class="mt-4 text-[10px] text-indigo-100 font-bold uppercase tracking-widest">Live Preview</p>
+    </div>
+
+    <!-- Customization Tabs/Accordion -->
+    <div class="space-y-4 mb-8">
+        <!-- Style Card -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+                <i data-lucide="palette" class="w-4 h-4 text-indigo-500"></i>
+                Visual Styling
+            </h3>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Dot Style</label>
+                    <select id="pwa-qr-dot-style" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-slate-900 dark:text-white p-2 text-xs">
+                        <option value="square">Square</option>
+                        <option value="dots">Dots</option>
+                        <option value="rounded">Rounded</option>
+                        <option value="classy">Classy</option>
+                        <option value="classy-rounded">C-Rounded</option>
+                        <option value="extra-rounded">E-Rounded</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Color</label>
+                    <div class="flex items-center gap-2 px-2 py-1 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                        <input type="color" id="pwa-qr-color" value="#6366f1" class="w-6 h-6 rounded bg-transparent border-none">
+                        <span id="pwa-qr-color-hex" class="text-[10px] text-slate-500 font-mono">#6366F1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logo Context -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+                <i data-lucide="image" class="w-4 h-4 text-emerald-500"></i>
+                Logo Integration
+            </h3>
+            
+            <label class="flex flex-col items-center justify-center w-full h-20 border-2 border-dashed border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
+                <div class="flex flex-col items-center justify-center pt-2 pb-2">
+                    <i data-lucide="upload-cloud" class="w-5 h-5 text-slate-400 mb-1"></i>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Upload Center Logo</p>
+                </div>
+                <input id="pwa-logo-input" type="file" class="hidden" accept="image/*" />
+            </label>
+            
+            <div id="pwa-logo-preview" class="hidden mt-3 flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-xl animate-in fade-in zoom-in-95">
+                <div class="flex items-center gap-2">
+                    <img src="" id="pwa-logo-preview-img" class="w-6 h-6 rounded bg-white object-contain">
+                    <span class="text-[10px] text-slate-500" id="pwa-logo-name">logo.png</span>
+                </div>
+                <button id="pwa-remove-logo" class="p-1 text-slate-400 hover:text-red-500">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="grid grid-cols-1 gap-3">
+        <button id="pwa-qr-download" class="w-full py-4 bg-indigo-600 text-white font-black text-sm rounded-[24px] shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform flex items-center justify-center gap-2 uppercase tracking-widest">
+            <i data-lucide="download" class="w-5 h-5"></i> Download PNG
+        </button>
+    </div>
+</div>
+
+<script>
+(function() {
+    let qrCode;
+    let logoData = null;
+
+    const container = document.getElementById("pwa-qr-canvas");
+    const dataInput = document.getElementById("pwa-qr-data");
+    const colorInput = document.getElementById("pwa-qr-color");
+    const styleSelect = document.getElementById("pwa-qr-dot-style");
+    const logoInput = document.getElementById("pwa-logo-input");
+
+    const renderQR = () => {
+        container.innerHTML = "";
+        qrCode = new QRCodeStyling({
+            width: 250,
+            height: 250,
+            type: "svg",
+            data: dataInput.value || " ",
+            image: logoData,
+            dotsOptions: {
+                color: colorInput.value,
+                type: styleSelect.value,
+            },
+            backgroundOptions: {
+                color: "#ffffff",
+            },
+            imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 10,
+                imageSize: 0.4
+            },
+            cornersSquareOptions: {
+                color: colorInput.value,
+                type: "extra-rounded"
+            }
+        });
+        qrCode.append(container);
+    };
+
+    dataInput.addEventListener('input', renderQR);
+    colorInput.addEventListener('input', (e) => {
+        document.getElementById('pwa-qr-color-hex').textContent = e.target.value.toUpperCase();
+        renderQR();
+    });
+    styleSelect.addEventListener('change', renderQR);
+
+    logoInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                logoData = event.target.result;
+                document.getElementById('pwa-logo-preview-img').src = logoData;
+                document.getElementById('pwa-logo-name').textContent = file.name;
+                document.getElementById('pwa-logo-preview').classList.remove('hidden');
+                renderQR();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('pwa-remove-logo').addEventListener('click', () => {
+        logoData = null;
+        logoInput.value = "";
+        document.getElementById('pwa-logo-preview').classList.add('hidden');
+        renderQR();
+    });
+
+    document.getElementById('pwa-qr-download').addEventListener('click', () => {
+        qrCode.download({ name: "bulktools-qr", extension: "png" });
+    });
+
+    // We need to check if QRCodeStyling is available, if not, wait for it
+    if (typeof QRCodeStyling === 'undefined') {
+        const script = document.createElement('script');
+        script.src = "https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js";
+        script.onload = renderQR;
+        document.head.appendChild(script);
+    } else {
+        renderQR();
+    }
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+})();
+</script>

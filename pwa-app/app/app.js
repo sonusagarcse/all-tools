@@ -9,8 +9,26 @@ document.addEventListener('DOMContentLoaded', () => {
         isLoggedIn: localStorage.getItem('bt_logged_in') === 'true',
         user: JSON.parse(localStorage.getItem('bt_user') || '{}'),
         theme: localStorage.getItem('bt_theme') || 'light',
+        isOnline: navigator.onLine,
+        csrfToken: null,
+        sessionHash: null,
         deferredPrompt: null
     };
+
+    // Update connectivity state
+    window.addEventListener('online', () => updateConnectivity(true));
+    window.addEventListener('offline', () => updateConnectivity(false));
+
+    function updateConnectivity(status) {
+        window.appState.isOnline = status;
+        document.body.classList.toggle('is-offline', !status);
+        console.log(`PWA Status: ${status ? 'Online' : 'Offline'}`);
+        // Optionally notify user
+        if(status) fetchSession();
+    }
+
+    // Initial session fetch
+    fetchSession();
 
     // PWA Install Prompt Listener
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -52,6 +70,22 @@ window.toggleGlobalTheme = (theme) => {
     localStorage.setItem('bt_theme', theme);
     window.appState.theme = theme;
 };
+
+// CSRF & Session fetch
+async function fetchSession() {
+    if (!navigator.onLine) return;
+    try {
+        const res = await fetch('/pwa-app/api/v1/session.php');
+        const data = await res.json();
+        if (data.success) {
+            window.appState.csrfToken = data.csrf_token;
+            window.appState.sessionHash = data.session_hash;
+            console.log('Session Bridge Active');
+        }
+    } catch (e) {
+        console.warn('Session Bridge failed - server side features unavailable.');
+    }
+}
 
 // History API support for back button
 window.addEventListener('popstate', (event) => {

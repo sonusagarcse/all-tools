@@ -121,6 +121,13 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['online drawing board', 'sketch tool online', 'free whiteboard', 'web canvas', 'draw online', 'digital sketchbook', 'shapes and text drawing', 'export drawing to png'],
                 'seo_text' => '<p>BulkTools\'s <strong>Online Drawing Board</strong> is a powerful, professional-grade sketching tool that works directly in your browser. Whether you need to create a quick diagram, sketch out a design concept, or just doodle, our feature-rich canvas provides everything you need.</p><p class="mt-4"><strong>Key Features:</strong> Multiple drawing tools (Brush, Pencil, Eraser), geometric shapes (Rectangle, Circle, Triangle, Arrows), text labels, custom color palettes, and object manipulation. You can easily move, resize, and rotate any element you add to the board.</p><p class="mt-4">Our drawing tool is built for performance and privacy. Everything happens 100% client-side, meaning your art never leaves your computer unless you choose to download it. Save your masterpieces in high-quality PNG or JPG formats instantly.</p>',
             ],
+            'qr-generator' => [
+                'name' => 'Custom QR Generator',
+                'desc' => 'Generate premium QR codes with custom colors, logos, and styles.',
+                'seo_desc' => 'Free online premium QR code generator. Customize your QR code with logos, gradients, custom shapes, and colors. Download in PNG, SVG, or JPEG.',
+                'keywords' => ['qr code generator', 'custom qr code', 'qr code with logo', 'qr code designer', 'free qr generator', 'branded qr code', 'dynamic qr code', 'qr code styling', 'professional qr code'],
+                'seo_text' => '<p>Create stunning, professional QR codes with BulkTools\'s <strong>Premium QR Code Generator</strong>. Unlike basic QR tools, our designer gives you full creative control over every aspect of your code, from the shape of the dots to the style of the corner eyes.</p><p class="mt-4"><strong>All Possible Customizations:</strong> Choose from various dot styles (rounded, classy, dots), customize corner shapes, apply linear or radial gradients, and even upload your own <strong>center logo</strong> for brand recognition. All processing happens 100% client-side, meaning your data and logos never leave your device.</p><p class="mt-4">Download your finished masterpiece in high-resolution PNG, SVG (for scaling), or JPEG formats. Perfect for business cards, marketing materials, restaurant menus, and more.</p>',
+            ],
         ]
     ],
     'text' => [
