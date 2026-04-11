@@ -4,7 +4,7 @@
  * Fix: Auto-update, force fresh icons, aggressive cache invalidation
  */
 
-const CACHE_VERSION = 'v1.2.1';
+const CACHE_VERSION = 'v1.3.0';
 const CACHE_NAME = `bulktools-${CACHE_VERSION}`;
 
 // Assets to pre-cache on install
@@ -57,8 +57,8 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((name) => {
-          // Delete ALL old bulktools caches
-          if (name.startsWith('bulktools-') && name !== CACHE_NAME) {
+          // Delete ALL old bulktools caches (including legacy prefixes)
+          if ((name.startsWith('bulktools-') || name.startsWith('bulktools-cache-')) && name !== CACHE_NAME) {
             console.log('[SW] Purging old cache:', name);
             return caches.delete(name);
           }

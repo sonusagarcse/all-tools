@@ -20,6 +20,9 @@ RewriteRule ^terms/?$           terms.php [L,QSA]
 # /sitemap.xml      → sitemap.php (dynamic XML)
 RewriteRule ^sitemap\.xml$      sitemap.php [L,QSA]
 
+# Custom error pages
+ErrorDocument 404 /tools/404.php
+
 # ── Tool Paths ──────────────────────────────────
 # /tools/image/compress-image   → tools/image/compress-image/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
