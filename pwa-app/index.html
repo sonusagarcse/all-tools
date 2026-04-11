@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#6366f1">
     <meta name="description" content="BulkTools PWA">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=1.0.8">
     <title>BulkTools Pro</title>
     
     <!-- Fonts -->
@@ -160,7 +160,7 @@
         // Service Worker Registration with Update Detection
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then(reg => {
+                navigator.serviceWorker.register('./sw.js?v=' + Date.now()).then(reg => {
                     console.log('[App] SW registered');
 
                     // 1. Detect if an update is already waiting (e.g. from previous session)

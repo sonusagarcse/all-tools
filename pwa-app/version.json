@@ -1,5 +1,5 @@
 {
-    "version": "1.0.7",
+    "version": "1.0.8",
     "critical": true,
-    "release_notes": "Implemented Hybrid Processing Model: Tools now automatically use server-side power when online for better quality, with seamless offline fallbacks."
+    "release_notes": "Forced branding and tools update for seamless mobile experience."
 }
