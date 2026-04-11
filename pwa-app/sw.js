@@ -24,8 +24,8 @@ const ASSETS_TO_CACHE = [
 
 // Install Event - Cache Core Assets
 self.addEventListener('install', (event) => {
-  // Force the new Service Worker to take control immediately
-  self.skipWaiting();
+  // We NO LONGER call self.skipWaiting() here.
+  // This allows the new SW to stay in 'waiting' state until user confirms via the UI.
   
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {

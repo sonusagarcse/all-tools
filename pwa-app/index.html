@@ -160,7 +160,7 @@
         // Service Worker Registration with Update Detection
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=' + Date.now()).then(reg => {
+                navigator.serviceWorker.register('./sw.js?v=1.0.8').then(reg => {
                     console.log('[App] SW registered');
 
                     // 1. Detect if an update is already waiting (e.g. from previous session)
