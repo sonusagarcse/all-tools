@@ -7,7 +7,7 @@
 const VALID_ROUTES = new Set([
     'home', 'all-tools', 'dashboard', 'settings', 'profile',
     'compressor', 'drawing-board', 'text-editor', 'qr-generator',
-    'hindi-typing', 'timer'
+    'hindi-typing', 'timer', 'speed-test'
 ]);
 
 document.addEventListener('DOMContentLoaded', () => {

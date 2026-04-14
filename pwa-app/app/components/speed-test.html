@@ -1,0 +1,248 @@
+<div class="pb-6 animate-in slide-in-from-bottom-4 fade-in duration-300">
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Speed Test</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Network performance analytics</p>
+        </div>
+        <button onclick="navigate('home')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- Gauge Container -->
+    <div class="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-slate-100 dark:border-slate-800 shadow-sm mb-6 flex flex-col items-center">
+        <div class="relative w-56 h-56">
+            <!-- Progress Semicircle -->
+            <svg viewBox="0 0 200 120" class="w-full h-full transform translate-y-4">
+                <path d="M20,100 A80,80 0 1,1 180,100" fill="none" class="stroke-slate-100 dark:stroke-slate-800" stroke-width="14" stroke-linecap="round"/>
+                <path id="pwa-gauge-progress" d="M20,100 A80,80 0 1,1 180,100" fill="none" class="stroke-indigo-600 transition-all duration-300" stroke-width="14" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+            </svg>
+            
+            <div class="absolute inset-0 flex flex-col items-center justify-center pt-8">
+                <span id="pwa-current-speed" class="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">0</span>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mt-[-2px]">Mbps</span>
+                <div id="pwa-test-status" class="mt-3 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-gray-400 text-[9px] font-black uppercase tracking-widest opacity-0 transition-opacity">
+                    Initializing...
+                </div>
+            </div>
+        </div>
+
+        <button id="pwa-start-btn" class="mt-8 w-full py-4 bg-indigo-600 text-white font-black text-sm rounded-[24px] shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform flex items-center justify-center gap-2 uppercase tracking-widest">
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i> Start Test
+        </button>
+    </div>
+
+    <!-- Results Table -->
+    <div class="grid grid-cols-1 gap-4 mb-6">
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+                    <i data-lucide="activity" class="w-5 h-5"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Ping</span>
+            </div>
+            <div class="text-right">
+                <span id="pwa-res-ping" class="text-lg font-black text-slate-900 dark:text-white">--</span>
+                <span class="text-[10px] font-bold text-slate-400">ms</span>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center justify-between relative overflow-hidden">
+            <div id="pwa-dl-bg" class="absolute inset-0 bg-indigo-600/5 opacity-0 transition-opacity"></div>
+            <div class="flex items-center gap-4 relative z-10">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                    <i data-lucide="download" class="w-5 h-5"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Download</span>
+            </div>
+            <div class="text-right relative z-10">
+                <span id="pwa-res-download" class="text-lg font-black text-slate-900 dark:text-white">--</span>
+                <span class="text-[10px] font-bold text-slate-400">Mbps</span>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center justify-between relative overflow-hidden">
+            <div id="pwa-ul-bg" class="absolute inset-0 bg-emerald-600/5 opacity-0 transition-opacity"></div>
+            <div class="flex items-center gap-4 relative z-10">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                    <i data-lucide="upload" class="w-5 h-5"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Upload</span>
+            </div>
+            <div class="text-right relative z-10">
+                <span id="pwa-res-upload" class="text-lg font-black text-slate-900 dark:text-white">--</span>
+                <span class="text-[10px] font-bold text-slate-400">Mbps</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const startBtn = document.getElementById('pwa-start-btn');
+    const statusEl = document.getElementById('pwa-test-status');
+    const speedEl = document.getElementById('pwa-current-speed');
+    const gauge   = document.getElementById('pwa-gauge-progress');
+    const resPing = document.getElementById('pwa-res-ping');
+    const resDl   = document.getElementById('pwa-res-download');
+    const resUl   = document.getElementById('pwa-res-upload');
+    const dlBg = document.getElementById('pwa-dl-bg');
+    const ulBg = document.getElementById('pwa-ul-bg');
+
+    const AJAX_BASE = (window.location.origin + window.location.pathname).replace('/pwa-app/', '') + '/ajax/';
+    const GAUGE_TOTAL = 251.2;
+    const THREADS = 4;
+
+    let testing = false;
+    let gaugeMax = 100;
+    let globalBytes = 0;
+    let phaseStartTime = 0;
+    let ticker = null;
+
+    async function start() {
+        if (testing) return;
+        testing = true;
+
+        startBtn.disabled = true;
+        startBtn.classList.add('opacity-50');
+        statusEl.classList.remove('opacity-0');
+        resPing.innerText = '--';
+        resDl.innerText   = '--';
+        resUl.innerText   = '--';
+        gaugeMax = 100;
+        updateUI(0);
+
+        try {
+            // 1. PING
+            statusEl.innerText = "Checking Latency...";
+            const pingTicks = [];
+            for(let i=0; i<6; i++) {
+                const s = performance.now();
+                await fetch(AJAX_BASE + 'search.php?t=' + Math.random());
+                pingTicks.push(performance.now() - s);
+            }
+            pingTicks.sort((a,b)=>a-b);
+            resPing.innerText = Math.round(pingTicks.slice(1,-1).reduce((a,b)=>a+b)/4);
+
+            // 2. DOWNLOAD
+            statusEl.innerText = "Testing Download...";
+            dlBg.classList.add('opacity-100');
+            const dlAvg = await runParallel('download');
+            updateUI(dlAvg); // Final sync
+            resDl.innerText = dlAvg.toFixed(1);
+            dlBg.classList.remove('opacity-100');
+
+            // 3. UPLOAD
+            statusEl.innerText = "Testing Upload...";
+            ulBg.classList.add('opacity-100');
+            const ulAvg = await runParallel('upload');
+            updateUI(ulAvg); // Final sync
+            resUl.innerText = ulAvg.toFixed(1);
+            ulBg.classList.remove('opacity-100');
+
+            statusEl.innerText = "Test Complete";
+        } catch(e) {
+            statusEl.innerText = "Error Occurred";
+            console.error(e);
+        } finally {
+            testing = false;
+            clearInterval(ticker);
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50');
+        }
+    }
+
+    async function runParallel(type) {
+        globalBytes = 0;
+        phaseStartTime = performance.now();
+        const TEST_DURATION = 10000; // 10 seconds per test
+        
+        // Sliding window UI ticker
+        let history = [];
+        ticker = setInterval(() => {
+            const now = performance.now();
+            history.push({ time: now, bytes: globalBytes });
+            
+            while (history.length > 0 && now - history[0].time > 1000) {
+                history.shift();
+            }
+
+            if (history.length > 1) {
+                const first = history[0];
+                const last = history[history.length - 1];
+                const deltaSecs = (last.time - first.time) / 1000;
+                if (deltaSecs > 0) {
+                    const currentMbps = (last.bytes - first.bytes) * 8 / deltaSecs / 1000000;
+                    updateUI(currentMbps);
+                }
+            }
+        }, 100);
+
+        const tasks = [];
+        for(let i=0; i<THREADS; i++) {
+            tasks.push(type === 'download' ? dlTask(TEST_DURATION) : ulTask(TEST_DURATION));
+        }
+
+        await Promise.all(tasks);
+        clearInterval(ticker);
+        
+        const totalTime = (performance.now() - phaseStartTime) / 1000;
+        return (globalBytes * 8 / 1000000) / totalTime;
+    }
+
+    async function dlTask(duration) {
+        try {
+            while (performance.now() - phaseStartTime < duration) {
+                const res = await fetch(AJAX_BASE + 'speedtest_download.php?t=' + Math.random());
+                const reader = res.body.getReader();
+                while(true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    globalBytes += value.length;
+                    
+                    if (performance.now() - phaseStartTime >= duration) return;
+                }
+            }
+        } catch(e) { /* ignore network aborts */ }
+    }
+
+    async function ulTask(duration) {
+        const size = 15 * 1024 * 1024; // 15MB
+        const data = new Uint8Array(size);
+        for(let i=0; i<size; i+=65536) crypto.getRandomValues(data.subarray(i, Math.min(i+65536, size)));
+
+        while (performance.now() - phaseStartTime < duration) {
+            await new Promise((resolve) => {
+                const xhr = new XMLHttpRequest();
+                xhr._last = 0;
+                xhr.upload.onprogress = (e) => {
+                    globalBytes += (e.loaded - xhr._last);
+                    xhr._last = e.loaded;
+                    if (performance.now() - phaseStartTime >= duration) {
+                        xhr.abort();
+                        resolve();
+                    }
+                };
+                xhr.onload = () => resolve();
+                xhr.onerror = () => resolve();
+                xhr.open('POST', AJAX_BASE + 'speedtest_upload.php?t=' + Math.random());
+                xhr.send(data);
+            });
+        }
+    }
+
+    function updateUI(mbps) {
+        if (mbps > gaugeMax * 0.9) {
+            if (gaugeMax < 1000) gaugeMax = 1000;
+            else if (gaugeMax < 10000) gaugeMax = 10000;
+        }
+        speedEl.innerText = mbps > 100 ? Math.round(mbps) : mbps.toFixed(1);
+        const p = Math.min(mbps / gaugeMax, 1);
+        gauge.style.strokeDashoffset = GAUGE_TOTAL - (GAUGE_TOTAL * p);
+    }
+
+    startBtn.onclick = start;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+})();
+</script>

@@ -217,6 +217,13 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['html minifier', 'minify html online', 'html compressor', 'reduce html file size', 'clean html code', 'seo fast loading tools', 'website optimizer', 'developer html tools'],
                 'seo_text' => '<p>BulkTools\'s <strong>free HTML Minifier</strong> compresses your HTML code by safely stripping out unnecessary whitespaces, line breaks, and HTML comments. This drastically reduces the file payload size leading to faster load speeds and improved SEO performance.</p><p class="mt-4">Perfect for software developers optimizing front-end code before production deployments. Paste your boilerplate, hit compress, and receive an instant lightweight file immediately.</p>',
             ],
+            'speed-test' => [
+                'name' => 'Internet Speed Test',
+                'desc' => 'Measure your internet download, upload speeds and latency instantly.',
+                'seo_desc' => 'Free online internet speed test. Check your download and upload Mbps and network ping in seconds. No login or app installation required.',
+                'keywords' => ['speed test', 'internet speed test', 'check internet speed', 'download speed test', 'upload speed test', 'ping test', 'network speed', 'online speed test free', 'wifi speed test'],
+                'seo_text' => '<p>BulkTools\'s <strong>Internet Speed Test</strong> is a high-performance, browser-based utility that gives you accurate results for your network connection. Unlike bloated tools with heavy ads, our speed test is optimized for speed and privacy.</p><p class="mt-4"><strong>What we measure:</strong> We calculate your <strong>Download speed</strong> (how fast data moves from the web to you), <strong>Upload speed</strong> (how fast you send data to the web), and <strong>Latency / Ping</strong> (the delay in your connection). This helps you troubleshoot slow WiFi, verify ISP promises, and ensure your connection is ready for streaming or gaming.</p>',
+            ],
             'jwt-decoder' => [
                 'name' => 'JWT Decoder',
                 'desc' => 'Decode JSON Web Tokens and view payload claims safely.',
