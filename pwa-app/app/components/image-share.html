@@ -1,0 +1,336 @@
+<div class="pb-6 animate-in slide-in-from-bottom-4 fade-in duration-300">
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Image Share</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Quickly share images to apps</p>
+        </div>
+        <button onclick="navigate('home')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-indigo-600 transition-colors">
+            <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- Offline Warning Banner -->
+    <div id="ishare-offline-banner" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 flex items-center gap-3 animate-pulse">
+        <div class="w-10 h-10 bg-amber-100 dark:bg-amber-800 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400">
+            <i data-lucide="wifi-off" class="w-5 h-5"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-amber-800 dark:text-amber-200">Cloud Sharing Offline</p>
+            <p class="text-[10px] text-amber-600 dark:text-amber-400">Connect to internet to generate shareable links.</p>
+        </div>
+    </div>
+
+    <!-- Main Tool Card -->
+    <div class="bg-white dark:bg-slate-900 rounded-[32px] p-6 border border-slate-100 dark:border-slate-800 shadow-sm mb-6">
+        
+        <!-- Dropzone / Input -->
+        <div id="ishare-dropzone" class="relative group cursor-pointer">
+            <input type="file" id="ishare-input" class="hidden" accept="image/*">
+            <div id="ishare-placeholder" class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl p-10 flex flex-col items-center justify-center gap-4 transition-all group-hover:border-indigo-400 group-hover:bg-indigo-50/30 dark:group-hover:bg-indigo-900/10">
+                <div class="w-16 h-16 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                    <i data-lucide="image-plus" class="w-8 h-8"></i>
+                </div>
+                <div class="text-center">
+                    <p class="text-sm font-bold text-slate-900 dark:text-white">Tap to select image</p>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-widest uppercase font-black">JPG, PNG, WEBP (Max 10MB)</p>
+                </div>
+            </div>
+
+            <!-- Preview UI (Hidden initially) -->
+            <div id="ishare-preview-container" class="hidden">
+                <div class="relative rounded-3xl overflow-hidden aspect-square bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl group/preview">
+                    <img id="ishare-img" class="w-full h-full object-contain" src="" alt="Preview">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                        <button id="ishare-remove" class="w-12 h-12 bg-white/20 hover:bg-red-500/80 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all active:scale-90">
+                            <i data-lucide="trash-2" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center justify-between px-1">
+                    <div>
+                        <p id="ishare-filename" class="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px]">image.png</p>
+                        <p id="ishare-size" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">0.0 KB</p>
+                    </div>
+                    <div id="ishare-status-tag" class="px-2 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[8px] font-black uppercase tracking-widest rounded-md">
+                        Selected
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div id="ishare-actions" class="mt-8 hidden">
+            <div class="space-y-4">
+                <!-- Progress UI -->
+                <div id="ishare-progress-container" class="hidden">
+                    <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden mb-2">
+                        <div id="ishare-progress-bar" class="bg-indigo-600 h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <p id="ishare-progress-text" class="text-[10px] text-slate-500 text-center font-bold uppercase tracking-widest">Uploading to Cloud...</p>
+                </div>
+
+                <!-- Result UI -->
+                <div id="ishare-result-ui" class="hidden p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 animate-in zoom-in-95">
+                    <label class="block text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-2">Cloud Share Link</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="ishare-url" readonly class="flex-1 bg-white dark:bg-slate-800 border border-indigo-100 dark:border-indigo-700 rounded-xl px-3 py-2 text-xs font-bold dark:text-white outline-none">
+                        <button id="ishare-copy" class="p-2 bg-indigo-600 text-white rounded-xl active:scale-90 transition-transform">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3">
+                    <button id="ishare-cloud-btn" class="w-full py-4 bg-indigo-600 text-white font-black text-sm rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 uppercase tracking-widest disabled:opacity-50 disabled:grayscale disabled:pointer-events-none">
+                        <i data-lucide="cloud-upload" class="w-5 h-5"></i>
+                        Create Global Link
+                    </button>
+                    
+                    <div class="flex gap-3">
+                        <button id="ishare-btn" class="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[10px] rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
+                            <i data-lucide="share-2" class="w-4 h-4"></i>
+                            Native Share
+                        </button>
+                        <button id="ishare-dl" class="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[10px] rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Offline Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Card -->
+    <div id="ishare-info" class="bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl p-4 border border-indigo-100 dark:border-indigo-900/30 flex gap-4 transition-all">
+        <div class="w-10 h-10 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center shrink-0 shadow-sm">
+            <i data-lucide="globe" id="ishare-info-icon" class="w-5 h-5 text-indigo-600 dark:text-indigo-400"></i>
+        </div>
+        <p id="ishare-info-text" class="text-[10px] leading-relaxed text-indigo-900/70 dark:text-indigo-300/70">
+            <strong>Hybrid Sharing:</strong> Use "Global Link" to upload and share with anyone online, or "Native Share" to send the file directly between apps on your device.
+        </p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const input = document.getElementById('ishare-input');
+    const dropzone = document.getElementById('ishare-dropzone');
+    const placeholder = document.getElementById('ishare-placeholder');
+    const previewContainer = document.getElementById('ishare-preview-container');
+    const previewImg = document.getElementById('ishare-img');
+    const actions = document.getElementById('ishare-actions');
+    const removeBtn = document.getElementById('ishare-remove');
+    const shareBtn = document.getElementById('ishare-btn');
+    const cloudBtn = document.getElementById('ishare-cloud-btn');
+    const downloadBtn = document.getElementById('ishare-dl');
+    const filenameLabel = document.getElementById('ishare-filename');
+    const sizeLabel = document.getElementById('ishare-size');
+    const statusTag = document.getElementById('ishare-status-tag');
+    
+    // Cloud UI
+    const offlineBanner = document.getElementById('ishare-offline-banner');
+    const progressContainer = document.getElementById('ishare-progress-container');
+    const progressBar = document.getElementById('ishare-progress-bar');
+    const progressText = document.getElementById('ishare-progress-text');
+    const resultUi = document.getElementById('ishare-result-ui');
+    const resultUrl = document.getElementById('ishare-url');
+    const copyBtn = document.getElementById('ishare-copy');
+    const infoIcon = document.getElementById('ishare-info-icon');
+    const infoText = document.getElementById('ishare-info-text');
+
+    let currentFile = null;
+
+    // --- Connectivity Logic ---
+    function updateConnectivityUI() {
+        const isOnline = window.appState ? window.appState.isOnline : navigator.onLine;
+        if (isOnline) {
+            offlineBanner.classList.add('hidden');
+            cloudBtn.disabled = false;
+            infoIcon.className = "w-5 h-5 text-indigo-600 dark:text-indigo-400";
+            infoIcon.setAttribute('data-lucide', 'globe');
+        } else {
+            offlineBanner.classList.remove('hidden');
+            cloudBtn.disabled = true;
+            infoIcon.className = "w-5 h-5 text-amber-500";
+            infoIcon.setAttribute('data-lucide', 'wifi-off');
+            // Reset cloud state if offline
+            progressContainer.classList.add('hidden');
+        }
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // Initialize connectivity
+    updateConnectivityUI();
+    window.addEventListener('online',  updateConnectivityUI);
+    window.addEventListener('offline', updateConnectivityUI);
+
+    // --- File Handling ---
+    dropzone.onclick = (e) => {
+        if (e.target.closest('#ishare-remove')) return;
+        if (!currentFile) input.click();
+    };
+
+    dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('scale-[1.02]'); };
+    dropzone.ondragleave = () => dropzone.classList.remove('scale-[1.02]');
+    dropzone.ondrop = (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('scale-[1.02]');
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    };
+
+    input.onchange = (e) => {
+        if (e.target.files.length) handleFile(e.target.files[0]);
+    };
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file.');
+            return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File too large. Max 10MB allowed for sharing.');
+            return;
+        }
+        currentFile = file;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            filenameLabel.innerText = file.name;
+            sizeLabel.innerText = (file.size / 1024).toFixed(1) + ' KB';
+            
+            placeholder.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+            actions.classList.remove('hidden');
+            resultUi.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+            
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    removeBtn.onclick = () => {
+        currentFile = null;
+        input.value = '';
+        placeholder.classList.remove('hidden');
+        previewContainer.classList.add('hidden');
+        actions.classList.add('hidden');
+        resultUi.classList.add('hidden');
+    };
+
+    // --- Actions ---
+    
+    // 1. Cloud Upload
+    cloudBtn.onclick = async () => {
+        if (!currentFile) return;
+
+        progressContainer.classList.remove('hidden');
+        resultUi.classList.add('hidden');
+        cloudBtn.disabled = true;
+        progressBar.style.width = '0%';
+        progressText.innerText = 'Preparing for upload...';
+
+        const formData = new FormData();
+        formData.append('image', currentFile);
+        
+        const ajaxBase = (window.location.origin + window.location.pathname).split('/pwa-app')[0];
+        const endpoint = ajaxBase + '/pwa-app/api/v1/share-upload.php';
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', endpoint, true);
+
+        xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+                const percentComplete = (e.loaded / e.total) * 100;
+                progressBar.style.width = percentComplete + '%';
+                progressText.innerText = `Uploading... ${Math.round(percentComplete)}%`;
+            }
+        };
+
+        xhr.onload = function() {
+            progressContainer.classList.add('hidden');
+            cloudBtn.disabled = false;
+
+            if (xhr.status === 200) {
+                try {
+                    const res = JSON.parse(xhr.responseText);
+                    if (res.success) {
+                        resultUrl.value = res.data.share_url;
+                        resultUi.classList.remove('hidden');
+                        statusTag.innerText = "Shared Online";
+                        statusTag.className = "px-2 py-1 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-[8px] font-black uppercase tracking-widest rounded-md";
+                    } else {
+                        alert(res.message);
+                    }
+                } catch (e) {
+                    alert('Server response error.');
+                }
+            } else {
+                alert('Upload failed. Server error.');
+            }
+        };
+
+        xhr.onerror = () => {
+            progressContainer.classList.add('hidden');
+            cloudBtn.disabled = false;
+            alert('Network error during upload.');
+        };
+
+        xhr.send(formData);
+    };
+
+    // 2. Native Share
+    shareBtn.onclick = async () => {
+        if (!currentFile) return;
+
+        // Check for Web Share API support
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [currentFile] })) {
+            try {
+                await navigator.share({
+                    files: [currentFile],
+                    title: 'Shared from BulkTools',
+                    text: 'Image shared via BulkTools PWA'
+                });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('Share Error:', err);
+                    alert('System sharing failed. Try downloading instead.');
+                }
+            }
+        } else {
+            alert('Your browser doesn\'t support native file sharing. Use "Global Link" or "Offline Save" instead.');
+        }
+    };
+
+    // 3. Local Download
+    downloadBtn.onclick = () => {
+        if (!currentFile) return;
+        const url = URL.createObjectURL(currentFile);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'bt-' + currentFile.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    // 4. Copy Logic
+    copyBtn.onclick = () => {
+        resultUrl.select();
+        document.execCommand('copy');
+        copyBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i>';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }, 2000);
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    };
+
+    // Initialize icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+})();
+</script>

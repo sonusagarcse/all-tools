@@ -17,9 +17,22 @@ if (empty($_FILES['file']['name'])) {
 }
 
 $file = $_FILES['file'];
-$newW = (int)($_POST['width'] ?? 800);
-$newH = (int)($_POST['height'] ?? 600);
+$newW = (float)($_POST['width'] ?? 800);
+$newH = (float)($_POST['height'] ?? 600);
+$unit = $_POST['unit'] ?? 'px';
 $keepAspect = isset($_POST['aspect']);
+
+// Convert to Pixels if needed (96 DPI standard)
+if ($unit === 'cm') {
+    $newW = round($newW * 37.7952755906);
+    $newH = round($newH * 37.7952755906);
+} elseif ($unit === 'm') {
+    $newW = round($newW * 3779.52755906);
+    $newH = round($newH * 3779.52755906);
+} else {
+    $newW = (int)$newW;
+    $newH = (int)$newH;
+}
 
 // 2. Setup Directories
 $sessionHash = get_session_hash();

@@ -125,7 +125,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     </script>
 
     <!-- Icons (Lucide Icons) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.js"></script>
 
     <!-- Global Variables for JS -->
     <script>const SITE_URL = '<?php echo SITE_URL; ?>';</script>
@@ -163,6 +163,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                 <!-- Desktop Menu -->
                 <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                     <?php foreach ($TOOL_CATEGORIES as $cat_id => $category): ?>
+                        <?php if (isset($category['hidden_nav']) && $category['hidden_nav']) continue; ?>
                         <div class="relative group">
                             <button
                                 class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800/50 flex items-center gap-1 transition-colors">
@@ -218,6 +219,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
             class="md:hidden hidden border-t border-slate-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 overflow-y-auto max-h-[80vh] backdrop-blur-md">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <?php foreach ($TOOL_CATEGORIES as $cat_id => $category): ?>
+                    <?php if (isset($category['hidden_nav']) && $category['hidden_nav']) continue; ?>
                     <div class="px-3 py-2">
                         <div class="text-xs font-semibold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">
                             <?php echo $category['name']; ?></div>

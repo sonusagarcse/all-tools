@@ -54,6 +54,41 @@ if (!is_dir(UPLOAD_DIR)) {
 
 // Global Category Map
 $TOOL_CATEGORIES = [
+    'youtube' => [
+        'name' => 'YouTube Creator Tools',
+        'icon' => 'youtube',
+        'hidden_nav' => true,
+        'tools' => [
+            'yt-thumbnail' => [
+                'name' => 'YouTube Thumbnail Downloader',
+                'desc' => 'Download high-quality YouTube video thumbnails effortlessly.',
+                'seo_desc' => 'Free online YouTube thumbnail downloader. Get HD, High, Medium, and Default thumbnails from any YouTube video URL. No signup required.',
+                'keywords' => ['youtube thumbnail downloader', 'download youtube thumbnail', 'extract youtube image', 'yt thumb download', 'hd youtube thumbnail', 'get youtube video cover', 'save youtube thumbnail'],
+                'seo_text' => '<p>BulkTools\'s <strong>YouTube Thumbnail Downloader</strong> is a fast and free utility that lets you extract and download the cover images of any YouTube video. Whether you\'re a creator looking for inspiration, a researcher, or a blogger, getting the high-definition thumbnail is now just one click away.</p><p class="mt-4"><strong>Resolutions available:</strong> We provide links to the MaxRes (1280x720), standard, medium, and low-resolution thumbnails automatically extracted from the video ID. All you need to do is paste the URL of the video, and we do the rest.</p>',
+            ],
+            'yt-tags' => [
+                'name' => 'YouTube Tag Extractor',
+                'desc' => 'Extract hidden SEO tags and keywords from any YouTube video.',
+                'seo_desc' => 'Free online YouTube tag extractor. View hidden meta tags, keywords and categories of any YouTube video to improve your own channel SEO.',
+                'keywords' => ['youtube tag extractor', 'extract yt tags', 'view hidden video keywords', 'spy on youtube seo', 'video tag finder', 'youtube metadata extractor', 'seo keywords from youtube video'],
+                'seo_text' => '<p>Master your video marketing with BulkTools\'s <strong>YouTube Tag Extractor</strong>. By identifying the specific keywords and tags used by top-performing creators in your niche, you can replicate their success and optimize your own content for higher visibility.</p><p class="mt-4"><strong>Why tags matter:</strong> While YouTube\'s algorithm has evolved, tags still provide valuable context to the system and help your videos appear in matching "Suggested Video" sidebars. Our tool extracts these hidden tags instantly, ready to be copied into your YouTube Studio.</p>',
+            ],
+            'comment-picker' => [
+                'name' => 'YouTube Comment Picker',
+                'desc' => 'Randomly pick winners from YouTube video comments for giveaways.',
+                'seo_desc' => 'Free online YouTube comment picker. Pick a random winner from your video comments fairly. Filter duplicate users and choose multiple winners instantly.',
+                'keywords' => ['youtube comment picker', 'random winner generator', 'youtube giveaway tool', 'pick winner from comments', 'fair giveaway picker', 'random youtube name picker'],
+                'seo_text' => '<p>Run fair and transparent giveaways with the BulkTools <strong>YouTube Comment Picker</strong>. Gone are the days of manual scrolling — simply paste your video URL, load the comments, and let our algorithm randomly select a winner for you.</p><p class="mt-4"><strong>Giveaway Professionalism:</strong> Our tool supports advanced filtering, allowing you to remove duplicate users so everyone has one fair entry. Perfect for YouTubers, brand influencers, and marketers looking to increase engagement through rewards.</p>',
+            ],
+            'yt-money' => [
+                'name' => 'YouTube Money Calculator',
+                'desc' => 'Estimate potential earnings of a YouTube video or channel.',
+                'seo_desc' => 'Free online YouTube earnings calculator. Estimate how much a YouTube video or channel makes based on views, CPM, and engagement rates.',
+                'keywords' => ['youtube money calculator', 'yt earnings estimator', 'how much do youtubers make', 'youtube cpm calculator', 'revenue estimator youtube', 'channel income calculator'],
+                'seo_text' => '<p>Ever wondered how much your favorite creators earn? Our <strong>YouTube Money Calculator</strong> provides a realistic estimate of video revenue based on views and industry-standard CPM (Cost Per Mille) rates.</p><p class="mt-4"><strong>Understand the Economics:</strong> Revenue is influenced by niche (Finance vs. Gaming), audience location, and engagement. Use our sliders to adjust the parameters and see the gross daily, monthly, and yearly income potential for any video size.</p>',
+            ],
+        ]
+    ],
     'image' => [
         'name' => 'Image Tools',
         'icon' => 'image',
@@ -128,6 +163,13 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['qr code generator', 'custom qr code', 'qr code with logo', 'qr code designer', 'free qr generator', 'branded qr code', 'dynamic qr code', 'qr code styling', 'professional qr code'],
                 'seo_text' => '<p>Create stunning, professional QR codes with BulkTools\'s <strong>Premium QR Code Generator</strong>. Unlike basic QR tools, our designer gives you full creative control over every aspect of your code, from the shape of the dots to the style of the corner eyes.</p><p class="mt-4"><strong>All Possible Customizations:</strong> Choose from various dot styles (rounded, classy, dots), customize corner shapes, apply linear or radial gradients, and even upload your own <strong>center logo</strong> for brand recognition. All processing happens 100% client-side, meaning your data and logos never leave your device.</p><p class="mt-4">Download your finished masterpiece in high-resolution PNG, SVG (for scaling), or JPEG formats. Perfect for business cards, marketing materials, restaurant menus, and more.</p>',
             ],
+            'qr-scanner' => [
+                'name' => 'QR Code Scanner (from Image)',
+                'desc' => 'Decode and read any QR code instantly by uploading an image.',
+                'seo_desc' => 'Free online QR code scanner from image. Upload a QR code photo to see its contents, destination URL, or hidden text without needing a camera.',
+                'keywords' => ['qr code scanner from image', 'read qr code online', 'qr code decoder', 'scan qr code photo', 'extract text from qr code', 'safe qr reader online'],
+                'seo_text' => '<p>Don\'t have a camera handy? No problem. The BulkTools <strong>QR Code Scanner from Image</strong> lets you decode any QR code instantly by uploading a screenshot or photo. It\'s the safest way to "peek" at a link before opening it on your device.</p><p class="mt-4"><strong>Privacy First:</strong> The scanning happens entirely within your browser. Your images are never uploaded to our servers, keeping your scanned data 100% private and secure. Supports all standard QR formats.</p>',
+            ],
         ]
     ],
     'text' => [
@@ -190,6 +232,27 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['hindi typing', 'english to hindi typing', 'hindi transliteration', 'type in hindi online', 'online hindi keyboard', 'hinglish to hindi', 'convert english words to hindi font', 'free online hindi converter', 'india typing tool'],
                 'seo_text' => '<p>BulkTools\'s <strong>free Hindi Typing Tool</strong> lets you type comfortably in English (Hinglish) and automatically transliterates it into native Hindi (Devanagari) script instantly. Try typing "namaste" to instantly get "नमस्ते".</p><p class="mt-4"><strong>Why use a transliteration tool?</strong> Most users lack native Hindi keyword setups on their hardware. By utilizing phonetics, our tool acts as an easy bridge allowing seamless communication in Hindi for chat, articles, or comments. Simply type out the phonetic English equivalent and hit space.</p><p class="mt-4">Works right in your browser, completely free, and without requiring any complex software installations.</p>',
             ],
+            'insta-fonts' => [
+                'name' => 'Instagram Font Generator',
+                'desc' => 'Generate fancy, stylish Unicode fonts for Instagram Bios and social media.',
+                'seo_desc' => 'Free online fancy font generator for Instagram, Twitter, and WhatsApp. Convert normal text into stylish fonts with emojis and symbols. Copy and paste instantly.',
+                'keywords' => ['instagram font generator', 'fancy font generator', 'stylish text converter', 'unicode fonts', 'copy and paste fonts', 'cool fonts for bio', 'twitter font generator', 'whatsapp stylish text'],
+                'seo_text' => '<p>Make your social media profiles stand out with BulkTools\'s <strong>Instagram Font Generator</strong>. Our tool takes your standard text and converts it into dozens of unique, eye-catching Unicode styles that you can copy and paste directly into your Instagram Bio, Twitter profile, or WhatsApp messages.</p><p class="mt-4"><strong>How it works:</strong> Unicode provides a massive range of mathematical and decorative symbols that look like characters. We map your input to these symbols in real-time, giving you styles like 𝔹𝕠𝕝𝕕, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 𝓢𝓬𝓻𝓲𝓹𝓽, and more. It works on all modern devices and platforms because it uses standard symbols, not custom font files!</p>',
+            ],
+            'whatsapp-link' => [
+                'name' => 'WhatsApp Link Generator',
+                'desc' => 'Create "Click to Chat" links with custom pre-filled messages.',
+                'seo_desc' => 'Free online WhatsApp link generator. Create a direct chat link with your phone number and a custom message. Perfect for businesses and social media.',
+                'keywords' => ['whatsapp link generator', 'wa.me link creator', 'create whatsapp link', 'click to chat generator', 'whatsapp message link', 'direct wa link', 'free wa link tool'],
+                'seo_text' => '<p>Connect with your audience faster using BulkTools\'s <strong>WhatsApp Link Generator</strong>. Instead of asking customers to save your number, give them a simple link that opens a chat with you instantly, complete with a pre-written message!</p><p class="mt-4"><strong>Why use it?</strong> It reduces friction for potential customers, improves conversion rates on social ads, and allows you to track where your leads are coming from using unique custom messages. Just enter your phone number and message, and we\'ll generate the short <code>wa.me</code> link for you.</p>',
+            ],
+            'tts' => [
+                'name' => 'Text to Speech (Voice Generator)',
+                'desc' => 'Convert written text into natural-sounding voice audio instantly.',
+                'seo_desc' => 'Free online Text to Speech (TTS) tool. Convert any text into speech using multiple natural voices. Choose your speed, pitch and download audio.',
+                'keywords' => ['text to speech', 'online tts generator', 'convert text to voice', 'voice generator free', 'natural sounding voices', 'speech synthesizer', 'read text aloud'],
+                'seo_text' => '<p>Give your content a voice with the BulkTools <strong>Text to Speech Generator</strong>. Whether you\'re creating a video script, listening to an article, or testing accessibility, our TTS tool provides high-quality, natural-sounding voice synthesis directly in your browser.</p><p class="mt-4"><strong>Premium Features:</strong> Supports multiple languages and accents (depending on your browser), adjustable reading speed, and pitch control. Simply type your text, choose a voice, and hear it speak instantly. Perfect for educators, creators, and professionals.</p>',
+            ],
         ]
     ],
     'dev' => [
@@ -230,6 +293,13 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free online JWT decoder. Decode JSON Web Tokens (JWT) safely in your browser to inspect header and payload claims without servers.',
                 'keywords' => ['jwt decoder online', 'decode json web token', 'jwt viewer', 'jwt payload inspector', 'json web token decoder', 'developer security utility', 'jwt unpacker tool free'],
                 'seo_text' => '<p>BulkTools\'s <strong>free JWT Decoder</strong> allows developers to safely unpack and inspect JSON Web Tokens in real-time. Simply paste your base64 encoded JWT into the tool, and instantly view your token header, algorithm details, and payload claims like expiration times and user IDs.</p><p class="mt-4"><strong>Security First:</strong> All decoding is executed securely inside your browser using JavaScript. We never upload our users\' secure tokens or API keys to any back-end servers.</p>',
+            ],
+            'gradient' => [
+                'name' => 'CSS Gradient Generator',
+                'desc' => 'Create beautiful CSS gradients visually and copy the code.',
+                'seo_desc' => 'Free online CSS gradient generator. Create linear and radial gradients with multiple color stops. Copy-paste standard CSS code for your designs.',
+                'keywords' => ['css gradient generator', 'online gradient maker', 'linear gradient css', 'radial gradient generator', 'beautiful css background', 'ui design tools'],
+                'seo_text' => '<p>Design stunning website backgrounds with the BulkTools <strong>Premium CSS Gradient Generator</strong>. Our visual interface lets you create complex, multi-stop gradients with ease, providing you with cross-browser compatible CSS code instantly.</p><p class="mt-4"><strong>Design Flexibility:</strong> Switch between linear and radial modes, adjust angles, and fine-tune opacity for every color stop. Whether you\'re building a modern a "Glassmorphism" UI or a vibrant landing page, this tool is your essential design companion.</p>',
             ],
         ]
     ],
@@ -277,6 +347,20 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free online countdown timer with alarm buzzer. Set your target time in hours, minutes, and seconds, and run the counter down to zero with an alarm.',
                 'keywords' => ['countdown timer', 'online timer with alarm', 'counter tool', 'buzzer timer', 'free countdown clock', 'stopwatch and timer', 'time tracker', 'productivity timer'],
                 'seo_text' => '<p>BulkTools\'s <strong>free online Countdown Timer</strong> is the perfect utility for tracking time for tasks, cooking, workouts, or study sessions. Simply enter your desired hours, minutes, and seconds, and start the timer.</p><p class="mt-4"><strong>Key Features:</strong> Features a clear digital display, pause/resume functionality, and an audible <strong>alarm buzzer</strong> that sounds automatically when the timer reaches zero. Never miss a deadline or burn a meal again!</p><p class="mt-4">Our countdown timer works directly in your web browser without any installation, meaning you can keep it running in a background tab.</p>',
+            ],
+            'age-calculator' => [
+                'name' => 'Age Calculator',
+                'desc' => 'Calculate your exact age in years, months, and days.',
+                'seo_desc' => 'Free online age calculator. Find your exact age down to the day, see your total weeks, days, and hours alive, and countdown to your next birthday.',
+                'keywords' => ['age calculator', 'calculate age online', 'how old am i', 'birthday calculator', 'exact age finder', 'date of birth calculator', 'age in days weeks months'],
+                'seo_text' => '<p>Find out exactly how old you are with BulkTools\'s <strong>Premium Age Calculator</strong>. Whether you need your age for a job application, a sports registration, or just out of curiosity, our tool provides a detailed breakdown of your life in time.</p><p class="mt-4"><strong>Beyond just years:</strong> We calculate your age in Years, Months, and Days simultaneously. We also provide "Lifetime Stats" showing your total weeks, total hours, and even total seconds since you were born. Plus, get a live countdown to your next birthday!</p>',
+            ],
+            'bmi-calculator' => [
+                'name' => 'BMI Calculator',
+                'desc' => 'Calculate your Body Mass Index (BMI) and health category.',
+                'seo_desc' => 'Free online BMI calculator. Calculate your body mass index, see your weight category, and find your ideal weight range based on WHO standards.',
+                'keywords' => ['bmi calculator', 'calculate body mass index', 'weight category finder', 'health tools online', 'ideal weight calculator', 'body fat index tool', 'bmi health check'],
+                'seo_text' => '<p>Take control of your health journey with the BulkTools <strong>Professional BMI Calculator</strong>. Body Mass Index (BMI) is a simple numerical measure of your body fat based on height and weight. While not a definitive diagnostic tool, it is the primary screening tool used by health professionals to identify weight categories like underweight, healthy weight, overweight, and obesity.</p><p class="mt-4"><strong>Detailed Insights:</strong> Our tool doesn\'t just give you a number. We provide a color-coded visual gauge showing where you fall on the WHO health scale, along with your <strong>Ideal Weight Range</strong> based on your height. Supports both Metric (kg/cm) and Imperial (lbs/ft/in) measurement systems.</p>',
             ],
         ]
     ]

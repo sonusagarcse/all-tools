@@ -38,12 +38,28 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
             </div>
 
             <div class="glass-card rounded-3xl p-8 mb-10">
-                <h3 class="text-white font-bold mb-6 flex items-center gap-2"><i data-lucide="sliders" class="w-5 h-5 text-indigo-400"></i> Dimensions</h3>
-                <div class="grid grid-cols-2 gap-8">
-                    <div><label class="block text-gray-400 text-sm mb-2">Width (px)</label><input type="number" name="width" value="800" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white"></div>
-                    <div><label class="block text-gray-400 text-sm mb-2">Height (px)</label><input type="number" name="height" value="600" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-800 text-white"></div>
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="sliders" class="w-5 h-5 text-indigo-400"></i> Dimensions</h3>
+                    <select id="unit-selector" name="unit" class="bg-gray-900 border border-gray-800 text-gray-400 text-xs font-bold rounded-lg px-3 py-1.5 focus:ring-0 outline-none cursor-pointer">
+                        <option value="px" selected>Pixels (px)</option>
+                        <option value="cm">Centimeters (cm)</option>
+                        <option value="m">Meters (m)</option>
+                    </select>
                 </div>
-                <div class="mt-6 flex items-center gap-3"><input type="checkbox" name="aspect" checked id="aspect" class="w-4 h-4 rounded text-indigo-600 bg-gray-900 border-gray-800 focus:ring-0 cursor-pointer"><label for="aspect" class="text-gray-400 text-sm cursor-pointer">Maintain Aspect Ratio</label></div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <label class="block text-gray-400 text-xs uppercase tracking-widest font-black mb-3 unit-label">Width (px)</label>
+                        <input type="number" id="input-width" name="width" value="800" class="w-full px-5 py-4 rounded-2xl bg-gray-900 border border-gray-800 text-white font-mono text-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-xs uppercase tracking-widest font-black mb-3 unit-label">Height (px)</label>
+                        <input type="number" id="input-height" name="height" value="600" class="w-full px-5 py-4 rounded-2xl bg-gray-900 border border-gray-800 text-white font-mono text-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                    </div>
+                </div>
+                <div class="mt-8 flex items-center gap-3">
+                    <input type="checkbox" name="aspect" checked id="aspect" class="w-5 h-5 rounded-lg text-indigo-600 bg-gray-900 border-gray-800 focus:ring-0 cursor-pointer">
+                    <label for="aspect" class="text-gray-400 text-sm font-medium cursor-pointer select-none">Maintain Aspect Ratio</label>
+                </div>
             </div>
 
             <button type="submit" class="w-full py-5 rounded-3xl bg-indigo-600 text-white font-extrabold text-lg hover:bg-indigo-500 shadow-2xl transition-all flex items-center justify-center gap-3">Resize Image <i data-lucide="arrow-right" class="w-6 h-6"></i></button>
@@ -55,5 +71,62 @@ $tool = get_current_tool_info($_SERVER['REQUEST_URI']);
     </div>
 </section>
 
-<script>document.addEventListener('DOMContentLoaded',()=>{handleToolForm('tool-form','process.php');});</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const unitSelector = document.getElementById('unit-selector');
+    const widthInput = document.getElementById('input-width');
+    const heightInput = document.getElementById('input-height');
+    const unitLabels = document.querySelectorAll('.unit-label');
+    const aspectCheckbox = document.getElementById('aspect');
+    
+    let originalRatio = 0;
+    
+    // 96 DPI is standard for web
+    const PX_PER_CM = 37.7952755906;
+    const PX_PER_M = 3779.52755906;
+
+    unitSelector.addEventListener('change', () => {
+        const unit = unitSelector.value;
+        unitLabels.forEach(label => {
+            const base = label.innerText.split('(')[0].trim();
+            label.innerText = `${base} (${unit})`;
+        });
+    });
+
+    // Handle aspect ratio detection on file select
+    const fileInput = document.getElementById('file-input');
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const img = new Image();
+            img.onload = () => {
+                originalRatio = img.width / img.height;
+                widthInput.value = img.width;
+                heightInput.value = img.height;
+                unitSelector.value = 'px';
+                unitLabels.forEach(l => l.innerText = l.innerText.split('(')[0] + '(px)');
+            };
+            img.src = URL.createObjectURL(file);
+        }
+    });
+
+    const adjustHeight = () => {
+        if (aspectCheckbox.checked && originalRatio > 0) {
+            heightInput.value = Math.round(widthInput.value / originalRatio);
+        }
+    };
+
+    const adjustWidth = () => {
+        if (aspectCheckbox.checked && originalRatio > 0) {
+            widthInput.value = Math.round(heightInput.value * originalRatio);
+        }
+    };
+
+    widthInput.addEventListener('input', adjustHeight);
+    heightInput.addEventListener('input', adjustWidth);
+
+    handleToolForm('tool-form', 'process.php');
+});
+</script>
 <?php require_once '../../../includes/footer.php'; ?>

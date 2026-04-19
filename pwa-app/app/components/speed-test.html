@@ -90,7 +90,7 @@
     const dlBg = document.getElementById('pwa-dl-bg');
     const ulBg = document.getElementById('pwa-ul-bg');
 
-    const AJAX_BASE = (window.location.origin + window.location.pathname).replace('/pwa-app/', '') + '/ajax/';
+    const AJAX_BASE = (window.location.origin + window.location.pathname).split('/pwa-app')[0] + '/ajax/';
     const GAUGE_TOTAL = 251.2;
     const THREADS = 4;
 

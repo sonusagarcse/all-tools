@@ -4,7 +4,7 @@
  * Fix: Auto-update, force fresh icons, aggressive cache invalidation
  */
 
-const CACHE_VERSION = 'v1.3.1';
+const CACHE_VERSION = 'v1.3.2';
 const CACHE_NAME = `bulktools-${CACHE_VERSION}`;
 
 // Assets to pre-cache on install
@@ -23,7 +23,15 @@ const PRE_CACHE_RESOURCES = [
   '/pwa-app/app/components/all-tools.html',
   '/pwa-app/app/components/dashboard.html',
   '/pwa-app/app/components/settings.html',
-  '/pwa-app/app/components/compressor.html'
+  '/pwa-app/app/components/profile.html',
+  '/pwa-app/app/components/compressor.html',
+  '/pwa-app/app/components/drawing-board.html',
+  '/pwa-app/app/components/text-editor.html',
+  '/pwa-app/app/components/qr-generator.html',
+  '/pwa-app/app/components/hindi-typing.html',
+  '/pwa-app/app/components/timer.html',
+  '/pwa-app/app/components/speed-test.html',
+  '/pwa-app/app/components/image-share.html'
 ];
 
 // ─── 1. INSTALL ────────────────────────────────────────────────────────────────

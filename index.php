@@ -14,6 +14,7 @@ $cat_accents = [
     'dev' => ['bg' => 'bg-sky-500/10', 'text' => 'text-sky-500', 'border' => 'border-sky-500/20', 'hover_bg' => 'group-hover:bg-sky-500', 'glow' => 'rgba(14,165,233,0.3)', 'gradient' => 'from-sky-500 to-cyan-600'],
     'sec' => ['bg' => 'bg-orange-500/10', 'text' => 'text-orange-500', 'border' => 'border-orange-500/20', 'hover_bg' => 'group-hover:bg-orange-500', 'glow' => 'rgba(249,115,22,0.3)', 'gradient' => 'from-orange-500 to-red-500'],
     'time' => ['bg' => 'bg-pink-500/10', 'text' => 'text-pink-500', 'border' => 'border-pink-500/20', 'hover_bg' => 'group-hover:bg-pink-500', 'glow' => 'rgba(236,72,153,0.3)', 'gradient' => 'from-pink-500 to-rose-500'],
+    'youtube' => ['bg' => 'bg-red-500/10', 'text' => 'text-red-600', 'border' => 'border-red-500/20', 'hover_bg' => 'group-hover:bg-red-600', 'glow' => 'rgba(220,38,38,0.3)', 'gradient' => 'from-red-600 to-red-700'],
 ];
 ?>
 
@@ -163,7 +164,7 @@ $cat_accents = [
             <?php
             $stats = [
                 ['val' => '10M+', 'label' => 'Files Processed', 'icon' => 'files'],
-                ['val' => $total_tools . '+', 'label' => 'Free Tools', 'icon' => 'tool'],
+                ['val' => $total_tools . '+', 'label' => 'Free Tools', 'icon' => 'layout-grid'],
                 ['val' => '100%', 'label' => 'Free Forever', 'icon' => 'badge-check'],
                 ['val' => '24/7', 'label' => 'Always Online', 'icon' => 'activity'],
             ];
