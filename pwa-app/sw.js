@@ -31,7 +31,11 @@ const PRE_CACHE_RESOURCES = [
   '/pwa-app/app/components/hindi-typing.html',
   '/pwa-app/app/components/timer.html',
   '/pwa-app/app/components/speed-test.html',
-  '/pwa-app/app/components/image-share.html'
+  '/pwa-app/app/components/image-share.html',
+  '/pwa-app/app/components/gst-calculator.html',
+  '/pwa-app/app/components/sip-calculator.html',
+  '/pwa-app/app/components/glassmorphism.html',
+  '/pwa-app/app/components/privacy-policy.html'
 ];
 
 // ─── 1. INSTALL ────────────────────────────────────────────────────────────────
@@ -51,9 +55,9 @@ self.addEventListener('install', (event) => {
       });
       return Promise.all(fetches);
     }).then(() => {
-      // CRITICAL: Skip waiting so the new SW activates immediately
-      // This is what makes "install = fresh app" work correctly
-      return self.skipWaiting();
+      // Manual Update: We no longer call self.skipWaiting() here.
+      // The user must click "Update Now" in the UI to trigger skipWaiting via message.
+      console.log('[SW] Pre-caching complete. Waiting for manual skipWaiting...');
     })
   );
 });

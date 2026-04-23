@@ -1,0 +1,90 @@
+<div class="animate-fade-in">
+    <div class="flex items-center gap-3 mb-8">
+        <div class="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 border border-indigo-500/20">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white">SIP Calculator</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold">Investment Planner</p>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Monthly Investment</label>
+                        <span class="text-xs font-black text-indigo-500">₹<span id="pwa-sip-label-amount">5000</span></span>
+                    </div>
+                    <input type="range" id="pwa-sip-amount" min="500" max="100000" step="500" value="5000" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Expected Return (p.a)</label>
+                        <span class="text-xs font-black text-indigo-500"><span id="pwa-sip-label-rate">12</span>%</span>
+                    </div>
+                    <input type="range" id="pwa-sip-rate" min="1" max="30" step="0.5" value="12" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Time Period</label>
+                        <span class="text-xs font-black text-indigo-500"><span id="pwa-sip-label-years">10</span>Y</span>
+                    </div>
+                    <input type="range" id="pwa-sip-years" min="1" max="40" step="1" value="10" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <p class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Invested</p>
+                <p class="text-sm font-black text-slate-900 dark:text-white">₹<span id="pwa-sip-invested">0</span></p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <p class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Est. Returns</p>
+                <p class="text-sm font-black text-emerald-500">₹<span id="pwa-sip-returns">0</span></p>
+            </div>
+        </div>
+
+        <div class="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="text-[10px] font-black uppercase tracking-widest opacity-60 block mb-1">Total Future Value</span>
+                <span class="text-4xl font-black tabular-nums">₹<span id="pwa-sip-total">0</span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const amount = document.getElementById('pwa-sip-amount');
+            const rate = document.getElementById('pwa-sip-rate');
+            const years = document.getElementById('pwa-sip-years');
+
+            function pwaCalculateSip() {
+                const P = parseFloat(amount.value);
+                const r = parseFloat(rate.value);
+                const y = parseFloat(years.value);
+
+                const i = (r / 100) / 12;
+                const n = y * 12;
+
+                const totalValue = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+                const invested = P * n;
+
+                document.getElementById('pwa-sip-label-amount').textContent = P;
+                document.getElementById('pwa-sip-label-rate').textContent = r;
+                document.getElementById('pwa-sip-label-years').textContent = y;
+
+                document.getElementById('pwa-sip-invested').textContent = Math.round(invested).toLocaleString('en-IN');
+                document.getElementById('pwa-sip-returns').textContent = Math.round(totalValue - invested).toLocaleString('en-IN');
+                document.getElementById('pwa-sip-total').textContent = Math.round(totalValue).toLocaleString('en-IN');
+            }
+
+            [amount, rate, years].forEach(el => el.addEventListener('input', pwaCalculateSip));
+            pwaCalculateSip();
+        })();
+    </script>
+</div>

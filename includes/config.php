@@ -301,6 +301,20 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['css gradient generator', 'online gradient maker', 'linear gradient css', 'radial gradient generator', 'beautiful css background', 'ui design tools'],
                 'seo_text' => '<p>Design stunning website backgrounds with the BulkTools <strong>Premium CSS Gradient Generator</strong>. Our visual interface lets you create complex, multi-stop gradients with ease, providing you with cross-browser compatible CSS code instantly.</p><p class="mt-4"><strong>Design Flexibility:</strong> Switch between linear and radial modes, adjust angles, and fine-tune opacity for every color stop. Whether you\'re building a modern a "Glassmorphism" UI or a vibrant landing page, this tool is your essential design companion.</p>',
             ],
+            'glassmorphism-generator' => [
+                'name' => 'CSS Glassmorphism Generator',
+                'desc' => 'Create stunning frosted glass effects with real-time CSS code generation.',
+                'seo_desc' => 'Free online CSS glassmorphism generator. Create professional frosted glass effects with blur, transparency, and borders. Copy-paste CSS code for your modern UI designs.',
+                'keywords' => ['glassmorphism generator', 'css glassmorphism', 'frosted glass effect', 'modern ui design tools', 'glass css generator', 'transparent background css', 'backdrop filter blur generator'],
+                'seo_text' => '<h2>Modern CSS Glassmorphism Generator</h2><p>Glassmorphism is a popular UI design trend characterized by a "frosted glass" effect. Our <strong>Glassmorphism Generator</strong> allows you to create this aesthetic visually and receive the exact CSS code for your project.</p><h3>Creating the Glass Effect</h3><p>The secret to glassmorphism lies in the combination of transparency (alpha channel), background blur (`backdrop-filter`), and subtle white borders. Our tool provides sliders to adjust the **Transparency**, **Blur Intensity**, and **Outline Opacity** so you can find the perfect balance for your design.</p><h3>Browser Compatibility</h3><p>While most modern browsers support `backdrop-filter`, our tool generates the necessary vendor prefixes (like `-webkit-`) to ensure your glass effects look great on all platforms. Perfect for building cards, navigation bars, and overlays.</p>',
+            ],
+            'html-entities' => [
+                'name' => 'HTML Entity Converter',
+                'desc' => 'Encode or decode special characters into HTML entities safely.',
+                'seo_desc' => 'Free online HTML entity encoder and decoder. Convert special characters into HTML entities (like &amp;amp;) or decode them back to plain text. Essential for web security and character display.',
+                'keywords' => ['html entity converter', 'html encoder', 'html decoder', 'encode special characters', 'html entities list', 'web security tools', 'format html entities'],
+                'seo_text' => '<h2>Professional HTML Entity Encoder/Decoder</h2><p>Properly encoding special characters is essential for web security (to prevent XSS) and ensuring that characters like `<`, `>`, and `&` are displayed correctly by browsers. Our <strong>HTML Entity Converter</strong> makes this process effortless.</p><h3>Why Encode HTML Entities?</h3><p>Browsers reserve certain characters for HTML syntax. If you want to display the character `<` in your text without the browser interpreting it as the start of a tag, you must use the entity `&lt;`. Our tool handles all common and obscure entities, ensuring your code remains valid and safe.</p><h3>Bi-directional Conversion</h3><p>Whether you have a block of text that needs to be "sanitized" for HTML display, or an encoded snippet you need to read as plain text, our tool provides instant, one-click conversion.</p>',
+            ],
         ]
     ],
     'sec' => [
@@ -361,6 +375,69 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free online BMI calculator. Calculate your body mass index, see your weight category, and find your ideal weight range based on WHO standards.',
                 'keywords' => ['bmi calculator', 'calculate body mass index', 'weight category finder', 'health tools online', 'ideal weight calculator', 'body fat index tool', 'bmi health check'],
                 'seo_text' => '<p>Take control of your health journey with the BulkTools <strong>Professional BMI Calculator</strong>. Body Mass Index (BMI) is a simple numerical measure of your body fat based on height and weight. While not a definitive diagnostic tool, it is the primary screening tool used by health professionals to identify weight categories like underweight, healthy weight, overweight, and obesity.</p><p class="mt-4"><strong>Detailed Insights:</strong> Our tool doesn\'t just give you a number. We provide a color-coded visual gauge showing where you fall on the WHO health scale, along with your <strong>Ideal Weight Range</strong> based on your height. Supports both Metric (kg/cm) and Imperial (lbs/ft/in) measurement systems.</p>',
+            ],
+            'stopwatch' => [
+                'name' => 'Online Stopwatch',
+                'desc' => 'A precise stopwatch with lap timing capabilities and millisecond accuracy.',
+                'seo_desc' => 'Free online stopwatch with lap timing. Measure time with millisecond precision. Perfect for sports, workouts, cooking, and productivity.',
+                'keywords' => ['online stopwatch', 'lap timer', 'split timer', 'millisecond stopwatch', 'sports timer', 'workout stopwatch', 'free online timer', 'precision stopwatch'],
+                'seo_text' => '<p>Track time with extreme precision using BulkTools\'s <strong>Professional Online Stopwatch</strong>. Whether you\'re timing a sprint, a coding sprint, or a scientific experiment, our stopwatch provides millisecond accuracy and a clean, high-visibility interface.</p><p class="mt-4"><strong>Advanced Features:</strong> Our tool supports <strong>Unlimited Laps</strong>, allowing you to record split times without stopping the counter. The interface is optimized for both desktop and mobile, featuring large, easy-to-tap buttons and a fullscreen mode for remote viewing.</p><p class="mt-4"><strong>Privacy & Performance:</strong> The stopwatch runs entirely in your browser using high-resolution performance timers. Your data is never sent to any server, ensuring 100% privacy and zero latency.</p>',
+            ],
+            'world-clock' => [
+                'name' => 'World Clock',
+                'desc' => 'View current local time in major cities around the globe instantly.',
+                'seo_desc' => 'Free online world clock. View current local time for major cities across all time zones. Compare global times and check GMT/UTC instantly.',
+                'keywords' => ['world clock', 'global time', 'current time in world cities', 'time zone converter', 'GMT time', 'UTC clock', 'world time zones', 'compare time zones'],
+                'seo_text' => '<p>Stay connected with the world using the BulkTools <strong>Global World Clock</strong>. In our interconnected world, knowing the local time in London, New York, Tokyo, or Mumbai is essential for international business, travel planning, and staying in touch with loved ones.</p><p class="mt-4"><strong>Real-Time Updates:</strong> Our world clock provides live, second-by-second updates for major global hubs. We automatically account for Daylight Saving Time (DST) and display the time zone offset (GMT/UTC) for every city. Add your favorite cities to a custom dashboard for quick reference.</p>',
+            ],
+            'unix-timestamp' => [
+                'name' => 'Unix Timestamp Converter',
+                'desc' => 'Convert between Unix Epoch timestamps and human-readable dates.',
+                'seo_desc' => 'Free online Unix timestamp converter. Convert seconds/milliseconds to human-readable dates and vice versa. Essential for developers and database admins.',
+                'keywords' => ['unix timestamp converter', 'epoch converter', 'unix to date', 'date to unix', 'current unix time', 'timestamp to human readable', 'linux timestamp converter', 'seconds since epoch'],
+                'seo_text' => '<p>Master your time data with the BulkTools <strong>Advanced Unix Timestamp Converter</strong>. For developers, database administrators, and system engineers, working with Unix Epoch time (the number of seconds since January 1, 1970) is a daily necessity. Our tool simplifies this process by providing instant, bi-directional conversion.</p><p class="mt-4"><strong>Comprehensive Data:</strong> Convert a Unix timestamp into a full ISO-8601 date, UTC time, and your local time zone simultaneously. You can also pick a date using our calendar interface to generate its corresponding Unix timestamp. Supports both <strong>seconds</strong> and <strong>milliseconds</strong> (JavaScript style) formats.</p>',
+            ],
+        ]
+    ],
+    'finance' => [
+        'name' => 'Financial Tools',
+        'icon' => 'calculator',
+        'hidden_nav' => true,
+        'tools' => [
+            'gst-calculator' => [
+                'name' => 'GST Calculator',
+                'desc' => 'Calculate GST (Goods and Services Tax) for any amount with multiple tax slabs.',
+                'seo_desc' => 'Free online GST calculator. Calculate GST for India, Australia, and other countries. Support for 5%, 12%, 18%, and 28% tax slabs. Add or remove GST instantly.',
+                'keywords' => ['gst calculator', 'calculate gst online', 'indian gst calculator', 'add gst calculator', 'remove gst calculator', 'gst tax slabs', 'free gst tool'],
+                'seo_text' => '<h2>Accurate Online GST Calculator</h2><p>Our <strong>GST Calculator</strong> is a versatile tool designed to help business owners, accountants, and shoppers calculate the Goods and Services Tax for any transaction. Whether you need to find the "GST inclusive" or "GST exclusive" price, our tool provides precise results in seconds.</p><h3>How to Use the GST Calculator</h3><p>Using our tool is simple: enter the net or gross amount, select your tax slab (e.g., 5%, 12%, 18%, or 28%), and choose whether you want to **Add GST** or **Remove GST**. The tool will instantly display the GST amount and the total final price.</p><h3>Why GST Calculation Matters</h3><p>GST is a comprehensive, multi-stage, destination-based tax that is levied on every value addition. For businesses in India, calculating the correct GST is crucial for invoice accuracy and tax filing. Our tool simplifies this process, reducing manual errors and saving time.</p>',
+            ],
+            'sip-calculator' => [
+                'name' => 'SIP Calculator',
+                'desc' => 'Calculate your future wealth and returns from Systematic Investment Plans (SIP).',
+                'seo_desc' => 'Free online SIP calculator. Estimate returns on your mutual fund investments. Calculate future wealth based on monthly investment, tenure, and expected return rate.',
+                'keywords' => ['sip calculator', 'mutual fund returns calculator', 'investment calculator', 'future wealth calculator', 'sip return estimator', 'compound interest calculator', 'systematic investment plan'],
+                'seo_text' => '<h2>Professional SIP Returns Calculator</h2><p>Plan your financial future with our <strong>SIP Calculator</strong>. A Systematic Investment Plan (SIP) is a disciplined way to invest in mutual funds, allowing you to benefit from the power of compounding and rupee cost averaging over the long term.</p><h3>Estimate Your Wealth Growth</h3><p>Simply enter your monthly investment amount, the expected annual return rate, and the time period (in years). Our calculator will show you the **Total Investment**, the **Estimated Returns**, and the **Total Wealth** you could accumulate. It\'s an essential tool for goal-based financial planning.</p><h3>The Power of Compounding</h3><p>The secret to wealth creation through SIP is starting early and staying consistent. By reinvesting your returns, your money grows exponentially. Use our tool to visualize how even small monthly contributions can grow into a significant corpus over 10, 20, or 30 years.</p>',
+            ],
+        ]
+    ],
+    'web' => [
+        'name' => 'Web Utilities',
+        'icon' => 'globe',
+        'hidden_nav' => true,
+        'tools' => [
+            'privacy-policy-generator' => [
+                'name' => 'Privacy Policy Generator',
+                'desc' => 'Create a professional privacy policy for your website or app in seconds.',
+                'seo_desc' => 'Free online privacy policy generator. Create a professional, GDPR and CCPA compliant privacy policy for your website, blog, or mobile app for free.',
+                'keywords' => ['privacy policy generator', 'free privacy policy', 'create privacy policy', 'gdpr privacy policy', 'ccpa privacy policy', 'privacy policy for blog', 'website legal pages'],
+                'seo_text' => '<h2>Free Website Privacy Policy Generator</h2><p>Every website and mobile app that collects user data needs a clear and transparent privacy policy. Our <strong>Privacy Policy Generator</strong> helps you create a professional legal document that complies with international regulations like GDPR and CCPA.</p><h3>Why You Need a Privacy Policy</h3><p>Besides being a legal requirement in many jurisdictions, a privacy policy builds trust with your users. It explains what data you collect, why you collect it, and how you protect it. Many third-party services like Google AdSense and Analytics also require a privacy policy to be present on your site.</p><h3>Easy to Use & Customisable</h3><p>Just fill in your business details and the types of cookies or data you use, and our tool will generate a copy-paste ready policy. It\'s 100% free and requires no account or credit card.</p>',
+            ],
+            'http-headers' => [
+                'name' => 'HTTP Header Checker',
+                'desc' => 'View the HTTP response headers of any URL to debug server issues.',
+                'seo_desc' => 'Free online HTTP header checker. View raw response headers, status codes, and server information for any URL. Essential for web developers and SEOs.',
+                'keywords' => ['http header checker', 'view http headers', 'url header viewer', 'server response headers', 'http status code checker', 'get headers online', 'web debugging tool'],
+                'seo_text' => '<h2>Professional HTTP Header Viewer</h2><p>Our <strong>HTTP Header Checker</strong> is a powerful tool for web developers, SEO specialists, and security researchers. It allows you to inspect the raw "handshake" between a client and a server for any URL.</p><h3>What are HTTP Headers?</h3><p>HTTP headers provide essential information about the server, the content type, caching policies, and security settings. By checking headers, you can verify if your site is using **HTTPS**, if **HSTS** is enabled, and if your **Cache-Control** settings are optimized for performance.</p><h3>Debug Server Responses</h3><p>Simply enter a URL and hit "Check Headers" to see the status code (e.g., 200 OK, 301 Redirect, 404 Not Found) and the full list of headers returned by the server. This is crucial for troubleshooting redirects and server-side errors.</p>',
             ],
         ]
     ]

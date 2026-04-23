@@ -1,6 +1,5 @@
 {
-    "version": "1.3.2",
-    "cache_identifier": "v1.3.2",
-    "critical": false,
-    "release_notes": "v1.3.2: Fixed Image Share 404 and improved tool directory visibility."
+  "version": "1.3.3",
+  "release_notes": "Added GST, SIP, Glassmorphism, and Legal tools. Manual update mode enabled.",
+  "status": "stable"
 }

@@ -15,6 +15,8 @@ $cat_accents = [
     'sec' => ['bg' => 'bg-orange-500/10', 'text' => 'text-orange-500', 'border' => 'border-orange-500/20', 'hover_bg' => 'group-hover:bg-orange-500', 'glow' => 'rgba(249,115,22,0.3)', 'gradient' => 'from-orange-500 to-red-500'],
     'time' => ['bg' => 'bg-pink-500/10', 'text' => 'text-pink-500', 'border' => 'border-pink-500/20', 'hover_bg' => 'group-hover:bg-pink-500', 'glow' => 'rgba(236,72,153,0.3)', 'gradient' => 'from-pink-500 to-rose-500'],
     'youtube' => ['bg' => 'bg-red-500/10', 'text' => 'text-red-600', 'border' => 'border-red-500/20', 'hover_bg' => 'group-hover:bg-red-600', 'glow' => 'rgba(220,38,38,0.3)', 'gradient' => 'from-red-600 to-red-700'],
+    'finance' => ['bg' => 'bg-emerald-500/10', 'text' => 'text-emerald-500', 'border' => 'border-emerald-500/20', 'hover_bg' => 'group-hover:bg-emerald-500', 'glow' => 'rgba(16,185,129,0.3)', 'gradient' => 'from-emerald-500 to-teal-600'],
+    'web' => ['bg' => 'bg-blue-500/10', 'text' => 'text-blue-500', 'border' => 'border-blue-500/20', 'hover_bg' => 'group-hover:bg-blue-500', 'glow' => 'rgba(59,130,246,0.3)', 'gradient' => 'from-blue-500 to-indigo-600'],
 ];
 ?>
 
