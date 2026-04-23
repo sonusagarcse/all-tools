@@ -4,10 +4,10 @@ require_once __DIR__ . '/functions.php';
 
 // Static page meta map
 $static_pages = [
-    'about'          => ['title' => 'About Us', 'desc' => 'Learn about BulkTools — a free, privacy-first collection of image, text, developer, and security tools for everyone.'],
-    'contact'        => ['title' => 'Contact Us', 'desc' => 'Get in touch with the BulkTools team. Report a bug, suggest a new tool, or ask any question — we read every message.'],
+    'about' => ['title' => 'About Us', 'desc' => 'Learn about BulkTools — a free, privacy-first collection of image, text, developer, and security tools for everyone.'],
+    'contact' => ['title' => 'Contact Us', 'desc' => 'Get in touch with the BulkTools team. Report a bug, suggest a new tool, or ask any question — we read every message.'],
     'privacy-policy' => ['title' => 'Privacy Policy', 'desc' => 'Read how BulkTools collects, uses, and protects your data. We never store files beyond your session and never sell your data.'],
-    'terms'          => ['title' => 'Terms of Service', 'desc' => 'Read the BulkTools Terms of Service governing use of all free online tools on the platform.'],
+    'terms' => ['title' => 'Terms of Service', 'desc' => 'Read the BulkTools Terms of Service governing use of all free online tools on the platform.'],
 ];
 
 // Detect current static page from URI
@@ -19,16 +19,16 @@ $static_page = $static_pages[$uri_slug] ?? null;
 // Get page title for SEO
 $current_tool = get_current_tool_info($_SERVER['REQUEST_URI']);
 if ($static_page) {
-    $page_title    = $static_page['title'] . ' | ' . SITE_NAME;
-    $page_desc     = $static_page['desc'];
+    $page_title = $static_page['title'] . ' | ' . SITE_NAME;
+    $page_desc = $static_page['desc'];
     $page_keywords = 'free online tools, ' . strtolower($static_page['title']) . ', BulkTools';
 } elseif ($current_tool) {
-    $page_title    = $current_tool['name'] . ' - Free Online Tool | ' . SITE_NAME;
-    $page_desc     = $current_tool['seo_desc'] ?? $current_tool['desc'];
+    $page_title = $current_tool['name'] . ' - Free Online Tool | ' . SITE_NAME;
+    $page_desc = $current_tool['seo_desc'] ?? $current_tool['desc'];
     $page_keywords = isset($current_tool['keywords']) ? implode(', ', $current_tool['keywords']) : 'free online tools';
 } else {
-    $page_title    = SITE_NAME . ' - ' . SITE_TAGLINE;
-    $page_desc     = 'BulkTools offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
+    $page_title = SITE_NAME . ' - ' . SITE_TAGLINE;
+    $page_desc = 'BulkTools offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
     $page_keywords = 'free online tools, browser tools, image compression, developer utilities, html minifier, jwt decoder, hindi transliteration, bcrypt generator, online security tools, password generator, text converters, free utility website, no registration tools';
 }
 
@@ -38,6 +38,18 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
 <html lang="en" class="dark">
 
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TBPK8WX2');</script>
+    <!-- End Google Tag Manager -->
+
     <!-- Prevent FOUC (Flash of Unstyled Content) -->
     <script>
         if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -56,7 +68,8 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>">
     <link rel="manifest" href="<?php echo SITE_URL; ?>/pwa-app/manifest.json">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
 
     <script>
         // Global PWA State for root site
@@ -68,8 +81,8 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('<?php echo SITE_URL; ?>/pwa-app/sw.js')
-                .then(reg => console.log('PWA SW Registered from Root'))
-                .catch(err => console.log('SW Reg failed', err));
+                    .then(reg => console.log('PWA SW Registered from Root'))
+                    .catch(err => console.log('SW Reg failed', err));
             });
         }
 
@@ -141,7 +154,9 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-gray-100 font-sans selection:bg-indigo-500/30 transition-colors duration-300">
+<body
+    class="bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-gray-100 font-sans selection:bg-indigo-500/30 transition-colors duration-300">
+    <?php include_once __DIR__ . '/googletagbody.php'; ?>
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 glass">
@@ -150,7 +165,8 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-2">
                     <a href="<?php echo SITE_URL; ?>" class="flex items-center gap-2">
-                        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <div
+                            class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/30">
                             <i data-lucide="layers" class="w-5 h-5 text-white"></i>
                         </div>
                         <span
@@ -163,7 +179,8 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                 <!-- Desktop Menu -->
                 <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                     <?php foreach ($TOOL_CATEGORIES as $cat_id => $category): ?>
-                        <?php if (isset($category['hidden_nav']) && $category['hidden_nav']) continue; ?>
+                        <?php if (isset($category['hidden_nav']) && $category['hidden_nav'])
+                            continue; ?>
                         <div class="relative group">
                             <button
                                 class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800/50 flex items-center gap-1 transition-colors">
@@ -196,10 +213,13 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                         <input type="text" id="global-search" autocomplete="off"
                             class="block w-full pl-10 pr-3 py-1.5 border border-slate-200 dark:border-gray-800 rounded-full bg-slate-100 dark:bg-gray-900/50 text-sm placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                             placeholder="Search tools...">
-                        <div id="global-search-dropdown" class="absolute left-0 right-0 mt-2 w-72 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl shadow-2xl overflow-hidden z-50 hidden text-left"></div>
+                        <div id="global-search-dropdown"
+                            class="absolute left-0 right-0 mt-2 w-72 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl shadow-2xl overflow-hidden z-50 hidden text-left">
+                        </div>
                     </div>
 
-                    <button id="theme-toggle" class="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50 transition-colors">
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50 transition-colors">
                         <i id="theme-icon" data-lucide="moon" class="w-5 h-5 cursor-pointer"></i>
                     </button>
 
@@ -219,10 +239,12 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
             class="md:hidden hidden border-t border-slate-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 overflow-y-auto max-h-[80vh] backdrop-blur-md">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <?php foreach ($TOOL_CATEGORIES as $cat_id => $category): ?>
-                    <?php if (isset($category['hidden_nav']) && $category['hidden_nav']) continue; ?>
+                    <?php if (isset($category['hidden_nav']) && $category['hidden_nav'])
+                        continue; ?>
                     <div class="px-3 py-2">
                         <div class="text-xs font-semibold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">
-                            <?php echo $category['name']; ?></div>
+                            <?php echo $category['name']; ?>
+                        </div>
                         <div class="grid grid-cols-1 gap-1">
                             <?php foreach ($category['tools'] as $tool_id => $tool): ?>
                                 <a href="<?php echo SITE_URL; ?>/tools/<?php echo $cat_id; ?>/<?php echo $tool_id; ?>"
