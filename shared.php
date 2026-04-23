@@ -68,7 +68,6 @@ if (!$found) {
 </head>
 
 <body class="min-h-screen flex flex-col text-white">
-    <?php include_once __DIR__ . '/includes/googletagbody.php'; ?>
 
     <!-- Header / Nav -->
     <header class="p-6 flex items-center justify-between max-w-5xl mx-auto w-full">

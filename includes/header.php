@@ -39,17 +39,6 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
 
 <head>
 
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TBPK8WX2');</script>
-    <!-- End Google Tag Manager -->
-
     <!-- Prevent FOUC (Flash of Unstyled Content) -->
     <script>
         if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -156,7 +145,6 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
 
 <body
     class="bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-gray-100 font-sans selection:bg-indigo-500/30 transition-colors duration-300">
-    <?php include_once __DIR__ . '/googletagbody.php'; ?>
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 glass">

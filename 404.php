@@ -115,7 +115,6 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
 </head>
 
 <body class="bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-gray-100 font-sans selection:bg-indigo-500/30 transition-colors duration-300 min-h-screen flex flex-col">
-    <?php include_once __DIR__ . '/includes/googletagbody.php'; ?>
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 glass">
