@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         user: JSON.parse(localStorage.getItem('bt_user') || '{}'),
         theme: localStorage.getItem('bt_theme') || 'light',
         isOnline: navigator.onLine,
+        isReduceMotion: localStorage.getItem('bt_reduce_motion') === 'true',
         csrfToken: null,
         sessionHash: null,
         deferredPrompt: null
@@ -83,6 +84,17 @@ window.toggleGlobalTheme = (theme) => {
     }
     localStorage.setItem('bt_theme', theme);
     window.appState.theme = theme;
+};
+
+// ── Reduce Motion Toggle ──────────────────────────────────────────────────────
+window.toggleReduceMotion = (enabled) => {
+    if (enabled) {
+        document.documentElement.classList.add('reduce-motion');
+    } else {
+        document.documentElement.classList.remove('reduce-motion');
+    }
+    localStorage.setItem('bt_reduce_motion', enabled);
+    window.appState.isReduceMotion = enabled;
 };
 
 // ── CSRF & Session ────────────────────────────────────────────────────────────

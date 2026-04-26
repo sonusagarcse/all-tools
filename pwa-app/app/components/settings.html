@@ -29,7 +29,7 @@
                         <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Reduce Motion</span>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" class="sr-only peer">
+                        <input type="checkbox" id="reduce-motion-toggle" class="sr-only peer" onchange="handleMotionToggle(this)">
                         <div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                     </label>
                 </div>
@@ -89,10 +89,16 @@
 
 <script>
     function initSettings() {
-        const toggle = document.getElementById('dark-mode-toggle');
-        if (toggle && window.appState) {
-            toggle.checked = window.appState.theme === 'dark';
+        const themeToggle = document.getElementById('dark-mode-toggle');
+        const motionToggle = document.getElementById('reduce-motion-toggle');
+        
+        if (themeToggle && window.appState) {
+            themeToggle.checked = window.appState.theme === 'dark';
         }
+        if (motionToggle && window.appState) {
+            motionToggle.checked = window.appState.isReduceMotion === true;
+        }
+        
         if(typeof lucide !== 'undefined') lucide.createIcons();
     }
 
@@ -100,6 +106,12 @@
         const theme = el.checked ? 'dark' : 'light';
         if (window.toggleGlobalTheme) {
             window.toggleGlobalTheme(theme);
+        }
+    }
+
+    function handleMotionToggle(el) {
+        if (window.toggleReduceMotion) {
+            window.toggleReduceMotion(el.checked);
         }
     }
 

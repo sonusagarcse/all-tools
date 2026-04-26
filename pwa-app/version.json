@@ -1,5 +1,5 @@
 {
-  "version": "1.3.3",
-  "release_notes": "Added GST, SIP, Glassmorphism, and Legal tools. Manual update mode enabled.",
+  "version": "1.3.4",
+  "release_notes": "Fixed Dark Mode and added Reduce Motion support. Design and stability improvements.",
   "status": "stable"
 }

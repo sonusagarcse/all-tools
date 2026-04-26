@@ -1,0 +1,70 @@
+# BulkTools
+
+> Free Online Utilities: Image Tools, Developer Utilities, Hindi Typing, JWT Decoders & Security Tools.
+
+BulkTools is a comprehensive suite of free, web-based utilities designed for creators, developers, and everyday users. Our platform offers a wide range of tools from image processing and YouTube SEO to security utilities and financial calculators. We prioritize privacy, speed, and ease of use, with no login or account required for any tool.
+
+## YouTube Creator Tools
+- [YouTube Thumbnail Downloader](https://tools.lkvmbihar.in/tools/youtube/yt-thumbnail): Download high-quality YouTube video thumbnails effortlessly.
+- [YouTube Tag Extractor](https://tools.lkvmbihar.in/tools/youtube/yt-tags): Extract hidden SEO tags and keywords from any YouTube video.
+- [YouTube Comment Picker](https://tools.lkvmbihar.in/tools/youtube/comment-picker): Randomly pick winners from YouTube video comments for giveaways.
+- [YouTube Money Calculator](https://tools.lkvmbihar.in/tools/youtube/yt-money): Estimate potential earnings of a YouTube video or channel.
+
+## Image Tools
+- [Compress Image](https://tools.lkvmbihar.in/tools/image/compress-image): Reduce image file size without visible quality loss.
+- [Compress Image in KB](https://tools.lkvmbihar.in/tools/image/compress-image-in-kb): Forcefully compress images to an exact target file size (KB).
+- [Resize Image](https://tools.lkvmbihar.in/tools/image/resize-image): Resize images to any custom pixel dimensions.
+- [Convert Image](https://tools.lkvmbihar.in/tools/image/convert-image): Convert images between JPG, PNG, and WebP formats.
+- [Crop Image](https://tools.lkvmbihar.in/tools/image/crop-image): Crop images to focus on what matters most.
+- [Flip & Rotate](https://tools.lkvmbihar.in/tools/image/flip-rotate): Rotate images or flip them horizontally/vertically.
+- [Image Filters](https://tools.lkvmbihar.in/tools/image/image-filters): Apply aesthetic filters like Grayscale, Sepia, and Blur.
+- [Color Picker](https://tools.lkvmbihar.in/tools/image/color-picker): Extract HEX/RGB color codes directly from any image.
+- [Online Drawing Board](https://tools.lkvmbihar.in/tools/image/drawing-board): Sketch, draw, and design with a professional online canvas tool.
+- [Custom QR Generator](https://tools.lkvmbihar.in/tools/image/qr-generator): Generate premium QR codes with custom colors, logos, and styles.
+- [QR Code Scanner (from Image)](https://tools.lkvmbihar.in/tools/image/qr-scanner): Decode and read any QR code instantly by uploading an image.
+
+## Text Tools
+- [Word Counter](https://tools.lkvmbihar.in/tools/text/word-counter): Count words, characters, sentences, and paragraphs.
+- [Case Converter](https://tools.lkvmbihar.in/tools/text/case-converter): Convert text to UPPER, lower, Title, or Sentence case.
+- [Lorem Ipsum Generator](https://tools.lkvmbihar.in/tools/text/lorem-ipsum): Generate placeholder Lorem Ipsum text for designs and prototypes.
+- [Base64 Encode](https://tools.lkvmbihar.in/tools/text/base64-encode): Encode any text or string into Base64 format.
+- [Base64 Decode](https://tools.lkvmbihar.in/tools/text/base64-decode): Decode Base64-encoded strings back into readable text.
+- [Online Text Editor](https://tools.lkvmbihar.in/tools/text/text-editor): Write, format, and edit text with a professional rich-text editor.
+- [UUID Generator](https://tools.lkvmbihar.in/tools/text/uuid-generator): Generate cryptographically random UUID v4 identifiers.
+- [Hindi Typing Tool](https://tools.lkvmbihar.in/tools/text/hindi-typing): Type Hindi transliteration easily (e.g., hello -> हैलो).
+- [Instagram Font Generator](https://tools.lkvmbihar.in/tools/text/insta-fonts): Generate fancy, stylish Unicode fonts for Instagram Bios and social media.
+- [WhatsApp Link Generator](https://tools.lkvmbihar.in/tools/text/whatsapp-link): Create "Click to Chat" links with custom pre-filled messages.
+- [Text to Speech (Voice Generator)](https://tools.lkvmbihar.in/tools/text/tts): Convert written text into natural-sounding voice audio instantly.
+
+## Developer Tools
+- [JSON Formatter](https://tools.lkvmbihar.in/tools/dev/json-formatter): Format, validate, and minify JSON data with syntax highlighting.
+- [URL Encoder / Decoder](https://tools.lkvmbihar.in/tools/dev/url-encoder): Encode or decode URLs and query strings for safe web use.
+- [HTML Minifier](https://tools.lkvmbihar.in/tools/dev/html-minifier): Compress and minify HTML code to reduce file sizes.
+- [Internet Speed Test](https://tools.lkvmbihar.in/tools/dev/speed-test): Measure your internet download, upload speeds and latency instantly.
+- [JWT Decoder](https://tools.lkvmbihar.in/tools/dev/jwt-decoder): Decode JSON Web Tokens and view payload claims safely.
+- [CSS Gradient Generator](https://tools.lkvmbihar.in/tools/dev/gradient): Create beautiful CSS gradients visually and copy the code.
+- [CSS Glassmorphism Generator](https://tools.lkvmbihar.in/tools/dev/glassmorphism-generator): Create stunning frosted glass effects with real-time CSS code generation.
+- [HTML Entity Converter](https://tools.lkvmbihar.in/tools/dev/html-entities): Encode or decode special characters into HTML entities safely.
+
+## Security Tools
+- [Password Generator](https://tools.lkvmbihar.in/tools/sec/password-generator): Generate strong, secure, and random passwords.
+- [Hash Generator](https://tools.lkvmbihar.in/tools/sec/hash-generator): Generate MD5, SHA-1, SHA-256, and SHA-512 hashes.
+- [Bcrypt Generator](https://tools.lkvmbihar.in/tools/sec/bcrypt-generator): Generate secure bcrypt password hashes with customizable rounds.
+- [Secure Image Share](https://tools.lkvmbihar.in/tools/sec/secure-image-share): End-to-End Encrypted one-time image sharing.
+
+## Time Tools
+- [Countdown Timer](https://tools.lkvmbihar.in/tools/time/countdown-timer): Set a custom timer that triggers a buzzer when it hits zero.
+- [Age Calculator](https://tools.lkvmbihar.in/tools/time/age-calculator): Calculate your exact age in years, months, and days.
+- [BMI Calculator](https://tools.lkvmbihar.in/tools/time/bmi-calculator): Calculate your Body Mass Index (BMI) and health category.
+- [Online Stopwatch](https://tools.lkvmbihar.in/tools/time/stopwatch): A precise stopwatch with lap timing capabilities and millisecond accuracy.
+- [World Clock](https://tools.lkvmbihar.in/tools/time/world-clock): View current local time in major cities around the globe instantly.
+- [Unix Timestamp Converter](https://tools.lkvmbihar.in/tools/time/unix-timestamp): Convert between Unix Epoch timestamps and human-readable dates.
+
+## Financial Tools
+- [GST Calculator](https://tools.lkvmbihar.in/tools/finance/gst-calculator): Calculate GST (Goods and Services Tax) for any amount with multiple tax slabs.
+- [SIP Calculator](https://tools.lkvmbihar.in/tools/finance/sip-calculator): Calculate your future wealth and returns from Systematic Investment Plans (SIP).
+
+## Web Utilities
+- [Privacy Policy Generator](https://tools.lkvmbihar.in/tools/web/privacy-policy-generator): Create a professional privacy policy for your website or app in seconds.
+- [HTTP Header Checker](https://tools.lkvmbihar.in/tools/web/http-headers): View the HTTP response headers of any URL to debug server issues.
+- [LLMs.txt Generator](https://tools.lkvmbihar.in/tools/web/llms-generator): Generate an AI-optimized llms.txt file to help LLMs understand your website.

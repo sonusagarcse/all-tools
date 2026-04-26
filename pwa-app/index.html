@@ -22,7 +22,8 @@
     <script src="https://cdn.tailwindcss.com" defer></script>
     <script>
         // Tailwind Configuration for Dark Mode
-        window.tailwindConfig = {
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
@@ -37,10 +38,16 @@
         };
 
         // Immediate Theme Check to prevent flash
-        if (localStorage.getItem('bt_theme') === 'dark' || (!('bt_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        const savedTheme = localStorage.getItem('bt_theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
+        }
+
+        // Reduce Motion Check
+        if (localStorage.getItem('bt_reduce_motion') === 'true') {
+            document.documentElement.classList.add('reduce-motion');
         }
     </script>
     <!-- Lucide Icons -->
