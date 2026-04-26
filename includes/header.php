@@ -8,6 +8,9 @@ $static_pages = [
     'contact' => ['title' => 'Contact Us', 'desc' => 'Get in touch with the BulkTools team. Report a bug, suggest a new tool, or ask any question — we read every message.'],
     'privacy-policy' => ['title' => 'Privacy Policy', 'desc' => 'Read how BulkTools collects, uses, and protects your data. We never store files beyond your session and never sell your data.'],
     'terms' => ['title' => 'Terms of Service', 'desc' => 'Read the BulkTools Terms of Service governing use of all free online tools on the platform.'],
+    'students' => ['title' => 'Online Tools for Students - Productivity & Study Utilities', 'desc' => 'Handpicked free online tools for students. Resume builder, percentage calculator, age calculator, and more to boost academic productivity.'],
+    'creators' => ['title' => 'Online Tools for Content Creators - YouTube & Instagram SEO', 'desc' => 'Optimize your YouTube and Instagram content with our free creator tools. Tag extractors, thumbnail downloaders, and more.'],
+    'developers' => ['title' => 'Online Developer Tools - JSON, Base64, JWT & Minifiers', 'desc' => 'Blazing fast, browser-based developer tools. JSON formatting, Base64 encoding, JWT decoding, and code minification.'],
 ];
 
 // Detect current static page from URI
@@ -189,6 +192,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    
 
                 </div>
 
@@ -244,6 +248,7 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
                         </div>
                     </div>
                 <?php endforeach; ?>
+
 
             </div>
         </div>

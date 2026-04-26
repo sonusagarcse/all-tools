@@ -17,6 +17,12 @@ RewriteRule ^contact/?$         contact.php [L,QSA]
 RewriteRule ^privacy-policy/?$  privacy-policy.php [L,QSA]
 # /terms            → terms.php
 RewriteRule ^terms/?$           terms.php [L,QSA]
+# /students          → students.php
+RewriteRule ^students/?$        students.php [L,QSA]
+# /creators          → creators.php
+RewriteRule ^creators/?$        creators.php [L,QSA]
+# /developers        → developers.php
+RewriteRule ^developers/?$      developers.php [L,QSA]
 # /sitemap.xml      → sitemap.php (dynamic XML)
 RewriteRule ^sitemap\.xml$      sitemap.php [L,QSA]
 

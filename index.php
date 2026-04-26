@@ -180,8 +180,74 @@ $cat_accents = [
                         data-count-target="<?php echo $s['val']; ?>"><?php echo $s['val']; ?></div>
                     <div class="text-slate-500 dark:text-gray-500 text-xs uppercase tracking-widest font-bold">
                         <?php echo $s['label']; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+</section>
+
+
+<!-- ==================== TARGET AUDIENCES ==================== -->
+<section class="py-24 bg-white dark:bg-gray-950 overflow-hidden border-t border-slate-100 dark:border-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <span
+                class="inline-block px-4 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full mb-4 border border-indigo-100 dark:border-indigo-500/20">Tailored
+                for You</span>
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-4">Tools Built
+                for <span class="gradient-text">Your Workflow</span></h2>
+            <p class="text-slate-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">Specific utility collections designed
+                for the way you work and create.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Student -->
+            <a href="<?php echo SITE_URL; ?>/students"
+                class="group relative p-8 rounded-[40px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-slate-100 dark:border-gray-800 hover:border-indigo-500/30 transition-all duration-500 reveal">
+                <div
+                    class="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="graduation-cap" class="w-8 h-8"></i>
                 </div>
-            <?php endforeach; ?>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">For Students</h3>
+                <p class="text-slate-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">Resume builders, age
+                    calculators, and text editors to simplify your academic life.</p>
+                <div
+                    class="text-indigo-500 text-sm font-black uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                    Explore Student Tools <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <!-- Creator -->
+            <a href="<?php echo SITE_URL; ?>/creators"
+                class="group relative p-8 rounded-[40px] bg-gradient-to-br from-rose-500/5 to-pink-500/5 border border-slate-100 dark:border-gray-800 hover:border-rose-500/30 transition-all duration-500 reveal">
+                <div
+                    class="w-16 h-16 bg-rose-500/10 rounded-2xl flex items-center justify-center text-rose-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="video" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">For Creators</h3>
+                <p class="text-slate-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">YouTube SEO, thumbnail
+                    downloads, and viral hashtag generators for growth.</p>
+                <div
+                    class="text-rose-500 text-sm font-black uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                    Explore Creator Tools <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <!-- Developer -->
+            <a href="<?php echo SITE_URL; ?>/developers"
+                class="group relative p-8 rounded-[40px] bg-gradient-to-br from-cyan-500/5 to-blue-500/5 border border-slate-100 dark:border-gray-800 hover:border-cyan-500/30 transition-all duration-500 reveal">
+                <div
+                    class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="code" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">For Developers</h3>
+                <p class="text-slate-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">JSON formatting, Base64
+                    encoding, and code minification at light speed.</p>
+                <div
+                    class="text-cyan-500 text-sm font-black uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                    Explore Dev Tools <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -213,13 +279,13 @@ $cat_accents = [
                     </div>
                     <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2">
                         <?php echo $category['name']; ?></h3>
-                    <p class="text-sm text-slate-500 dark:text-gray-400 leading-relaxed mb-6 flex-grow">
-                        <?php echo $tool_count; ?> powerful tools built to supercharge your productivity.
-                    </p>
-                    <div
-                        class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest <?php echo $acc['text']; ?> group-hover:gap-3 transition-all animate-bounce-x">
-                        Explore <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                    </div>
+                        <p class="text-sm text-slate-500 dark:text-gray-400 leading-relaxed mb-6 flex-grow">
+                            <?php echo $tool_count; ?> powerful tools built to supercharge your productivity.
+                        </p>
+                        <div
+                            class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest <?php echo $acc['text']; ?> group-hover:gap-3 transition-all animate-bounce-x">
+                            Explore <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -227,27 +293,36 @@ $cat_accents = [
 </section>
 
 <style>
-    #root-pwa-banner.hidden { display: none !important; }
+    #root-pwa-banner.hidden {
+        display: none !important;
+    }
 </style>
 <!-- PWA Install Prompt (Mobile Optimized) -->
-<section id="root-pwa-banner" class="hidden py-16 px-4 bg-slate-50 dark:bg-gray-900/30 border-y border-slate-100 dark:border-gray-900 reveal">
+<section id="root-pwa-banner"
+    class="hidden py-16 px-4 bg-slate-50 dark:bg-gray-900/30 border-y border-slate-100 dark:border-gray-900 reveal">
     <div class="max-w-4xl mx-auto">
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-[40px] p-8 md:p-12 text-white shadow-2xl shadow-indigo-500/20 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
+        <div
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-[40px] p-8 md:p-12 text-white shadow-2xl shadow-indigo-500/20 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mt-20 -mr-20"></div>
             <div class="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl -mb-10 -ml-10"></div>
-            
-            <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center shrink-0 border border-white/30 shadow-inner">
+
+            <div
+                class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center shrink-0 border border-white/30 shadow-inner">
                 <i data-lucide="smartphone" class="w-12 h-12 text-white"></i>
             </div>
-            
+
             <div class="flex-1 text-center md:text-left relative z-10">
-                <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">App Now Available</span>
-                <h3 class="text-2xl md:text-3xl font-black mb-3">Experience BulkTools Pro</h3>
-                <p class="text-indigo-100 text-sm md:text-base leading-relaxed opacity-90 max-w-md">Get full-screen productivity, lightning speed, and offline access by installing our official PWA.</p>
+                <span
+                    class="inline-block px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">App
+                    Now Available</span>
+                <h3 class="text-2xl md:text-3xl font-white mb-3">Experience BulkTools Pro</h3>
+                <p class="text-indigo-100 text-sm md:text-base leading-relaxed opacity-90 max-w-md">Get full-screen
+                    productivity, lightning speed, and offline access by installing our official PWA.</p>
             </div>
-            
+
             <div class="shrink-0 relative z-10 w-full md:w-auto">
-                <button onclick="rootPWAInstall()" class="w-full md:w-auto px-10 py-5 bg-white text-indigo-600 font-black rounded-2xl shadow-xl active:scale-95 transition-transform flex items-center justify-center gap-3 hover:bg-slate-50 text-lg">
+                <button onclick="rootPWAInstall()"
+                    class="w-full md:w-auto px-10 py-5 bg-white text-indigo-600 font-black rounded-2xl shadow-xl active:scale-95 transition-transform flex items-center justify-center gap-3 hover:bg-slate-50 text-lg">
                     <i data-lucide="download-cloud" class="w-6 h-6"></i>
                     Install Now
                 </button>
@@ -269,11 +344,11 @@ $cat_accents = [
     async function rootPWAInstall() {
         const promptEvent = window.pwaState.deferredPrompt;
         if (!promptEvent) return;
-        
+
         promptEvent.prompt();
         const { outcome } = await promptEvent.userChoice;
         console.log(`User response to the root install prompt: ${outcome}`);
-        
+
         window.pwaState.deferredPrompt = null;
         document.getElementById('root-pwa-banner').classList.add('hidden');
     }
@@ -306,7 +381,8 @@ foreach ($TOOL_CATEGORIES as $cat_id => $category):
                     </div>
                     <div>
                         <p class="text-xs font-bold uppercase tracking-widest <?php echo $acc['text']; ?> mb-1">
-                            <?php echo count($category['tools']); ?> tools available</p>
+                            <?php echo count($category['tools']); ?> tools available
+                        </p>
                         <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-slate-900 dark:text-white">
                             <?php echo $category['name']; ?></h2>
                     </div>
@@ -327,10 +403,10 @@ foreach ($TOOL_CATEGORIES as $cat_id => $category):
                             </h3>
                             <p class="text-slate-500 dark:text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
                                 <?php echo $tool['desc']; ?></p>
-                            <a href="<?php echo SITE_URL; ?>/tools/<?php echo $cat_id; ?>/<?php echo $tool_id; ?>"
-                                class="block w-full py-2.5 px-4 rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800/60 text-slate-900 dark:text-white text-sm font-bold text-center hover:bg-gradient-to-r hover:<?php echo str_replace('/10', '', $acc['bg']); ?> hover:text-white hover:border-transparent transition-all duration-200 group">
-                                Use Tool <span class="ml-1 group-hover:ml-2 transition-all">→</span>
-                            </a>
+                                <a href="<?php echo SITE_URL; ?>/tools/<?php echo $cat_id; ?>/<?php echo $tool_id; ?>"
+                                    class="block w-full py-2.5 px-4 rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800/60 text-slate-900 dark:text-white text-sm font-bold text-center hover:bg-gradient-to-r hover:<?php echo str_replace('/10', '', $acc['bg']); ?> hover:text-white hover:border-transparent transition-all duration-200 group">
+                                    Use Tool <span class="ml-1 group-hover:ml-2 transition-all">→</span>
+                                </a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -374,7 +450,8 @@ foreach ($TOOL_CATEGORIES as $cat_id => $category):
                 class="inline-block px-4 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full mb-4 border border-indigo-100 dark:border-indigo-500/20">Simple
                 Process</span>
             <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 dark:text-white mb-4">How It
-                <span class="gradient-text">Works</span></h2>
+                <span class="gradient-text">Works</span>
+            </h2>
             <p class="text-slate-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">Three simple steps is all it takes —
                 no manuals, no tutorials, no waiting.</p>
         </div>
@@ -403,14 +480,15 @@ foreach ($TOOL_CATEGORIES as $cat_id => $category):
                         <div
                             class="absolute -top-2 -right-2 w-9 h-9 <?php echo $step['color']; ?> rounded-full flex items-center justify-center text-white text-xs font-black shadow-lg">
                             <?php echo $step['num']; ?></div>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-3">
+                            <?php echo $step['title']; ?></h3>
+                            <p class="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">
+                                <?php echo $step['desc']; ?></p>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-3">
-                        <?php echo $step['title']; ?></h3>
-                    <p class="text-slate-500 dark:text-gray-400 text-sm leading-relaxed"><?php echo $step['desc']; ?></p>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
 </section>
 
 <!-- ==================== FEATURES ==================== -->

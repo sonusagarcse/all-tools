@@ -211,7 +211,7 @@
 .marquee-inner {
     display: flex;
     width: max-content;
-    animation: marquee 20s linear infinite;
+    animation: marquee 60s linear infinite;
 }
 .marquee-inner:hover { animation-play-state: paused; }
 

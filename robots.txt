@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tools.lkvmbihar.in/sitemap.xml
 Disallow: /uploads/
 Disallow: /includes/
 Disallow: /vendor/

@@ -253,6 +253,13 @@ $TOOL_CATEGORIES = [
                 'keywords' => ['text to speech', 'online tts generator', 'convert text to voice', 'voice generator free', 'natural sounding voices', 'speech synthesizer', 'read text aloud'],
                 'seo_text' => '<p>Give your content a voice with the BulkTools <strong>Text to Speech Generator</strong>. Whether you\'re creating a video script, listening to an article, or testing accessibility, our TTS tool provides high-quality, natural-sounding voice synthesis directly in your browser.</p><p class="mt-4"><strong>Premium Features:</strong> Supports multiple languages and accents (depending on your browser), adjustable reading speed, and pitch control. Simply type your text, choose a voice, and hear it speak instantly. Perfect for educators, creators, and professionals.</p>',
             ],
+            'resume-builder' => [
+                'name' => 'Resume Builder',
+                'desc' => 'Create a professional, ATS-friendly resume in minutes.',
+                'seo_desc' => 'Free online resume builder. Create a professional, ATS-friendly resume for job applications in India and worldwide. Export to high-quality PDF.',
+                'keywords' => ['resume builder', 'free resume maker', 'cv generator online', 'ats friendly resume', 'india resume builder', 'professional cv maker', 'create resume free'],
+                'seo_text' => '<p>Landing your dream job starts with a great first impression. The BulkTools <strong>Free Resume Builder</strong> helps you create a professional, industry-standard CV that stands out to recruiters and passes through Applicant Tracking Systems (ATS) with ease.</p><p class="mt-4"><strong>Key Features:</strong> Choose from clean, modern templates, add your work experience, education, and skills with a simple interface, and get real-time previews. Our tool is optimized for the Indian job market but works perfectly for international roles too. No signup required — just build and download your PDF.</p>',
+            ],
         ]
     ],
     'dev' => [
@@ -417,6 +424,13 @@ $TOOL_CATEGORIES = [
                 'seo_desc' => 'Free online SIP calculator. Estimate returns on your mutual fund investments. Calculate future wealth based on monthly investment, tenure, and expected return rate.',
                 'keywords' => ['sip calculator', 'mutual fund returns calculator', 'investment calculator', 'future wealth calculator', 'sip return estimator', 'compound interest calculator', 'systematic investment plan'],
                 'seo_text' => '<h2>Professional SIP Returns Calculator</h2><p>Plan your financial future with our <strong>SIP Calculator</strong>. A Systematic Investment Plan (SIP) is a disciplined way to invest in mutual funds, allowing you to benefit from the power of compounding and rupee cost averaging over the long term.</p><h3>Estimate Your Wealth Growth</h3><p>Simply enter your monthly investment amount, the expected annual return rate, and the time period (in years). Our calculator will show you the **Total Investment**, the **Estimated Returns**, and the **Total Wealth** you could accumulate. It\'s an essential tool for goal-based financial planning.</p><h3>The Power of Compounding</h3><p>The secret to wealth creation through SIP is starting early and staying consistent. By reinvesting your returns, your money grows exponentially. Use our tool to visualize how even small monthly contributions can grow into a significant corpus over 10, 20, or 30 years.</p>',
+            ],
+            'percentage-calculator' => [
+                'name' => 'Percentage Calculator',
+                'desc' => 'Calculate percentages, increases, and decreases instantly.',
+                'seo_desc' => 'Free online percentage calculator. Calculate percentage of a value, percentage change, and fractional percentages for students and finance.',
+                'keywords' => ['percentage calculator', 'calculate percentage online', 'percent change calculator', 'student grade calculator', 'marks percentage finder', 'free math tools'],
+                'seo_text' => '<p>The BulkTools <strong>Percentage Calculator</strong> is an essential tool for students, teachers, and business professionals. Whether you\'re calculating your exam marks, a discount at a store, or a year-over-year growth rate, our tool provides instant and accurate results.</p><p class="mt-4"><strong>Versatile Calculations:</strong> Find the percentage of a number, calculate what percentage one number is of another, and determine the percentage increase or decrease between two values. Simple, fast, and 100% free.</p>',
             ],
         ]
     ],
