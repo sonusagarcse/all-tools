@@ -1,0 +1,188 @@
+<div class="pb-6 animate-in slide-in-from-bottom-4 fade-in duration-300">
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Comment Picker</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Random YouTube giveaway winner</p>
+        </div>
+        <button onclick="navigate('all-tools')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- Inputs -->
+    <div class="space-y-4 mb-6">
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">Video URL or ID</label>
+            <input type="text" id="yt-video-id" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl text-slate-900 dark:text-white p-4 text-sm focus:ring-2 focus:ring-red-500" placeholder="https://youtube.com/watch?v=...">
+            
+            <div class="flex items-center gap-2 mt-4">
+                <input type="checkbox" id="yt-filter-duplicates" checked class="w-4 h-4 rounded border-slate-300 text-red-600 focus:ring-red-500 bg-slate-50 dark:bg-slate-800 accent-red-600">
+                <label for="yt-filter-duplicates" class="text-xs font-bold text-slate-600 dark:text-slate-400">Filter duplicate users (1 entry per user)</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <button id="yt-fetch-btn" class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-[24px] shadow-lg shadow-red-500/20 active:scale-95 transition-all flex items-center justify-center gap-2 uppercase tracking-widest mb-6">
+        <i data-lucide="youtube" class="w-5 h-5"></i> Fetch & Pick Winner
+    </button>
+
+    <!-- Status & Progress -->
+    <div id="yt-status-container" class="hidden bg-slate-100 dark:bg-slate-800 rounded-3xl p-6 mb-6 text-center border border-slate-200 dark:border-slate-700">
+        <i data-lucide="loader-2" class="w-8 h-8 text-red-500 animate-spin mx-auto mb-3"></i>
+        <h3 id="yt-status-text" class="text-sm font-bold text-slate-900 dark:text-white">Fetching comments...</h3>
+        <p id="yt-status-count" class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">0 loaded</p>
+    </div>
+
+    <!-- Result -->
+    <div id="yt-result-container" class="hidden animate-in zoom-in-95 duration-300">
+        <h3 class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 pl-1 text-center">Winner</h3>
+        <div class="bg-gradient-to-br from-red-500 to-rose-600 p-1 rounded-3xl shadow-xl shadow-red-500/20">
+            <div class="bg-white dark:bg-slate-900 rounded-[28px] p-8 text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 text-red-50 dark:text-slate-800/50">
+                    <i data-lucide="trophy" class="w-32 h-32 rotate-12"></i>
+                </div>
+                
+                <div class="relative z-10">
+                    <img id="yt-winner-avatar" src="" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white dark:border-slate-800 shadow-xl object-cover" alt="Winner Avatar">
+                    <h2 id="yt-winner-name" class="text-xl font-black text-slate-900 dark:text-white mb-2"></h2>
+                    
+                    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 mt-6 relative border border-slate-100 dark:border-slate-800">
+                        <i data-lucide="quote" class="absolute -top-3 -left-3 w-6 h-6 text-slate-300 dark:text-slate-600 bg-white dark:bg-slate-900 rounded-full p-1 border border-slate-100 dark:border-slate-800"></i>
+                        <p id="yt-winner-comment" class="text-sm text-slate-600 dark:text-slate-300 italic"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex gap-3 mt-4">
+            <button id="yt-pick-another-btn" class="flex-1 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl transition-colors active:scale-95 uppercase tracking-widest flex items-center justify-center gap-2">
+                <i data-lucide="dices" class="w-4 h-4"></i> Pick Another Winner
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Elements
+    const videoIdInput = document.getElementById('yt-video-id');
+    const filterDuplicatesCheckbox = document.getElementById('yt-filter-duplicates');
+    const fetchBtn = document.getElementById('yt-fetch-btn');
+    
+    const statusContainer = document.getElementById('yt-status-container');
+    const statusText = document.getElementById('yt-status-text');
+    const statusCount = document.getElementById('yt-status-count');
+    
+    const resultContainer = document.getElementById('yt-result-container');
+    const winnerAvatar = document.getElementById('yt-winner-avatar');
+    const winnerName = document.getElementById('yt-winner-name');
+    const winnerComment = document.getElementById('yt-winner-comment');
+    const pickAnotherBtn = document.getElementById('yt-pick-another-btn');
+
+    let allComments = [];
+
+    const AJAX_BASE = (window.location.origin + window.location.pathname).split('/pwa-app')[0] + '/ajax/';
+
+    function extractVideoId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : url;
+    }
+
+    async function fetchAllComments(videoId) {
+        let comments = [];
+        let nextPageToken = '';
+        
+        statusContainer.classList.remove('hidden');
+        resultContainer.classList.add('hidden');
+        fetchBtn.disabled = true;
+        fetchBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        
+        try {
+            do {
+                const url = `${AJAX_BASE}yt-comments.php?videoId=${videoId}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message || 'API Error');
+                }
+                
+                if (data.items) {
+                    comments = comments.concat(data.items);
+                    statusCount.innerText = `${comments.length} loaded`;
+                }
+                
+                nextPageToken = data.nextPageToken;
+            } while (nextPageToken);
+
+            allComments = comments;
+            pickWinner();
+
+        } catch (error) {
+            alert('Error fetching comments: ' + error.message);
+            statusContainer.classList.add('hidden');
+            fetchBtn.disabled = false;
+            fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    function pickWinner() {
+        if (allComments.length === 0) {
+            alert('No comments found for this video.');
+            statusContainer.classList.add('hidden');
+            fetchBtn.disabled = false;
+            fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            return;
+        }
+
+        let pool = allComments;
+
+        if (filterDuplicatesCheckbox.checked) {
+            const uniqueAuthors = new Map();
+            pool.forEach(item => {
+                const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || item.snippet.topLevelComment.snippet.authorDisplayName;
+                if (!uniqueAuthors.has(authorId)) {
+                    uniqueAuthors.set(authorId, item);
+                }
+            });
+            pool = Array.from(uniqueAuthors.values());
+            console.log(`Filtered from ${allComments.length} down to ${pool.length} unique authors.`);
+        }
+
+        const winner = pool[Math.floor(Math.random() * pool.length)];
+        const snippet = winner.snippet.topLevelComment.snippet;
+
+        winnerAvatar.src = snippet.authorProfileImageUrl;
+        winnerName.innerText = snippet.authorDisplayName;
+        winnerComment.innerText = snippet.textOriginal;
+
+        statusContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        
+        fetchBtn.disabled = false;
+        fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        fetchBtn.innerHTML = `<i data-lucide="refresh-cw" class="w-5 h-5"></i> Fetch Again`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    fetchBtn.addEventListener('click', () => {
+        const videoInput = videoIdInput.value.trim();
+        
+        if (!videoInput) {
+            alert('Please enter a Video URL or ID.');
+            return;
+        }
+
+        const videoId = extractVideoId(videoInput);
+
+        fetchAllComments(videoId);
+    });
+
+    pickAnotherBtn.addEventListener('click', pickWinner);
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+})();
+</script>

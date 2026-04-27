@@ -20,18 +20,18 @@ require_once '../../../includes/header.php';
         <div class="lg:col-span-5">
             <div class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200 dark:border-gray-800 h-full">
                 <div class="mb-6">
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Paste Comments (One per line)</label>
-                    <textarea id="comment-list" placeholder="User1: Amazing video!&#10;User2: Pick me please!&#10;User3: Great content... " class="w-full h-64 px-5 py-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm font-mono focus:ring-2 focus:ring-red-500 outline-none transition-all resize-none"></textarea>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Video URL or ID</label>
+                    <input type="text" id="yt-video-id" placeholder="https://youtube.com/watch?v=..." class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-red-500 outline-none transition-all">
                 </div>
 
                 <div class="flex items-center gap-3 mb-8">
                     <input type="checkbox" id="filter-duplicates" checked class="w-5 h-5 rounded-lg text-red-600 bg-gray-100 border-gray-300 focus:ring-0">
-                    <label for="filter-duplicates" class="text-sm text-slate-600 dark:text-gray-400 cursor-pointer select-none">Filter duplicate users</label>
+                    <label for="filter-duplicates" class="text-sm text-slate-600 dark:text-gray-400 cursor-pointer select-none">Filter duplicate users (1 entry per user)</label>
                 </div>
 
-                <button onclick="pickWinner()" class="w-full py-5 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-2xl transition-all active:scale-[0.98] shadow-xl shadow-red-500/20 flex items-center justify-center gap-3">
-                    <i data-lucide="dice-5" class="w-6 h-6"></i>
-                    Start Raffle
+                <button id="yt-fetch-btn" class="w-full py-5 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-2xl transition-all active:scale-[0.98] shadow-xl shadow-red-500/20 flex items-center justify-center gap-3">
+                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                    Fetch & Pick Winner
                 </button>
             </div>
         </div>
@@ -48,6 +48,13 @@ require_once '../../../includes/header.php';
                     <p class="text-slate-400 font-medium">Ready to pick a winner</p>
                 </div>
 
+                <!-- Fetching State -->
+                <div id="state-fetching" class="hidden text-center w-full">
+                    <i data-lucide="loader-2" class="w-12 h-12 text-red-500 animate-spin mx-auto mb-4"></i>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Fetching comments...</h3>
+                    <p id="yt-status-count" class="text-sm text-slate-500 uppercase tracking-widest mt-2">0 loaded</p>
+                </div>
+
                 <!-- Picking State (Animation) -->
                 <div id="state-picking" class="hidden text-center w-full">
                     <div class="text-4xl md:text-6xl font-black text-red-600 mb-8 blur-[2px] transition-all duration-100" id="spinning-name">Selecting...</div>
@@ -57,13 +64,24 @@ require_once '../../../includes/header.php';
                 </div>
 
                 <!-- Winner State -->
-                <div id="state-winner" class="hidden text-center scale-in">
-                    <div class="w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-yellow-500/50">
-                        <i data-lucide="trophy" class="w-12 h-12 text-white"></i>
+                <div id="state-winner" class="hidden text-center scale-in w-full">
+                    <div class="relative inline-block">
+                        <img id="winner-avatar" src="" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-yellow-400 shadow-xl object-cover">
+                        <div class="absolute -bottom-2 -right-2 bg-yellow-400 rounded-full p-2 shadow-lg">
+                            <i data-lucide="trophy" class="w-6 h-6 text-white"></i>
+                        </div>
                     </div>
-                    <p class="text-[10px] font-black text-yellow-600 uppercase tracking-[0.2em] mb-2">We have a winner!</p>
-                    <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-900 dark:text-white mb-8 px-4 break-words" id="winner-name">Lucky User</h2>
-                    <button onclick="resetPicker()" class="px-6 py-2 border-2 border-slate-200 dark:border-gray-800 rounded-xl text-xs font-black uppercase text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Pick Another</button>
+                    <p class="text-[10px] font-black text-yellow-600 uppercase tracking-[0.2em] mb-2 mt-4">We have a winner!</p>
+                    <h2 class="text-3xl md:text-4xl font-heading font-black text-slate-900 dark:text-white mb-4 px-4 break-words" id="winner-name">Lucky User</h2>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 mb-8 relative border border-slate-200 dark:border-gray-700 text-left max-w-md mx-auto">
+                        <i data-lucide="quote" class="absolute -top-3 -left-3 w-6 h-6 text-slate-300 dark:text-slate-600 bg-white dark:bg-gray-800 rounded-full p-1 border border-slate-200 dark:border-gray-700"></i>
+                        <p id="winner-comment" class="text-sm text-slate-600 dark:text-slate-300 italic"></p>
+                    </div>
+
+                    <button id="yt-pick-another-btn" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-xl text-xs font-black uppercase text-slate-700 dark:text-slate-300 transition-colors inline-flex items-center gap-2">
+                        <i data-lucide="dices" class="w-4 h-4"></i> Pick Another
+                    </button>
                 </div>
 
                 <!-- Confetti Canvas (Simulated) -->
@@ -89,23 +107,89 @@ require_once '../../../includes/header.php';
 
 <script>
 let isPicking = false;
+let allComments = [];
 
-function pickWinner() {
-    if (isPicking) return;
-    
-    const text = document.getElementById('comment-list').value.trim();
-    if (!text) return alert("Please paste some comments first!");
 
-    let comments = text.split('\n').filter(line => line.trim() !== '');
+function extractVideoId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : url;
+}
+
+async function fetchAllComments(videoId) {
+    let comments = [];
+    let nextPageToken = '';
     
-    if (document.getElementById('filter-duplicates').checked) {
-        comments = [...new Set(comments)];
+    showState('fetching');
+    const fetchBtn = document.getElementById('yt-fetch-btn');
+    fetchBtn.disabled = true;
+    fetchBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    
+    try {
+        do {
+            const url = `/tools/ajax/yt-comments.php?videoId=${videoId}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error.message || 'API Error');
+            }
+            
+            if (data.items) {
+                comments = comments.concat(data.items);
+                document.getElementById('yt-status-count').innerText = `${comments.length} loaded`;
+            }
+            
+            nextPageToken = data.nextPageToken;
+        } while (nextPageToken);
+
+        allComments = comments;
+        startRaffleAnimation();
+
+    } catch (error) {
+        alert('Error fetching comments: ' + error.message);
+        showState('idle');
+        fetchBtn.disabled = false;
+        fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+}
+
+function startRaffleAnimation() {
+    if (allComments.length === 0) {
+        alert('No comments found for this video.');
+        showState('idle');
+        const fetchBtn = document.getElementById('yt-fetch-btn');
+        fetchBtn.disabled = false;
+        fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        return;
     }
 
-    if (comments.length < 2) return alert("Please enter at least 2 unique comments.");
+    let pool = allComments;
+
+    if (document.getElementById('filter-duplicates').checked) {
+        const uniqueAuthors = new Map();
+        pool.forEach(item => {
+            const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || item.snippet.topLevelComment.snippet.authorDisplayName;
+            if (!uniqueAuthors.has(authorId)) {
+                uniqueAuthors.set(authorId, item);
+            }
+        });
+        pool = Array.from(uniqueAuthors.values());
+    }
+
+    if (pool.length < 1) {
+        alert("Not enough unique comments to pick a winner.");
+        showState('idle');
+        const fetchBtn = document.getElementById('yt-fetch-btn');
+        fetchBtn.disabled = false;
+        fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        return;
+    }
 
     isPicking = true;
     showState('picking');
+    document.getElementById('confetti').classList.add('opacity-0');
+    document.getElementById('confetti').innerHTML = '';
 
     const spinEl = document.getElementById('spinning-name');
     const progressBar = document.getElementById('picking-progress');
@@ -117,30 +201,60 @@ function pickWinner() {
         const progress = Math.min(elapsed / duration, 1);
         
         progressBar.style.width = (progress * 100) + '%';
-        spinEl.innerText = comments[Math.floor(Math.random() * comments.length)].split(':')[0].substring(0, 15);
+        
+        // Show random names during spin
+        const randomComment = pool[Math.floor(Math.random() * pool.length)];
+        spinEl.innerText = randomComment.snippet.topLevelComment.snippet.authorDisplayName.substring(0, 15);
         
         if (progress >= 1) {
             clearInterval(interval);
-            const winner = comments[Math.floor(Math.random() * comments.length)];
-            document.getElementById('winner-name').innerText = winner;
+            const winner = pool[Math.floor(Math.random() * pool.length)];
+            const snippet = winner.snippet.topLevelComment.snippet;
+            
+            document.getElementById('winner-name').innerText = snippet.authorDisplayName;
+            document.getElementById('winner-avatar').src = snippet.authorProfileImageUrl;
+            document.getElementById('winner-comment').innerText = snippet.textOriginal;
+            
             showState('winner');
             createConfetti();
             isPicking = false;
+            
+            const fetchBtn = document.getElementById('yt-fetch-btn');
+            fetchBtn.disabled = false;
+            fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            fetchBtn.innerHTML = `<i data-lucide="refresh-cw" class="w-6 h-6"></i> Fetch Again`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     }, 80);
 }
 
+document.getElementById('yt-fetch-btn').addEventListener('click', () => {
+    if (isPicking) return;
+    
+    const videoInput = document.getElementById('yt-video-id').value.trim();
+    
+    if (!videoInput) {
+        alert('Please enter a Video URL or ID.');
+        return;
+    }
+
+    const videoId = extractVideoId(videoInput);
+
+    fetchAllComments(videoId);
+});
+
+document.getElementById('yt-pick-another-btn').addEventListener('click', () => {
+    if (!isPicking && allComments.length > 0) {
+        startRaffleAnimation();
+    }
+});
+
 function showState(state) {
     document.getElementById('state-idle').classList.add('hidden');
+    document.getElementById('state-fetching').classList.add('hidden');
     document.getElementById('state-picking').classList.add('hidden');
     document.getElementById('state-winner').classList.add('hidden');
     document.getElementById('state-' + state).classList.remove('hidden');
-}
-
-function resetPicker() {
-    showState('idle');
-    document.getElementById('confetti').classList.add('opacity-0');
-    document.getElementById('confetti').innerHTML = '';
 }
 
 function createConfetti() {
