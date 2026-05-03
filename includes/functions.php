@@ -129,3 +129,26 @@ function rate_limit_check() {
 function mark_upload_attempt() {
     $_SESSION['upload_history'][] = time();
 }
+
+/**
+ * HTML Minification Output Buffer Callback
+ */
+function minify_html($buffer) {
+    // Don't minify if we are in process scripts or json safe mode
+    if (strpos($_SERVER['REQUEST_URI'], 'process.php') !== false) return $buffer;
+    
+    $search = [
+        '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+        '/(\s)+/s',         // shorten multiple whitespace sequences
+        '/<!--(.|\s)*?-->/' // Remove HTML comments
+    ];
+    $replace = [
+        '>',
+        '<',
+        '\\1',
+        ''
+    ];
+    $res = preg_replace($search, $replace, $buffer);
+    return ($res === null) ? $buffer : $res;
+}

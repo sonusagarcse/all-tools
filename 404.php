@@ -30,16 +30,18 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($page_desc); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords); ?>">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="<?php echo htmlspecialchars(SITE_URL); ?>">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
+    <link rel="shortcut icon" href="<?php echo SITE_URL; ?>/assets/img/favicon.ico">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS - Deferred -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -54,9 +56,6 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
             }
         }
     </script>
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/custom.css">
@@ -281,8 +280,11 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
         <a href="<?php echo SITE_URL; ?>/sitemap.xml" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sitemap</a>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.js"></script>
     <script>
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
 
         // Theme toggle
         const themeToggle = document.getElementById('theme-toggle');
@@ -291,7 +293,7 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
             themeToggle.innerHTML = isDark
                 ? '<i id="theme-icon" data-lucide="sun" class="w-5 h-5 cursor-pointer"></i>'
                 : '<i id="theme-icon" data-lucide="moon" class="w-5 h-5 cursor-pointer"></i>';
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
 
             themeToggle.addEventListener('click', () => {
                 document.documentElement.classList.toggle('dark');
@@ -300,7 +302,7 @@ $requested_path = htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?'));
                 themeToggle.innerHTML = dark
                     ? '<i id="theme-icon" data-lucide="sun" class="w-5 h-5 cursor-pointer"></i>'
                     : '<i id="theme-icon" data-lucide="moon" class="w-5 h-5 cursor-pointer"></i>';
-                lucide.createIcons();
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             });
         }
     </script>

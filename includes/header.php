@@ -2,6 +2,9 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
 
+// Start HTML Minification
+// ob_start("minify_html");
+
 // Static page meta map
 $static_pages = [
     'about' => ['title' => 'About Us', 'desc' => 'Learn about BulkTools — a free, privacy-first collection of image, text, developer, and security tools for everyone.'],
@@ -31,7 +34,7 @@ if ($static_page) {
     $page_keywords = isset($current_tool['keywords']) ? implode(', ', $current_tool['keywords']) : 'free online tools';
 } else {
     $page_title = SITE_NAME . ' - ' . SITE_TAGLINE;
-    $page_desc = 'BulkTools offers free online Image, Text, Developer, and Security tools. No registration needed. 100% secure, instant results.';
+    $page_desc = 'BulkTools offers a comprehensive collection of free online Image, Text, Developer, and Security tools. Process files instantly with 100% privacy, zero registration, and no limits. Perfect for creators, developers, and students.';
     $page_keywords = 'free online tools, browser tools, image compression, developer utilities, html minifier, jwt decoder, hindi transliteration, bcrypt generator, online security tools, password generator, text converters, free utility website, no registration tools';
 }
 
@@ -50,8 +53,6 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
             document.documentElement.classList.add('dark');
         }
     </script>
-    <script defer src="https://cloud.umami.is/script.js"
-        data-website-id="8b8d45e5-b6ea-4122-9f1d-c67d5767cbe0"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title); ?></title>
@@ -60,31 +61,23 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>">
     <link rel="manifest" href="<?php echo SITE_URL; ?>/pwa-app/manifest.json">
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
+    <link rel="shortcut icon" href="<?php echo SITE_URL; ?>/assets/img/favicon.ico">
 
-    <script>
-        // Global PWA State for root site
-        window.pwaState = {
-            deferredPrompt: null
-        };
-
-        // Register Service Worker from root
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('<?php echo SITE_URL; ?>/pwa-app/sw.js')
-                    .then(reg => console.log('PWA SW Registered from Root'))
-                    .catch(err => console.log('SW Reg failed', err));
-            });
-        }
-
-        // Capture Install Prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            window.pwaState.deferredPrompt = e;
-            // Dispatch event for UI components to listen
-            window.dispatchEvent(new CustomEvent('pwa-installable'));
-        });
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "<?php echo SITE_NAME; ?>",
+      "url": "<?php echo SITE_URL; ?>",
+      "description": "<?php echo htmlspecialchars($page_desc); ?>",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<?php echo SITE_URL; ?>/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
     </script>
 
     <!-- Open Graph Tags -->
@@ -104,11 +97,9 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS (CDN) -->
+    <!-- Tailwind CSS (CDN) - Deferred -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -128,9 +119,6 @@ $canonical_url = SITE_URL . strtok($_SERVER['REQUEST_URI'], '?');
             }
         }
     </script>
-
-    <!-- Icons (Lucide Icons) -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.js"></script>
 
     <!-- Global Variables for JS -->
     <script>const SITE_URL = '<?php echo SITE_URL; ?>';</script>

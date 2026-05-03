@@ -39,26 +39,19 @@ if (!$found) {
     <meta property="og:title" content="Shared Image via BulkTools">
     <meta property="og:description" content="Click to view this image shared via BulkTools PWA.">
     <meta property="og:image" content="<?php echo $imageUrl; ?>">
+    <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="image.gallery">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700;900&display=swap"
-        rel="stylesheet">
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .brand {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        body {
-            background: #0f172a;
-        }
-
+        * { font-family: 'Inter', sans-serif; }
+        .brand { font-family: 'Space Grotesk', sans-serif; }
+        body { background: #0f172a; }
         .glass {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
@@ -132,8 +125,11 @@ if (!$found) {
         &copy; 2026 BULKTOOLS ECOSYSTEM &bull; SECURE &bull; FAST &bull; OFFLINE
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.js"></script>
     <script>
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
 
         function copyCurrentUrl() {
             navigator.clipboard.writeText(window.location.href).then(() => {

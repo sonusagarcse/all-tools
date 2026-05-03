@@ -1,10 +1,19 @@
-# ToolNest Security & SEO Rules
+# BulkTools Security & SEO Rules
 
 # 1. Disable Directory Listing
 Options -Indexes
 
-# 2. Clean URLs
+# 2. Clean URLs & Canonicalization
 RewriteEngine On
+
+# Force HTTPS (Skip for localhost/local development)
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1) [NC]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force non-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,L]
 
 # ── Static Page Clean URLs ──────────────────────
 # /robots.txt    → robots.php (dynamic, aware of SITE_URL)
@@ -71,6 +80,10 @@ RewriteRule ^tools/([^/]+)/([^/]+)/?$ tools/$1/$2/index.php [L,QSA]
     Header set X-Content-Type-Options  "nosniff"
     Header set Referrer-Policy         "strict-origin-when-cross-origin"
     Header set Permissions-Policy      "geolocation=(), microphone=(), camera=()"
+    # Skip HSTS for localhost to avoid browser "Not Secure" lockout during development
+    SetEnvIf Host "^(localhost|127\.0\.0\.1)" IS_LOCAL
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=!IS_LOCAL
+    
     # Remove server signature info
     Header unset Server
     Header unset X-Powered-By

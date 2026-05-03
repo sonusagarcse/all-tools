@@ -80,6 +80,14 @@
     opacity: 1;
     transform: translateY(0);
 }
+/* Fallback for no-js or failed reveal */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-left, .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
 .reveal-left {
     opacity: 0;
     transform: translateX(-30px);

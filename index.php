@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once __DIR__ . '/includes/header.php';
 
 // Count total tools dynamically
@@ -7,17 +9,6 @@ foreach ($TOOL_CATEGORIES as $cat) {
     $total_tools += count($cat['tools']);
 }
 
-// Category accent colors
-$cat_accents = [
-    'image' => ['bg' => 'bg-violet-500/10', 'text' => 'text-violet-500', 'border' => 'border-violet-500/20', 'hover_bg' => 'group-hover:bg-violet-500', 'glow' => 'rgba(139,92,246,0.3)', 'gradient' => 'from-violet-500 to-purple-600'],
-    'text' => ['bg' => 'bg-emerald-500/10', 'text' => 'text-emerald-500', 'border' => 'border-emerald-500/20', 'hover_bg' => 'group-hover:bg-emerald-500', 'glow' => 'rgba(16,185,129,0.3)', 'gradient' => 'from-emerald-500 to-teal-600'],
-    'dev' => ['bg' => 'bg-sky-500/10', 'text' => 'text-sky-500', 'border' => 'border-sky-500/20', 'hover_bg' => 'group-hover:bg-sky-500', 'glow' => 'rgba(14,165,233,0.3)', 'gradient' => 'from-sky-500 to-cyan-600'],
-    'sec' => ['bg' => 'bg-orange-500/10', 'text' => 'text-orange-500', 'border' => 'border-orange-500/20', 'hover_bg' => 'group-hover:bg-orange-500', 'glow' => 'rgba(249,115,22,0.3)', 'gradient' => 'from-orange-500 to-red-500'],
-    'time' => ['bg' => 'bg-pink-500/10', 'text' => 'text-pink-500', 'border' => 'border-pink-500/20', 'hover_bg' => 'group-hover:bg-pink-500', 'glow' => 'rgba(236,72,153,0.3)', 'gradient' => 'from-pink-500 to-rose-500'],
-    'youtube' => ['bg' => 'bg-red-500/10', 'text' => 'text-red-600', 'border' => 'border-red-500/20', 'hover_bg' => 'group-hover:bg-red-600', 'glow' => 'rgba(220,38,38,0.3)', 'gradient' => 'from-red-600 to-red-700'],
-    'finance' => ['bg' => 'bg-emerald-500/10', 'text' => 'text-emerald-500', 'border' => 'border-emerald-500/20', 'hover_bg' => 'group-hover:bg-emerald-500', 'glow' => 'rgba(16,185,129,0.3)', 'gradient' => 'from-emerald-500 to-teal-600'],
-    'web' => ['bg' => 'bg-blue-500/10', 'text' => 'text-blue-500', 'border' => 'border-blue-500/20', 'hover_bg' => 'group-hover:bg-blue-500', 'glow' => 'rgba(59,130,246,0.3)', 'gradient' => 'from-blue-500 to-indigo-600'],
-];
 ?>
 
 <!-- ==================== HERO ==================== -->
@@ -267,7 +258,7 @@ $cat_accents = [
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <?php foreach ($TOOL_CATEGORIES as $cat_id => $category):
-                $acc = $cat_accents[$cat_id] ?? $cat_accents['image'];
+                $acc = $CAT_ACCENTS[$cat_id] ?? ($CAT_ACCENTS['image'] ?? []);
                 $tool_count = count($category['tools']);
                 ?>
                 <a href="#<?php echo $cat_id; ?>"
@@ -360,7 +351,7 @@ $cat_accents = [
 <!-- ==================== TOOLS GRID ==================== -->
 <?php $section_idx = 0;
 foreach ($TOOL_CATEGORIES as $cat_id => $category):
-    $acc = $cat_accents[$cat_id] ?? $cat_accents['image'];
+    $acc = $CAT_ACCENTS[$cat_id] ?? ($CAT_ACCENTS['image'] ?? []);
     $alt_bg = ($section_idx % 2 === 0) ? 'bg-white dark:bg-gray-950' : 'bg-slate-50 dark:bg-gray-900/30';
     $section_idx++;
     ?>

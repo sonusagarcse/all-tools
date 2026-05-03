@@ -5,18 +5,19 @@
 
 // Site Information
 define('SITE_NAME', 'BulkTools');
-define('SITE_TAGLINE', 'Free Online Utilities: Image Tools, Developer Utilities, Hindi Typing, JWT Decoders & Security Tools.');
+define('SITE_TAGLINE', 'Free Online Image, Text, Dev & Security Tools.');
 
 // Dynamically determine the SITE_URL to support both domain root and subfolders (Shared Hosting friendly)
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') $protocol = "http://";
 $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
 $doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'] ?? '');
 $base_dir = str_replace('\\', '/', dirname(__DIR__));
 $relative_path = '';
 
-if ($doc_root && strpos($base_dir, $doc_root) === 0) {
-    $relative_path = substr($base_dir, strlen($doc_root));
-}
+$relative_path = str_replace($doc_root, '', $base_dir);
+$relative_path = '/' . ltrim($relative_path, '/');
+if ($relative_path === '/' || $relative_path === '\\') $relative_path = '';
 define('SITE_URL', rtrim($protocol . $host . $relative_path, '/'));
 
 // Include Autoloader
@@ -51,6 +52,18 @@ ini_set('display_errors', 1);
 if (!is_dir(UPLOAD_DIR)) {
     mkdir(UPLOAD_DIR, 0777, true);
 }
+
+// Category accent colors
+$CAT_ACCENTS = [
+    'image' => ['bg' => 'bg-violet-500/10', 'text' => 'text-violet-500', 'border' => 'border-violet-500/20', 'hover_bg' => 'group-hover:bg-violet-500', 'glow' => 'rgba(139,92,246,0.3)', 'gradient' => 'from-violet-500 to-purple-600'],
+    'text' => ['bg' => 'bg-emerald-500/10', 'text' => 'text-emerald-500', 'border' => 'border-emerald-500/20', 'hover_bg' => 'group-hover:bg-emerald-500', 'glow' => 'rgba(16,185,129,0.3)', 'gradient' => 'from-emerald-500 to-teal-600'],
+    'dev' => ['bg' => 'bg-sky-500/10', 'text' => 'text-sky-500', 'border' => 'border-sky-500/20', 'hover_bg' => 'group-hover:bg-sky-500', 'glow' => 'rgba(14,165,233,0.3)', 'gradient' => 'from-sky-500 to-cyan-600'],
+    'sec' => ['bg' => 'bg-orange-500/10', 'text' => 'text-orange-500', 'border' => 'border-orange-500/20', 'hover_bg' => 'group-hover:bg-orange-500', 'glow' => 'rgba(249,115,22,0.3)', 'gradient' => 'from-orange-500 to-red-500'],
+    'time' => ['bg' => 'bg-pink-500/10', 'text' => 'text-pink-500', 'border' => 'border-pink-500/20', 'hover_bg' => 'group-hover:bg-pink-500', 'glow' => 'rgba(236,72,153,0.3)', 'gradient' => 'from-pink-500 to-rose-500'],
+    'youtube' => ['bg' => 'bg-red-500/10', 'text' => 'text-red-600', 'border' => 'border-red-500/20', 'hover_bg' => 'group-hover:bg-red-600', 'glow' => 'rgba(220,38,38,0.3)', 'gradient' => 'from-red-600 to-red-700'],
+    'finance' => ['bg' => 'bg-emerald-500/10', 'text' => 'text-emerald-500', 'border' => 'border-emerald-500/20', 'hover_bg' => 'group-hover:bg-emerald-500', 'glow' => 'rgba(16,185,129,0.3)', 'gradient' => 'from-emerald-500 to-teal-600'],
+    'web' => ['bg' => 'bg-blue-500/10', 'text' => 'text-blue-500', 'border' => 'border-blue-500/20', 'hover_bg' => 'group-hover:bg-blue-500', 'glow' => 'rgba(59,130,246,0.3)', 'gradient' => 'from-blue-500 to-indigo-600'],
+];
 
 // Global Category Map
 $TOOL_CATEGORIES = [
