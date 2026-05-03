@@ -127,7 +127,7 @@ async function fetchAllComments(videoId) {
     
     try {
         do {
-            const url = `/tools/ajax/yt-comments.php?videoId=${videoId}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`;
+            const url = `${SITE_URL}/ajax/yt-comments.php?videoId=${videoId}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`;
             const response = await fetch(url);
             const data = await response.json();
             
